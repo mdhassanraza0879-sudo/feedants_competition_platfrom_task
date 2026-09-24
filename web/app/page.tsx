@@ -47,7 +47,8 @@ import {
   Sliders,
   ExternalLink,
   Lock,
-  Headphones
+  Headphones,
+  FileText
 } from 'lucide-react';
 
 // ── 1,000 Classical Dance & Music Songs Catalog Generator ──
@@ -104,7 +105,7 @@ const HASSAN_RAZA_USER: UserProfile = {
   avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200',
   isRegistered: true,
   role: 'Professional Kathak Dancer & Artist',
-  handle: '@hassanraza_dance'
+  handle: '@hassanraza_dancer'
 };
 
 const RAHUL_SHARMA: UserProfile = {
@@ -113,8 +114,8 @@ const RAHUL_SHARMA: UserProfile = {
   phone: '+91 98123 45678',
   avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200',
   isRegistered: false,
-  role: 'Aspiring Classical Dancer',
-  handle: '@rahul_classical'
+  role: 'Aspiring Classical Performer',
+  handle: '@rahul_dance'
 };
 
 const PRIYA_PATEL: UserProfile = {
@@ -124,7 +125,7 @@ const PRIYA_PATEL: UserProfile = {
   avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200',
   isRegistered: true,
   role: 'Kathak & Folk Performer',
-  handle: '@priya_dance'
+  handle: '@priya_patel'
 };
 
 export default function FeedantsApp() {
@@ -134,7 +135,7 @@ export default function FeedantsApp() {
   const [currentView, setCurrentView] = useState<'home' | 'competition' | 'explore' | 'profile'>('competition');
   const [lang, setLang] = useState<'ENG' | 'HI'>('ENG');
 
-  // Active User state - defaulting to Hassan Raza as requested!
+  // Active User: Defaults to Hassan Raza per user's preference!
   const [currentUser, setCurrentUser] = useState<UserProfile>(HASSAN_RAZA_USER);
   const [isRegistered, setIsRegistered] = useState<boolean>(true);
   const [spotsLeft, setSpotsLeft] = useState<number>(19);
@@ -237,7 +238,7 @@ export default function FeedantsApp() {
       osc.type = 'sine';
 
       gain.gain.setValueAtTime(0.01, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.12, ctx.currentTime + 0.3);
+      gain.gain.exponentialRampToValueAtTime(0.15, ctx.currentTime + 0.3);
 
       osc.connect(gain);
       gain.connect(ctx.destination);
@@ -288,7 +289,7 @@ export default function FeedantsApp() {
     setTimeout(() => setCopySuccess(false), 2500);
   };
 
-  // Switch between Registered (Priya) and Unregistered (Rahul)
+  // Switch between Registered (Hassan/Priya) and Unregistered (Rahul)
   const toggleRegisteredState = () => {
     if (isRegistered) {
       setCurrentUser(RAHUL_SHARMA);
@@ -476,82 +477,82 @@ export default function FeedantsApp() {
     <div className="w-full flex flex-col flex-1 bg-[#F8FAFC] font-sans antialiased text-slate-800 relative selection:bg-[#E6F5F4] selection:text-[#007A78]">
       
       {/* ── Realistic iPhone Status Bar ── */}
-      <div className="w-full h-8 px-6 pt-2 pb-1 flex items-center justify-between text-slate-900 select-none bg-white z-40">
-        <span className="text-xs font-semibold tracking-tight">9:41</span>
-        <div className="flex items-center gap-1.5">
+      <div className="w-full h-9 px-6 pt-2 pb-1 flex items-center justify-between text-slate-900 select-none bg-white z-40">
+        <span className="text-sm font-bold tracking-tight">9:41</span>
+        <div className="flex items-center gap-2">
           {/* Signal Bars */}
-          <div className="flex items-end gap-[1.5px] h-3">
-            <span className="w-[2.5px] h-1 bg-slate-900 rounded-[0.5px]"></span>
-            <span className="w-[2.5px] h-1.5 bg-slate-900 rounded-[0.5px]"></span>
-            <span className="w-[2.5px] h-2 bg-slate-900 rounded-[0.5px]"></span>
-            <span className="w-[2.5px] h-2.5 bg-slate-900 rounded-[0.5px]"></span>
+          <div className="flex items-end gap-[2px] h-3.5">
+            <span className="w-[3px] h-1.5 bg-slate-900 rounded-[0.5px]"></span>
+            <span className="w-[3px] h-2 bg-slate-900 rounded-[0.5px]"></span>
+            <span className="w-[3px] h-2.5 bg-slate-900 rounded-[0.5px]"></span>
+            <span className="w-[3px] h-3.5 bg-slate-900 rounded-[0.5px]"></span>
           </div>
           {/* WiFi Icon */}
-          <svg className="w-3.5 h-3.5 fill-slate-900" viewBox="0 0 24 24">
+          <svg className="w-4 h-4 fill-slate-900" viewBox="0 0 24 24">
             <path d="M12 4C7.31 4 3.07 5.9 0 8.98L12 21 24 8.98C20.93 5.9 16.69 4 12 4zm0 2.2c3.98 0 7.6 1.55 10.3 4.1L12 18.5 1.7 10.3C4.4 7.75 8.02 6.2 12 6.2z"/>
           </svg>
           {/* Battery */}
-          <div className="w-5 h-2.5 border border-slate-900 rounded-[3px] p-[1px] flex items-center relative">
-            <div className="h-full bg-slate-900 rounded-[1px] w-[80%]"></div>
-            <div className="w-[1.5px] h-1 bg-slate-900 rounded-r-[0.5px] absolute -right-[2.5px] top-[2px]"></div>
+          <div className="w-6 h-3 border border-slate-900 rounded-[4px] p-[1.5px] flex items-center relative">
+            <div className="h-full bg-slate-900 rounded-[1.5px] w-[80%]"></div>
+            <div className="w-[2px] h-1.5 bg-slate-900 rounded-r-[1px] absolute -right-[3px] top-[2.5px]"></div>
           </div>
         </div>
       </div>
 
       {/* ── Quick Evaluator Testing Switcher Banner ── */}
-      <div className="w-full bg-[#007A78]/10 border-b border-[#007A78]/20 px-3.5 py-1.5 flex items-center justify-between text-[11px] text-[#007A78]">
-        <div className="flex items-center gap-1 font-semibold truncate mr-2">
-          <span>Active User:</span>
-          <span className="font-extrabold underline truncate">{currentUser.name}</span>
-          <span className="hidden sm:inline">({isRegistered ? 'Registered' : 'Unregistered'})</span>
+      <div className="w-full bg-[#007A78]/10 border-b border-[#007A78]/20 px-4 py-2 flex items-center justify-between text-xs text-[#007A78]">
+        <div className="flex items-center gap-1.5 font-bold truncate mr-2">
+          <span>Active:</span>
+          <span className="font-black underline truncate">{currentUser.name}</span>
+          <span className="hidden sm:inline font-semibold">({isRegistered ? 'Registered' : 'Unregistered'})</span>
         </div>
         <button
           onClick={toggleRegisteredState}
-          className="bg-[#007A78] hover:bg-[#005f5e] text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full shadow-xs transition active:scale-95 cursor-pointer flex-shrink-0"
+          className="bg-[#007A78] hover:bg-[#005f5e] text-white text-xs font-bold px-3 py-1 rounded-full shadow-xs transition active:scale-95 cursor-pointer flex-shrink-0"
         >
-          Toggle: {isRegistered ? 'Switch to Rahul (New)' : 'Switch to Hassan (Reg)'}
+          Toggle: {isRegistered ? 'Rahul (New)' : 'Hassan (Reg)'}
         </button>
       </div>
 
       {/* ── Toast Notification Banner ── */}
       {toast && (
-        <div className="fixed top-12 left-0 right-0 max-w-sm mx-auto z-50 px-4 transition-all duration-300 animate-in fade-in slide-in-from-top-4">
-          <div className="bg-slate-900/95 backdrop-blur-md text-white p-3.5 rounded-2xl shadow-2xl border border-slate-700/80 flex items-start gap-2.5">
-            <Sparkles className="w-4 h-4 text-[#4fd1c5] flex-shrink-0 mt-0.5" />
+        <div className="fixed top-14 left-0 right-0 max-w-sm mx-auto z-50 px-4 transition-all duration-300 animate-in fade-in slide-in-from-top-4">
+          <div className="bg-slate-900/95 backdrop-blur-md text-white p-4 rounded-2xl shadow-2xl border border-slate-700/80 flex items-start gap-3">
+            <Sparkles className="w-5 h-5 text-[#4fd1c5] flex-shrink-0 mt-0.5" />
             <div className="flex-1">
-              <h5 className="text-xs font-bold text-[#4fd1c5]">{toast.title}</h5>
-              <p className="text-[11px] text-slate-300 mt-0.5 leading-snug">{toast.message}</p>
+              <h5 className="text-sm font-bold text-[#4fd1c5]">{toast.title}</h5>
+              <p className="text-xs text-slate-300 mt-1 leading-snug">{toast.message}</p>
             </div>
             <button onClick={() => setToast(null)} className="text-slate-400 hover:text-white">
-              <X className="w-4 h-4" />
+              <X className="w-5 h-5" />
             </button>
           </div>
         </div>
       )}
 
       {/* ─────────────────────────────────────────────────────────────
-          VIEW 1: HOME PAGE (ENGAGING, COMPLETE & FULLY WORKING)
+          VIEW 1: HOME PAGE (WORLD-CLASS, SPACIOUS & FULLY WORKING)
       ───────────────────────────────────────────────────────────── */}
       {currentView === 'home' && (
-        <div className="flex flex-col flex-1 pb-36">
+        <div className="flex flex-col flex-1">
           {/* Home Top Header */}
           <header className="px-5 py-4 bg-white flex items-center justify-between border-b border-gray-100 z-30">
-            <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-xl bg-[#007A78] text-white flex items-center justify-center font-black text-sm shadow-sm">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-2xl bg-[#007A78] text-white flex items-center justify-center font-black text-base shadow-sm">
                 F
               </div>
               <div>
-                <span className="text-base font-black tracking-tight text-slate-900">Feedants</span>
-                <span className="text-[10px] font-bold text-[#007A78] block -mt-1 tracking-wider uppercase">Live Arts Stage</span>
+                <span className="text-lg font-black tracking-tight text-slate-900">Feedants</span>
+                <span className="text-xs font-bold text-[#007A78] block tracking-wider uppercase">Live Arts Platform</span>
               </div>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2.5">
               {/* Language Switch */}
-              <div className="flex bg-slate-100 p-0.5 rounded-full border border-gray-200">
+              <div className="flex bg-slate-100 p-1 rounded-full border border-gray-200">
                 <button
                   onClick={() => setLang('ENG')}
-                  className={`px-2.5 py-1 rounded-full text-[11px] font-bold transition cursor-pointer ${
+                  className={`px-3 py-1 rounded-full text-xs font-bold transition cursor-pointer ${
                     lang === 'ENG' ? 'bg-[#005f5e] text-white shadow-xs' : 'text-slate-600'
                   }`}
                 >
@@ -559,7 +560,7 @@ export default function FeedantsApp() {
                 </button>
                 <button
                   onClick={() => setLang('HI')}
-                  className={`px-2.5 py-1 rounded-full text-[11px] font-bold transition cursor-pointer ${
+                  className={`px-3 py-1 rounded-full text-xs font-bold transition cursor-pointer ${
                     lang === 'HI' ? 'bg-[#005f5e] text-white shadow-xs' : 'text-slate-600'
                   }`}
                 >
@@ -569,67 +570,67 @@ export default function FeedantsApp() {
 
               {/* Notification Bell */}
               <button
-                onClick={() => showToast('Notifications', 'You have 1 active competition registration in Feedants Classical Dance.')}
-                className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-slate-200 transition relative cursor-pointer"
+                onClick={() => showToast('Notifications 🔔', 'You have 1 active registration in Feedants Classical Dance.')}
+                className="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-700 hover:bg-slate-200 transition relative cursor-pointer"
               >
                 <Bell className="w-4 h-4" />
-                <span className="w-2 h-2 rounded-full bg-[#007A78] absolute top-1.5 right-1.5 ring-2 ring-white"></span>
+                <span className="w-2.5 h-2.5 rounded-full bg-[#007A78] absolute top-1.5 right-1.5 ring-2 ring-white"></span>
               </button>
             </div>
           </header>
 
-          {/* Home Scrollable Content */}
-          <main className="flex-1 px-4.5 py-4 space-y-5 overflow-y-auto">
+          {/* Home Main Content with Generous Door-Door Spacing */}
+          <main className="flex-1 px-5 py-5 space-y-6 pb-60 overflow-y-auto">
             {/* User Greeting Bar */}
             <div className="flex items-center justify-between pt-1">
               <div>
-                <h2 className="text-lg font-black text-slate-900 tracking-tight">
+                <h2 className="text-xl font-black text-slate-900 tracking-tight">
                   {t.helloGreeting}, {currentUser.name} 👋
                 </h2>
-                <p className="text-xs text-slate-500 font-medium mt-0.5">
+                <p className="text-sm text-slate-500 font-medium mt-1 leading-snug">
                   {t.exploreSub}
                 </p>
               </div>
               <div
                 onClick={() => setCurrentView('profile')}
-                className="w-11 h-11 rounded-full overflow-hidden border-2 border-[#007A78]/40 shadow-xs cursor-pointer active:scale-95 transition"
+                className="w-13 h-13 rounded-full overflow-hidden border-2 border-[#007A78] shadow-md cursor-pointer active:scale-95 transition flex-shrink-0"
               >
                 <img src={currentUser.avatar} alt="Profile" className="w-full h-full object-cover" />
               </div>
             </div>
 
-            {/* ── HERO FEATURED CARD: Feedants Classical Dance (100% Connected) ── */}
-            <div className="bg-gradient-to-br from-[#005F5E] via-[#007A78] to-[#014241] rounded-3xl p-5 text-white shadow-lg shadow-[#007A78]/25 relative overflow-hidden space-y-4">
+            {/* ── HERO FEATURED CARD: Feedants Classical Dance ── */}
+            <div className="bg-gradient-to-br from-[#005F5E] via-[#007A78] to-[#014241] rounded-3xl p-6 text-white shadow-xl shadow-[#007A78]/20 space-y-5">
               <div className="flex items-center justify-between">
-                <span className="px-3 py-1 rounded-full bg-white/20 text-[#A7F3D0] text-[10px] font-black uppercase tracking-wider backdrop-blur-xs flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-[#34D399] animate-pulse"></span>
+                <span className="px-3.5 py-1.5 rounded-full bg-white/20 text-[#A7F3D0] text-xs font-black uppercase tracking-wider backdrop-blur-xs flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#34D399] animate-pulse"></span>
                   {t.liveBadge}
                 </span>
-                <span className="text-xs font-bold text-white/80">Kathak &amp; Classical</span>
+                <span className="text-xs font-bold text-white/90">Kathak Solo &amp; Group</span>
               </div>
 
               <div>
-                <h3 className="text-xl font-black text-white tracking-tight leading-tight">
+                <h3 className="text-2xl font-black text-white tracking-tight leading-snug">
                   {t.title}
                 </h3>
-                <p className="text-xs text-white/80 mt-1 leading-snug">
-                  Judge: <span className="font-bold text-white">Hassan Raza</span> (Professional Kathak Dancer)
+                <p className="text-sm text-white/85 mt-1.5 leading-relaxed">
+                  Head Judge: <span className="font-extrabold text-white">Hassan Raza</span> (Professional Kathak Dancer • 12+ Yrs Exp)
                 </p>
               </div>
 
               {/* Stats Row inside Hero */}
-              <div className="grid grid-cols-3 gap-2 bg-black/20 rounded-2xl p-3 backdrop-blur-xs text-center border border-white/10">
+              <div className="grid grid-cols-3 gap-3 bg-black/25 rounded-2xl p-4 backdrop-blur-xs text-center border border-white/10">
                 <div>
-                  <span className="text-[10px] text-white/70 block uppercase font-bold">Prize Pool</span>
-                  <span className="text-sm font-black text-white">₹ 1,500</span>
+                  <span className="text-xs text-white/70 block uppercase font-bold">Prize Pool</span>
+                  <span className="text-base font-black text-white mt-0.5 block">₹ 1,500</span>
                 </div>
-                <div className="border-x border-white/10">
-                  <span className="text-[10px] text-white/70 block uppercase font-bold">Entry Fee</span>
-                  <span className="text-sm font-black text-white">₹ 99</span>
+                <div className="border-x border-white/15">
+                  <span className="text-xs text-white/70 block uppercase font-bold">Entry Fee</span>
+                  <span className="text-base font-black text-white mt-0.5 block">₹ 99</span>
                 </div>
                 <div>
-                  <span className="text-[10px] text-white/70 block uppercase font-bold">Seats Left</span>
-                  <span className="text-sm font-black text-[#A7F3D0]">{spotsLeft} / 20</span>
+                  <span className="text-xs text-white/70 block uppercase font-bold">Seats Left</span>
+                  <span className="text-base font-black text-[#A7F3D0] mt-0.5 block">{spotsLeft} / 20</span>
                 </div>
               </div>
 
@@ -637,51 +638,51 @@ export default function FeedantsApp() {
               <button
                 onClick={() => {
                   setCurrentView('competition');
-                  showToast('Entering Stage 🎭', 'Viewing Feedants Classical Dance details.');
+                  showToast('Entering Stage 🎭', 'Viewing Feedants Classical Dance competition details.');
                 }}
-                className="w-full py-3.5 bg-white hover:bg-slate-100 text-[#005f5e] font-extrabold text-sm rounded-2xl shadow-md transition active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full py-4 bg-white hover:bg-slate-100 text-[#005f5e] font-black text-base rounded-2xl shadow-lg transition active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer"
               >
                 <span>{t.viewStage}</span>
-                <ChevronRight className="w-4 h-4 stroke-[3]" />
+                <ChevronRight className="w-5 h-5 stroke-[3]" />
               </button>
             </div>
 
             {/* ── 1,000 SONGS SPOTLIGHT BANNER ── */}
-            <div className="bg-[#E6F5F4] border border-[#BDE6DF] rounded-2xl p-4.5 flex items-center justify-between shadow-xs">
-              <div className="flex items-center gap-3">
-                <div className="w-11 h-11 rounded-2xl bg-[#007A78] text-white flex items-center justify-center shadow-xs">
-                  <Music className="w-5 h-5" />
+            <div className="bg-[#E6F5F4] border border-[#BDE6DF] rounded-3xl p-5 flex items-center justify-between shadow-xs">
+              <div className="flex items-center gap-4">
+                <div className="w-13 h-13 rounded-2xl bg-[#007A78] text-white flex items-center justify-center shadow-md flex-shrink-0">
+                  <Music className="w-6 h-6" />
                 </div>
                 <div>
-                  <h4 className="text-xs font-black text-slate-900 uppercase tracking-wide">
+                  <h4 className="text-sm font-black text-slate-900 uppercase tracking-wide">
                     1,000 Classical Songs
                   </h4>
-                  <p className="text-[11px] text-slate-600 mt-0.5 font-medium">
-                    Kathak, Teentaal, &amp; Raag Tracks
+                  <p className="text-xs text-slate-600 mt-1 font-medium leading-snug">
+                    Kathak, Teentaal &amp; Raag Audio Drone Preview
                   </p>
                 </div>
               </div>
 
               <button
                 onClick={() => setShowSongModal(true)}
-                className="bg-[#007A78] hover:bg-[#005f5e] text-white text-xs font-bold px-3.5 py-2 rounded-xl shadow-xs transition active:scale-95 cursor-pointer flex items-center gap-1.5"
+                className="bg-[#007A78] hover:bg-[#005f5e] text-white text-xs font-black px-4 py-2.5 rounded-xl shadow-xs transition active:scale-95 cursor-pointer flex items-center gap-1.5 flex-shrink-0"
               >
-                <Play className="w-3 h-3 fill-current" />
+                <Play className="w-3.5 h-3.5 fill-current" />
                 <span>Explore</span>
               </button>
             </div>
 
             {/* ── CATEGORY PILLS ── */}
-            <div className="space-y-2">
+            <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <h3 className="text-xs font-black text-slate-900 uppercase tracking-wider">
+                <h3 className="text-sm font-black text-slate-900 uppercase tracking-wider">
                   Popular Categories
                 </h3>
-                <span className="text-[11px] text-[#007A78] font-bold cursor-pointer" onClick={() => setCurrentView('explore')}>
+                <span className="text-xs text-[#007A78] font-bold cursor-pointer" onClick={() => setCurrentView('explore')}>
                   View all
                 </span>
               </div>
-              <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
+              <div className="flex gap-2.5 overflow-x-auto pb-1 scrollbar-hide">
                 {['All Stages', 'Kathak Solo', 'Bharatanatyam', 'Semi-Classical', 'Folk Dance', 'Sufi & Ghazal'].map((cat, idx) => (
                   <button
                     key={cat}
@@ -692,7 +693,7 @@ export default function FeedantsApp() {
                         showToast(cat, 'Filtering upcoming stages in this category.');
                       }
                     }}
-                    className={`px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition cursor-pointer active:scale-95 ${
+                    className={`px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition cursor-pointer active:scale-95 ${
                       idx === 0
                         ? 'bg-[#007A78] text-white shadow-xs'
                         : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-50'
@@ -704,37 +705,37 @@ export default function FeedantsApp() {
               </div>
             </div>
 
-            {/* ── MORE STAGES & COMPETITIONS LIST ── */}
-            <div className="space-y-3">
+            {/* ── ACTIVE COMPETITIONS LIST (SPACIOUS) ── */}
+            <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <h3 className="text-xs font-black text-slate-900 uppercase tracking-wider">
-                  Active Competitions
+                <h3 className="text-sm font-black text-slate-900 uppercase tracking-wider">
+                  Trending Competitions
                 </h3>
-                <span className="text-[11px] text-slate-400 font-medium">3 Stages</span>
+                <span className="text-xs text-slate-400 font-semibold">3 Stages Live</span>
               </div>
 
               {/* Stage Card 1: Feedants Classical Dance */}
               <div
                 onClick={() => setCurrentView('competition')}
-                className="bg-white rounded-2xl p-4 border border-slate-100 shadow-[0_2px_8px_rgba(0,0,0,0.03)] hover:border-[#007A78]/50 transition cursor-pointer flex items-center justify-between gap-3 group active:scale-[0.99]"
+                className="bg-white rounded-3xl p-5 border border-slate-100 shadow-[0_4px_16px_rgba(0,0,0,0.03)] hover:border-[#007A78]/50 transition cursor-pointer flex items-center justify-between gap-4 group active:scale-[0.99]"
               >
-                <div className="flex items-center gap-3.5 min-w-0">
-                  <div className="w-12 h-12 rounded-2xl bg-[#E6F5F4] border border-[#BDE6DF] flex items-center justify-center text-[#007A78] flex-shrink-0 group-hover:scale-105 transition">
-                    <Trophy className="w-6 h-6 text-[#007A78]" />
+                <div className="flex items-center gap-4 min-w-0">
+                  <div className="w-14 h-14 rounded-2xl bg-[#E6F5F4] border border-[#BDE6DF] flex items-center justify-center text-[#007A78] flex-shrink-0 group-hover:scale-105 transition">
+                    <Trophy className="w-7 h-7 text-[#007A78]" />
                   </div>
                   <div className="min-w-0">
                     <div className="flex items-center gap-2">
-                      <h4 className="text-sm font-black text-slate-900 group-hover:text-[#007A78] transition truncate">
+                      <h4 className="text-base font-black text-slate-900 group-hover:text-[#007A78] transition truncate">
                         Feedants Classical Dance
                       </h4>
-                      <span className="px-2 py-0.5 bg-[#E6F5F4] text-[#007A78] rounded-md text-[10px] font-bold">
+                      <span className="px-2 py-0.5 bg-[#E6F5F4] text-[#007A78] rounded-md text-xs font-bold">
                         Live
                       </span>
                     </div>
-                    <p className="text-xs text-slate-500 font-medium mt-0.5">
-                      Judge: <span className="font-semibold text-slate-700">Hassan Raza</span> • Kathak
+                    <p className="text-xs text-slate-500 font-medium mt-1">
+                      Judge: <span className="font-bold text-slate-800">Hassan Raza</span> (Kathak Dancer)
                     </p>
-                    <div className="flex items-center gap-3 text-[11px] text-slate-600 mt-1 font-bold">
+                    <div className="flex items-center gap-3 text-xs text-slate-600 mt-1.5 font-bold">
                       <span className="text-[#007A78]">₹ 1,500 Prize</span>
                       <span>•</span>
                       <span>₹ 99 Fee</span>
@@ -744,33 +745,33 @@ export default function FeedantsApp() {
                   </div>
                 </div>
 
-                <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-[#007A78] group-hover:text-white transition flex-shrink-0">
-                  <ChevronRight className="w-4 h-4 stroke-[2.5]" />
+                <div className="w-9 h-9 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-[#007A78] group-hover:text-white transition flex-shrink-0">
+                  <ChevronRight className="w-5 h-5 stroke-[2.5]" />
                 </div>
               </div>
 
               {/* Stage Card 2: Kathak Tarana Showcase */}
               <div
                 onClick={() => setCurrentView('competition')}
-                className="bg-white rounded-2xl p-4 border border-slate-100 shadow-[0_2px_8px_rgba(0,0,0,0.03)] hover:border-[#007A78]/50 transition cursor-pointer flex items-center justify-between gap-3 group active:scale-[0.99]"
+                className="bg-white rounded-3xl p-5 border border-slate-100 shadow-[0_4px_16px_rgba(0,0,0,0.03)] hover:border-[#007A78]/50 transition cursor-pointer flex items-center justify-between gap-4 group active:scale-[0.99]"
               >
-                <div className="flex items-center gap-3.5 min-w-0">
-                  <div className="w-12 h-12 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-600 flex-shrink-0 group-hover:scale-105 transition">
-                    <Star className="w-6 h-6 text-amber-500 fill-amber-500" />
+                <div className="flex items-center gap-4 min-w-0">
+                  <div className="w-14 h-14 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-600 flex-shrink-0 group-hover:scale-105 transition">
+                    <Star className="w-7 h-7 text-amber-500 fill-amber-500" />
                   </div>
                   <div className="min-w-0">
                     <div className="flex items-center gap-2">
-                      <h4 className="text-sm font-black text-slate-900 group-hover:text-[#007A78] transition truncate">
+                      <h4 className="text-base font-black text-slate-900 group-hover:text-[#007A78] transition truncate">
                         Kathak Tarana &amp; Thumri
                       </h4>
-                      <span className="px-2 py-0.5 bg-amber-100 text-amber-700 rounded-md text-[10px] font-bold">
+                      <span className="px-2 py-0.5 bg-amber-100 text-amber-700 rounded-md text-xs font-bold">
                         Filling Fast
                       </span>
                     </div>
-                    <p className="text-xs text-slate-500 font-medium mt-0.5">
-                      Judge: <span className="font-semibold text-slate-700">Hassan Raza</span> • Solo
+                    <p className="text-xs text-slate-500 font-medium mt-1">
+                      Judge: <span className="font-bold text-slate-800">Hassan Raza</span> • Solo Stage
                     </p>
-                    <div className="flex items-center gap-3 text-[11px] text-slate-600 mt-1 font-bold">
+                    <div className="flex items-center gap-3 text-xs text-slate-600 mt-1.5 font-bold">
                       <span className="text-[#007A78]">₹ 2,200 Prize</span>
                       <span>•</span>
                       <span>₹ 119 Fee</span>
@@ -778,24 +779,24 @@ export default function FeedantsApp() {
                   </div>
                 </div>
 
-                <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-[#007A78] group-hover:text-white transition flex-shrink-0">
-                  <ChevronRight className="w-4 h-4 stroke-[2.5]" />
+                <div className="w-9 h-9 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-[#007A78] group-hover:text-white transition flex-shrink-0">
+                  <ChevronRight className="w-5 h-5 stroke-[2.5]" />
                 </div>
               </div>
             </div>
 
-            {/* ── WINNERS HIGHLIGHT (HALL OF FAME) ── */}
-            <div className="space-y-2.5">
+            {/* ── WINNERS SHOWCASE ── */}
+            <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <h3 className="text-xs font-black text-slate-900 uppercase tracking-wider">
+                <h3 className="text-sm font-black text-slate-900 uppercase tracking-wider">
                   Previous Winners Showcase
                 </h3>
-                <span className="text-[11px] text-[#007A78] font-bold cursor-pointer" onClick={() => setShowReviewsModal(true)}>
+                <span className="text-xs text-[#007A78] font-bold cursor-pointer" onClick={() => setShowReviewsModal(true)}>
                   Reviews
                 </span>
               </div>
 
-              <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
+              <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
                 {[
                   { name: 'Riya Shah', pos: '1st Winner', prize: '₹ 550', img: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=400' },
                   { name: 'Aarav Mehta', pos: '1st Winner', prize: '₹ 550', img: 'https://images.unsplash.com/photo-1518609878373-06d740f60d8b?w=400' },
@@ -811,19 +812,19 @@ export default function FeedantsApp() {
                         url: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
                       })
                     }
-                    className="w-36 flex-shrink-0 bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-xs cursor-pointer group active:scale-95 transition"
+                    className="w-40 flex-shrink-0 bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-xs cursor-pointer group active:scale-95 transition"
                   >
-                    <div className="h-28 relative bg-slate-100">
+                    <div className="h-32 relative bg-slate-100">
                       <img src={w.img} alt={w.name} className="w-full h-full object-cover group-hover:scale-105 transition" />
                       <div className="absolute inset-0 bg-black/25 flex items-center justify-center">
-                        <div className="w-8 h-8 rounded-full bg-white/90 text-[#007A78] flex items-center justify-center shadow-md">
-                          <Play className="w-3.5 h-3.5 fill-current ml-0.5" />
+                        <div className="w-10 h-10 rounded-full bg-white/95 text-[#007A78] flex items-center justify-center shadow-md">
+                          <Play className="w-4 h-4 fill-current ml-0.5" />
                         </div>
                       </div>
                     </div>
-                    <div className="p-2.5 text-center">
+                    <div className="p-3 text-center">
                       <h5 className="text-xs font-black text-slate-900 truncate">{w.name}</h5>
-                      <span className="text-[10px] text-[#007A78] font-bold block">{w.pos} • {w.prize}</span>
+                      <span className="text-xs text-[#007A78] font-bold block mt-0.5">{w.pos} • {w.prize}</span>
                     </div>
                   </div>
                 ))}
@@ -831,18 +832,18 @@ export default function FeedantsApp() {
             </div>
 
             {/* Platform Trust Row */}
-            <div className="grid grid-cols-3 gap-2 bg-white rounded-2xl p-4 border border-slate-100 text-center shadow-xs">
+            <div className="grid grid-cols-3 gap-3 bg-white rounded-3xl p-5 border border-slate-100 text-center shadow-xs">
               <div>
-                <span className="text-base font-black text-[#007A78]">₹50K+</span>
-                <span className="text-[10px] text-slate-400 font-semibold block mt-0.5">Prizes Paid</span>
+                <span className="text-lg font-black text-[#007A78]">₹50K+</span>
+                <span className="text-xs text-slate-400 font-bold block mt-1">Prizes Paid</span>
               </div>
               <div className="border-x border-slate-100">
-                <span className="text-base font-black text-[#007A78]">1,200+</span>
-                <span className="text-[10px] text-slate-400 font-semibold block mt-0.5">Performers</span>
+                <span className="text-lg font-black text-[#007A78]">1,200+</span>
+                <span className="text-xs text-slate-400 font-bold block mt-1">Performers</span>
               </div>
               <div>
-                <span className="text-base font-black text-[#007A78]">100%</span>
-                <span className="text-[10px] text-slate-400 font-semibold block mt-0.5">Verified</span>
+                <span className="text-lg font-black text-[#007A78]">100%</span>
+                <span className="text-xs text-slate-400 font-bold block mt-1">Verified</span>
               </div>
             </div>
           </main>
@@ -850,25 +851,25 @@ export default function FeedantsApp() {
       )}
 
       {/* ─────────────────────────────────────────────────────────────
-          VIEW 2: COMPETITION DETAILS (1:1 SCREENSHOT + GENEROUS SPACING)
+          VIEW 2: COMPETITION DETAILS (1:1 SCREENSHOT + SPACIOUS)
       ───────────────────────────────────────────────────────────── */}
       {currentView === 'competition' && (
         <div className="flex flex-col flex-1">
           {/* Top Header: "← Go back" & "ENG / हिंदी" toggle */}
-          <header className="px-5 py-3.5 bg-white flex items-center justify-between border-b border-gray-100 z-30">
+          <header className="px-5 py-4 bg-white flex items-center justify-between border-b border-gray-100 z-30">
             <button
               onClick={() => setCurrentView('home')}
-              className="flex items-center gap-2 text-sm font-bold text-slate-900 hover:text-[#007A78] transition active:scale-95 cursor-pointer"
+              className="flex items-center gap-2 text-base font-bold text-slate-900 hover:text-[#007A78] transition active:scale-95 cursor-pointer"
             >
-              <ArrowLeft className="w-4 h-4 stroke-[2.5]" />
+              <ArrowLeft className="w-5 h-5 stroke-[2.5]" />
               <span>{t.goBack}</span>
             </button>
 
             {/* Language toggle matching reference screenshot */}
-            <div className="flex items-center bg-slate-100 p-0.5 rounded-full border border-gray-200">
+            <div className="flex items-center bg-slate-100 p-1 rounded-full border border-gray-200">
               <button
                 onClick={() => setLang('ENG')}
-                className={`px-3 py-1 rounded-full text-xs font-bold transition cursor-pointer ${
+                className={`px-3.5 py-1 rounded-full text-xs font-bold transition cursor-pointer ${
                   lang === 'ENG'
                     ? 'bg-[#005f5e] text-white shadow-xs'
                     : 'text-slate-600 hover:text-slate-900'
@@ -878,7 +879,7 @@ export default function FeedantsApp() {
               </button>
               <button
                 onClick={() => setLang('HI')}
-                className={`px-3 py-1 rounded-full text-xs font-bold transition cursor-pointer ${
+                className={`px-3.5 py-1 rounded-full text-xs font-bold transition cursor-pointer ${
                   lang === 'HI'
                     ? 'bg-[#005f5e] text-white shadow-xs'
                     : 'text-slate-600 hover:text-slate-900'
@@ -889,74 +890,74 @@ export default function FeedantsApp() {
             </div>
           </header>
 
-          {/* Main Scrollable Content with generous mobile breathing space */}
-          <main className="flex-1 px-4 py-4 space-y-4 pb-48 overflow-y-auto">
+          {/* Main Scrollable Content with Generous Mobile Spacing */}
+          <main className="flex-1 px-5 py-5 space-y-5 pb-60 overflow-y-auto">
 
             {/* ── CARD 1: Competition Title, Badges & Price Pool ── */}
-            <div className="bg-white rounded-3xl p-5 border border-slate-100 shadow-[0_4px_16px_rgba(0,0,0,0.03)] space-y-4">
+            <div className="bg-white rounded-3xl p-6 border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] space-y-4.5">
               {/* Title & Status */}
               <div className="flex items-start justify-between gap-3">
-                <h1 className="text-xl font-black text-slate-900 tracking-tight leading-snug">
+                <h1 className="text-2xl font-black text-slate-900 tracking-tight leading-snug">
                   {t.title}
                 </h1>
                 {isRegistered ? (
-                  <div className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-[#E6F5F4] text-[#007A78] border border-[#C6EAE8] text-xs font-bold flex-shrink-0">
-                    <CheckCircle className="w-3.5 h-3.5 text-[#007A78] stroke-[2.5]" />
+                  <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#E6F5F4] text-[#007A78] border border-[#C6EAE8] text-xs font-bold flex-shrink-0">
+                    <CheckCircle className="w-4 h-4 text-[#007A78] stroke-[2.5]" />
                     <span>{hasSubmitted ? t.submittedBadge : t.registered}</span>
                   </div>
                 ) : (
-                  <div className="flex items-center gap-1 px-3 py-1 rounded-xl bg-slate-100 text-slate-700 border border-slate-200 text-xs font-bold flex-shrink-0">
+                  <div className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-slate-100 text-slate-700 border border-slate-200 text-xs font-bold flex-shrink-0">
                     <span>₹99 Entry</span>
                   </div>
                 )}
               </div>
 
               {/* Badges Row */}
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="px-3 py-1 rounded-lg bg-slate-100 text-slate-700 text-xs font-semibold">
+              <div className="flex flex-wrap items-center gap-2.5">
+                <span className="px-3 py-1.5 rounded-xl bg-slate-100 text-slate-700 text-xs font-bold">
                   {t.danceTag}
                 </span>
-                <span className="px-3 py-1 rounded-lg bg-slate-100 text-slate-700 text-xs font-semibold">
+                <span className="px-3 py-1.5 rounded-xl bg-slate-100 text-slate-700 text-xs font-bold">
                   {t.multiWinTag}
                 </span>
-                <span className="px-3 py-1 rounded-lg text-[#007A78] bg-[#E6F5F4] text-xs font-bold flex items-center gap-1.5">
-                  <Trophy className="w-3.5 h-3.5 text-[#007A78]" />
+                <span className="px-3 py-1.5 rounded-xl text-[#007A78] bg-[#E6F5F4] text-xs font-extrabold flex items-center gap-1.5">
+                  <Trophy className="w-4 h-4 text-[#007A78]" />
                   <span>{t.certTag}</span>
                 </span>
               </div>
 
               {/* Price Pool, Entry Fee & Spots Left */}
-              <div className="pt-3 flex items-end justify-between border-t border-slate-100">
+              <div className="pt-4 flex items-end justify-between border-t border-slate-100">
                 <div>
-                  <span className="text-xs text-slate-400 font-semibold block">{t.prizePool}</span>
-                  <span className="text-2xl font-black text-[#007A78] tracking-tight">₹ 1,500</span>
+                  <span className="text-xs text-slate-400 font-bold uppercase tracking-wider block">{t.prizePool}</span>
+                  <span className="text-3xl font-black text-[#007A78] tracking-tight mt-0.5 block">₹ 1,500</span>
                 </div>
 
                 <div>
-                  <span className="text-xs text-slate-400 font-semibold block">{t.entryFee}</span>
-                  <span className="text-2xl font-extrabold text-slate-900 tracking-tight">₹ 99</span>
+                  <span className="text-xs text-slate-400 font-bold uppercase tracking-wider block">{t.entryFee}</span>
+                  <span className="text-2xl font-extrabold text-slate-900 tracking-tight mt-0.5 block">₹ 99</span>
                 </div>
 
                 <div className="text-right">
-                  <div className="text-xs font-bold text-[#007A78] flex items-center justify-end gap-1">
-                    <Users className="w-3.5 h-3.5 text-[#007A78]" />
+                  <div className="text-xs font-bold text-[#007A78] flex items-center justify-end gap-1.5">
+                    <Users className="w-4 h-4 text-[#007A78]" />
                     <span>{t.spotsLeft}</span>
                   </div>
-                  <div className="w-28 h-2 bg-slate-200 rounded-full mt-1.5 overflow-hidden">
+                  <div className="w-32 h-2.5 bg-slate-200 rounded-full mt-2 overflow-hidden">
                     <div
                       className="h-full bg-[#007A78] rounded-full transition-all duration-500"
                       style={{ width: `${((20 - spotsLeft) / 20) * 100}%` }}
                     ></div>
                   </div>
-                  <span className="text-[11px] text-slate-400 font-semibold block mt-1">{t.bookedText}</span>
+                  <span className="text-xs text-slate-400 font-semibold block mt-1.5">{t.bookedText}</span>
                 </div>
               </div>
             </div>
 
             {/* ── CARD 2: Judge Card (NAME: HASSAN RAZA) ── */}
-            <div className="bg-white rounded-3xl p-4.5 border border-slate-100 shadow-[0_4px_16px_rgba(0,0,0,0.03)] flex items-center justify-between gap-3">
-              <div className="flex items-center gap-3.5">
-                <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-[#007A78]/30 shadow-xs flex-shrink-0">
+            <div className="bg-white rounded-3xl p-5 border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex items-center justify-between gap-4">
+              <div className="flex items-center gap-4">
+                <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-[#007A78]/40 shadow-sm flex-shrink-0">
                   <img
                     src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200"
                     alt="Hassan Raza"
@@ -964,16 +965,16 @@ export default function FeedantsApp() {
                   />
                 </div>
                 <div>
-                  <span className="text-[10px] text-slate-400 font-extrabold uppercase tracking-wider block">
+                  <span className="text-xs text-slate-400 font-extrabold uppercase tracking-wider block">
                     {t.judgeLabel}
                   </span>
-                  <h3 className="text-base font-black text-slate-900 leading-tight">
+                  <h3 className="text-lg font-black text-slate-900 leading-tight mt-0.5">
                     {t.judgeName}
                   </h3>
-                  <p className="text-xs text-slate-600 font-semibold mt-0.5">
+                  <p className="text-xs text-slate-600 font-bold mt-1">
                     {t.judgeRole}
                   </p>
-                  <p className="text-[11px] text-slate-400 font-medium">
+                  <p className="text-xs text-slate-400 font-medium">
                     {t.judgeExp}
                   </p>
                 </div>
@@ -989,93 +990,93 @@ export default function FeedantsApp() {
                     url: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
                   })
                 }
-                className="flex flex-col items-center gap-1 group active:scale-95 transition cursor-pointer flex-shrink-0"
+                className="flex flex-col items-center gap-1.5 group active:scale-95 transition cursor-pointer flex-shrink-0"
               >
-                <div className="w-11 h-11 rounded-full bg-[#E0F4F5] text-[#007A78] flex items-center justify-center shadow-xs group-hover:bg-[#C6EAE8] transition">
-                  <Play className="w-4 h-4 fill-[#007A78] text-[#007A78] ml-0.5" />
+                <div className="w-12 h-12 rounded-full bg-[#E0F4F5] text-[#007A78] flex items-center justify-center shadow-xs group-hover:bg-[#C6EAE8] transition">
+                  <Play className="w-5 h-5 fill-[#007A78] text-[#007A78] ml-0.5" />
                 </div>
-                <span className="text-[10px] text-slate-500 font-bold">{t.introVideo}</span>
+                <span className="text-xs text-slate-600 font-bold">{t.introVideo}</span>
               </button>
             </div>
 
             {/* ── CARD 3: Live Countdown Timer ── */}
-            <div className="bg-[#EDF9F8] border border-[#D2F0EE] rounded-2xl px-4 py-3 flex items-center justify-between text-slate-800 shadow-xs">
+            <div className="bg-[#EDF9F8] border border-[#D2F0EE] rounded-2xl px-5 py-3.5 flex items-center justify-between text-slate-800 shadow-xs">
               <div className="flex items-center gap-2 text-slate-700">
                 <Clock className="w-4 h-4 text-[#007A78]" />
                 <span className="text-xs font-bold">{t.regCloses}</span>
               </div>
-              <div className="flex items-center gap-2">
-                <span className="font-mono text-sm font-extrabold text-[#007A78] tracking-wider">
+              <div className="flex items-center gap-2.5">
+                <span className="font-mono text-sm font-black text-[#007A78] tracking-wider">
                   {String(timeLeft.days).padStart(2, '0')}d : {String(timeLeft.hours).padStart(2, '0')}h : {String(timeLeft.minutes).padStart(2, '0')}m : {String(timeLeft.seconds).padStart(2, '0')}s
                 </span>
-                <span className="text-[10px] font-black uppercase text-[#007A78] bg-white px-2 py-0.5 rounded-md border border-[#D2F0EE]">
+                <span className="text-xs font-black uppercase text-[#007A78] bg-white px-2.5 py-1 rounded-md border border-[#D2F0EE]">
                   {t.hurry}
                 </span>
               </div>
             </div>
 
             {/* ── CARD 4: Important Dates (2x2 Grid) ── */}
-            <div className="bg-white rounded-3xl p-5 border border-slate-100 shadow-[0_4px_16px_rgba(0,0,0,0.03)] space-y-3.5">
+            <div className="bg-white rounded-3xl p-6 border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] space-y-4">
               <h3 className="text-xs font-black text-slate-900 uppercase tracking-wider">
                 {t.importantDates}
               </h3>
-              <div className="grid grid-cols-2 gap-3.5 pt-1">
+              <div className="grid grid-cols-2 gap-4 pt-1">
                 {/* 1. Register Before */}
-                <div className="flex items-start gap-2.5 p-3 rounded-2xl bg-slate-50 border border-slate-100">
-                  <div className="w-8 h-8 rounded-xl bg-white text-[#007A78] border border-slate-200 flex items-center justify-center flex-shrink-0 shadow-xs">
+                <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-slate-50 border border-slate-100">
+                  <div className="w-9 h-9 rounded-xl bg-white text-[#007A78] border border-slate-200 flex items-center justify-center flex-shrink-0 shadow-xs">
                     <Calendar className="w-4 h-4" />
                   </div>
                   <div>
-                    <span className="text-[10px] text-slate-400 font-bold block">{t.regBefore}</span>
-                    <span className="text-xs font-extrabold text-slate-900 block mt-0.5">10 Aug 26</span>
-                    <span className="text-[10px] text-slate-500 font-medium">11:50 PM</span>
+                    <span className="text-xs text-slate-400 font-bold block">{t.regBefore}</span>
+                    <span className="text-sm font-black text-slate-900 block mt-0.5">10 Aug 26</span>
+                    <span className="text-xs text-slate-500 font-medium">11:50 PM</span>
                   </div>
                 </div>
 
                 {/* 2. Submission Starts */}
-                <div className="flex items-start gap-2.5 p-3 rounded-2xl bg-slate-50 border border-slate-100">
-                  <div className="w-8 h-8 rounded-xl bg-white text-[#007A78] border border-slate-200 flex items-center justify-center flex-shrink-0 shadow-xs">
+                <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-slate-50 border border-slate-100">
+                  <div className="w-9 h-9 rounded-xl bg-white text-[#007A78] border border-slate-200 flex items-center justify-center flex-shrink-0 shadow-xs">
                     <Send className="w-4 h-4" />
                   </div>
                   <div>
-                    <span className="text-[10px] text-slate-400 font-bold block">{t.subStarts}</span>
-                    <span className="text-xs font-extrabold text-slate-900 block mt-0.5">6 Aug 26</span>
-                    <span className="text-[10px] text-slate-500 font-medium">04:00 AM</span>
+                    <span className="text-xs text-slate-400 font-bold block">{t.subStarts}</span>
+                    <span className="text-sm font-black text-slate-900 block mt-0.5">6 Aug 26</span>
+                    <span className="text-xs text-slate-500 font-medium">04:00 AM</span>
                   </div>
                 </div>
 
                 {/* 3. Submission Ends */}
-                <div className="flex items-start gap-2.5 p-3 rounded-2xl bg-slate-50 border border-slate-100">
-                  <div className="w-8 h-8 rounded-xl bg-white text-[#007A78] border border-slate-200 flex items-center justify-center flex-shrink-0 shadow-xs">
+                <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-slate-50 border border-slate-100">
+                  <div className="w-9 h-9 rounded-xl bg-white text-[#007A78] border border-slate-200 flex items-center justify-center flex-shrink-0 shadow-xs">
                     <Upload className="w-4 h-4" />
                   </div>
                   <div>
-                    <span className="text-[10px] text-slate-400 font-bold block">{t.subEnds}</span>
-                    <span className="text-xs font-extrabold text-slate-900 block mt-0.5">30 Aug 26</span>
-                    <span className="text-[10px] text-slate-500 font-medium">11:55 PM</span>
+                    <span className="text-xs text-slate-400 font-bold block">{t.subEnds}</span>
+                    <span className="text-sm font-black text-slate-900 block mt-0.5">30 Aug 26</span>
+                    <span className="text-xs text-slate-500 font-medium">11:55 PM</span>
                   </div>
                 </div>
 
                 {/* 4. Result Date */}
-                <div className="flex items-start gap-2.5 p-3 rounded-2xl bg-slate-50 border border-slate-100">
-                  <div className="w-8 h-8 rounded-xl bg-white text-[#007A78] border border-slate-200 flex items-center justify-center flex-shrink-0 shadow-xs">
+                <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-slate-50 border border-slate-100">
+                  <div className="w-9 h-9 rounded-xl bg-white text-[#007A78] border border-slate-200 flex items-center justify-center flex-shrink-0 shadow-xs">
                     <Trophy className="w-4 h-4" />
                   </div>
                   <div>
-                    <span className="text-[10px] text-slate-400 font-bold block">{t.resDate}</span>
-                    <span className="text-xs font-extrabold text-slate-900 block mt-0.5">1 Sept 26</span>
-                    <span className="text-[10px] text-slate-500 font-medium">11:50 PM</span>
+                    <span className="text-xs text-slate-400 font-bold block">{t.resDate}</span>
+                    <span className="text-sm font-black text-slate-900 block mt-0.5">1 Sept 26</span>
+                    <span className="text-xs text-slate-500 font-medium">11:50 PM</span>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* ── CARD 5: Previous Winners (Carousel) ── */}
-            <div className="bg-white rounded-3xl p-5 border border-slate-100 shadow-[0_4px_16px_rgba(0,0,0,0.03)] space-y-3.5">
+            <div className="bg-white rounded-3xl p-6 border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] space-y-4">
               <h3 className="text-xs font-black text-slate-900 uppercase tracking-wider">
                 {t.prevWinners}
               </h3>
-              <div className="flex gap-3 overflow-x-auto pb-1 scrollbar-hide">
+              <div className="flex gap-3.5 overflow-x-auto pb-1 scrollbar-hide">
                 {[
                   { name: 'Riya Shah', pos: '1st Winner', img: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=400' },
                   { name: 'Aarav Mehta', pos: '1st Winner', img: 'https://images.unsplash.com/photo-1518609878373-06d740f60d8b?w=400' },
@@ -1092,23 +1093,23 @@ export default function FeedantsApp() {
                         url: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
                       })
                     }
-                    className="w-28 flex-shrink-0 cursor-pointer group active:scale-95 transition"
+                    className="w-32 flex-shrink-0 cursor-pointer group active:scale-95 transition"
                   >
-                    <div className="w-28 h-28 rounded-2xl overflow-hidden relative border border-slate-100 shadow-xs bg-slate-100">
+                    <div className="w-32 h-32 rounded-2xl overflow-hidden relative border border-slate-100 shadow-xs bg-slate-100">
                       <img
                         src={winner.img}
                         alt={winner.name}
                         className="w-full h-full object-cover group-hover:scale-105 transition"
                       />
-                      <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-                        <div className="w-8 h-8 rounded-full bg-white/90 text-[#007A78] flex items-center justify-center shadow-md">
-                          <Play className="w-3.5 h-3.5 fill-current ml-0.5" />
+                      <div className="absolute inset-0 bg-black/25 flex items-center justify-center">
+                        <div className="w-9 h-9 rounded-full bg-white/95 text-[#007A78] flex items-center justify-center shadow-md">
+                          <Play className="w-4 h-4 fill-current ml-0.5" />
                         </div>
                       </div>
                     </div>
-                    <div className="mt-2 text-center">
-                      <h4 className="text-xs font-bold text-slate-800 truncate">{winner.name}</h4>
-                      <span className="text-[10px] text-[#007A78] font-bold block">{winner.pos}</span>
+                    <div className="mt-2.5 text-center">
+                      <h4 className="text-xs font-black text-slate-800 truncate">{winner.name}</h4>
+                      <span className="text-xs text-[#007A78] font-bold block mt-0.5">{winner.pos}</span>
                     </div>
                   </div>
                 ))}
@@ -1116,9 +1117,9 @@ export default function FeedantsApp() {
             </div>
 
             {/* ── CARD 6: Tabs (About / Judging / Rules) + 1,000 Songs Button ── */}
-            <div className="bg-white rounded-3xl p-5 border border-slate-100 shadow-[0_4px_16px_rgba(0,0,0,0.03)] space-y-4">
+            <div className="bg-white rounded-3xl p-6 border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] space-y-4.5">
               {/* Tab Selector */}
-              <div className="flex border-b border-gray-100 pb-1 gap-2">
+              <div className="flex border-b border-gray-100 pb-1 gap-3">
                 {[
                   { key: 'about', label: t.tabAbout },
                   { key: 'judging', label: t.tabJudging },
@@ -1127,7 +1128,7 @@ export default function FeedantsApp() {
                   <button
                     key={tab.key}
                     onClick={() => setActiveTab(tab.key as typeof activeTab)}
-                    className={`pb-2.5 px-2 text-xs font-bold transition border-b-2 cursor-pointer ${
+                    className={`pb-3 px-2 text-sm font-bold transition border-b-2 cursor-pointer ${
                       activeTab === tab.key
                         ? 'border-[#007A78] text-[#007A78]'
                         : 'border-transparent text-slate-400 hover:text-slate-600'
@@ -1140,7 +1141,7 @@ export default function FeedantsApp() {
 
               {/* Tab Contents */}
               {activeTab === 'about' && (
-                <div className="text-xs text-slate-600 space-y-2 leading-relaxed">
+                <div className="text-sm text-slate-600 space-y-2.5 leading-relaxed">
                   <p>{t.aboutLine1}</p>
                   <p>{t.aboutLine2}</p>
                   <p>{t.aboutLine3}</p>
@@ -1151,7 +1152,7 @@ export default function FeedantsApp() {
                   )}
                   <button
                     onClick={() => setIsAboutExpanded(!isAboutExpanded)}
-                    className="flex items-center gap-1 text-[#007A78] font-bold text-xs pt-1 cursor-pointer"
+                    className="flex items-center gap-1.5 text-[#007A78] font-extrabold text-xs pt-1 cursor-pointer"
                   >
                     <span>{isAboutExpanded ? t.viewLess : t.viewMore}</span>
                     {isAboutExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
@@ -1160,28 +1161,28 @@ export default function FeedantsApp() {
               )}
 
               {activeTab === 'judging' && (
-                <div className="text-xs text-slate-600 space-y-2.5 leading-relaxed">
-                  <div className="p-3 rounded-2xl bg-slate-50 border border-slate-100">
-                    <span className="font-bold text-slate-900 block">1. Rhythm &amp; Timing (Taal) — 30%</span>
-                    <span className="text-[11px] text-slate-500">Precision of footwork, beats, and synchronization.</span>
+                <div className="text-sm text-slate-600 space-y-3 leading-relaxed">
+                  <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100">
+                    <span className="font-black text-slate-900 block text-xs">1. Rhythm &amp; Timing (Taal) — 30%</span>
+                    <span className="text-xs text-slate-500 mt-0.5 block">Precision of footwork, beats, and synchronization.</span>
                   </div>
-                  <div className="p-3 rounded-2xl bg-slate-50 border border-slate-100">
-                    <span className="font-bold text-slate-900 block">2. Choreography &amp; Abhinaya — 30%</span>
-                    <span className="text-[11px] text-slate-500">Expressive emotiveness and storytelling mastery.</span>
+                  <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100">
+                    <span className="font-black text-slate-900 block text-xs">2. Choreography &amp; Abhinaya — 30%</span>
+                    <span className="text-xs text-slate-500 mt-0.5 block">Expressive emotiveness and storytelling mastery.</span>
                   </div>
-                  <div className="p-3 rounded-2xl bg-slate-50 border border-slate-100">
-                    <span className="font-bold text-slate-900 block">3. Costume &amp; Presentation — 20%</span>
-                    <span className="text-[11px] text-slate-500">Authentic classical attire and stage aura.</span>
+                  <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100">
+                    <span className="font-black text-slate-900 block text-xs">3. Costume &amp; Presentation — 20%</span>
+                    <span className="text-xs text-slate-500 mt-0.5 block">Authentic classical attire and stage aura.</span>
                   </div>
-                  <div className="p-3 rounded-2xl bg-slate-50 border border-slate-100">
-                    <span className="font-bold text-slate-900 block">4. Mudra &amp; Technical Precision — 20%</span>
-                    <span className="text-[11px] text-slate-500">Accuracy of classical gestures and posture.</span>
+                  <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100">
+                    <span className="font-black text-slate-900 block text-xs">4. Mudra &amp; Technical Precision — 20%</span>
+                    <span className="text-xs text-slate-500 mt-0.5 block">Accuracy of classical gestures and posture.</span>
                   </div>
                 </div>
               )}
 
               {activeTab === 'rules' && (
-                <div className="text-xs text-slate-600 space-y-2 leading-relaxed">
+                <div className="text-sm text-slate-600 space-y-2.5 leading-relaxed">
                   <p>• Video duration must be between 1 to 3 minutes.</p>
                   <p>• Solo classical performance only (Kathak, Bharatanatyam, Odissi, or semi-classical).</p>
                   <p>• Continuous single-take recording without cuts or editing.</p>
@@ -1193,13 +1194,13 @@ export default function FeedantsApp() {
               <div className="pt-2 border-t border-slate-100">
                 <button
                   onClick={() => setShowSongModal(true)}
-                  className="w-full py-3 px-4 bg-[#E6F5F4] hover:bg-[#d6f0ee] border border-[#BDE6DF] text-[#007A78] rounded-2xl font-black text-xs flex items-center justify-between transition active:scale-95 cursor-pointer shadow-xs"
+                  className="w-full py-3.5 px-4 bg-[#E6F5F4] hover:bg-[#d6f0ee] border border-[#BDE6DF] text-[#007A78] rounded-2xl font-black text-xs flex items-center justify-between transition active:scale-95 cursor-pointer shadow-xs"
                 >
                   <div className="flex items-center gap-2">
                     <Music className="w-4 h-4 text-[#007A78]" />
                     <span>{t.choose1000}</span>
                   </div>
-                  <span className="px-2 py-0.5 bg-[#007A78] text-white rounded-full text-[10px] font-bold">
+                  <span className="px-2.5 py-0.5 bg-[#007A78] text-white rounded-full text-xs font-bold">
                     1K Tracks
                   </span>
                 </button>
@@ -1207,12 +1208,12 @@ export default function FeedantsApp() {
             </div>
 
             {/* ── CARD 7: Rewards (All Positions) ── */}
-            <div className="bg-white rounded-3xl p-5 border border-slate-100 shadow-[0_4px_16px_rgba(0,0,0,0.03)] space-y-3.5">
-              <div className="flex items-baseline gap-1.5">
+            <div className="bg-white rounded-3xl p-6 border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] space-y-4">
+              <div className="flex items-baseline gap-2">
                 <h3 className="text-xs font-black text-slate-900 uppercase tracking-wider">
                   {t.rewardsTitle}
                 </h3>
-                <span className="text-[11px] text-slate-400 font-semibold">{t.rewardsSub}</span>
+                <span className="text-xs text-slate-400 font-bold">{t.rewardsSub}</span>
               </div>
 
               <div className="space-y-2.5">
@@ -1224,25 +1225,25 @@ export default function FeedantsApp() {
                   { rank: t.fifth, amount: '₹ 130', icon: '⭐' },
                   { rank: t.sixth, amount: '₹ 80', icon: '⭐' }
                 ].map((rew, idx) => (
-                  <div key={idx} className="flex items-center justify-between text-xs py-1 border-b border-slate-50 last:border-b-0">
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm">{rew.icon}</span>
+                  <div key={idx} className="flex items-center justify-between text-sm py-2 px-3 rounded-2xl bg-slate-50 border border-slate-100/60">
+                    <div className="flex items-center gap-2.5">
+                      <span className="text-base">{rew.icon}</span>
                       <span className="font-bold text-slate-800">{rew.rank}</span>
                     </div>
-                    <span className="font-extrabold text-[#007A78]">{rew.amount}</span>
+                    <span className="font-black text-[#007A78]">{rew.amount}</span>
                   </div>
                 ))}
               </div>
             </div>
 
             {/* ── CARD 8: Disclaimer Banner ── */}
-            <div className="bg-slate-50 border border-slate-200/80 rounded-2xl p-4 flex items-start gap-2.5 text-slate-600 text-xs shadow-xs">
-              <ShieldCheck className="w-4 h-4 text-[#007A78] flex-shrink-0 mt-0.5" />
-              <p className="leading-snug text-[11px] font-medium">{t.disclaimer}</p>
+            <div className="bg-slate-50 border border-slate-200/80 rounded-2xl p-4.5 flex items-start gap-3 text-slate-600 text-xs shadow-xs">
+              <ShieldCheck className="w-5 h-5 text-[#007A78] flex-shrink-0 mt-0.5" />
+              <p className="leading-relaxed text-xs font-medium">{t.disclaimer}</p>
             </div>
 
             {/* ── CARD 9: Trust, Prize Money Video & Refund Policy ── */}
-            <div className="bg-white rounded-3xl p-5 border border-slate-100 shadow-[0_4px_16px_rgba(0,0,0,0.03)] space-y-4">
+            <div className="bg-white rounded-3xl p-6 border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] space-y-4.5">
               {/* Prize Money Question */}
               <div
                 onClick={() =>
@@ -1255,31 +1256,31 @@ export default function FeedantsApp() {
                 }
                 className="flex items-center justify-between cursor-pointer group active:scale-95 transition"
               >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-2xl bg-[#E6F5F4] text-[#007A78] flex items-center justify-center flex-shrink-0 group-hover:bg-[#C6EAE8] transition">
-                    <Play className="w-4 h-4 fill-current ml-0.5" />
+                <div className="flex items-center gap-3.5">
+                  <div className="w-11 h-11 rounded-2xl bg-[#E6F5F4] text-[#007A78] flex items-center justify-center flex-shrink-0 group-hover:bg-[#C6EAE8] transition">
+                    <Play className="w-5 h-5 fill-current ml-0.5" />
                   </div>
                   <div>
-                    <h4 className="text-xs font-bold text-slate-900 group-hover:text-[#007A78] transition">
+                    <h4 className="text-sm font-bold text-slate-900 group-hover:text-[#007A78] transition">
                       {t.howReceive}
                     </h4>
-                    <p className="text-[10px] text-slate-400 mt-0.5">{t.watchVideo}</p>
+                    <p className="text-xs text-slate-400 mt-0.5">{t.watchVideo}</p>
                   </div>
                 </div>
-                <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-[#007A78]" />
+                <ChevronRight className="w-5 h-5 text-slate-400 group-hover:text-[#007A78]" />
               </div>
 
               {/* Refund Policy & Razorpay Row */}
-              <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600">
+              <div className="pt-3.5 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600">
                 <button
                   onClick={() => setShowRefundModal(true)}
-                  className="flex items-center gap-1.5 text-slate-700 hover:text-[#007A78] font-bold cursor-pointer"
+                  className="flex items-center gap-2 text-slate-700 hover:text-[#007A78] font-bold cursor-pointer"
                 >
                   <ShieldCheck className="w-4 h-4 text-[#007A78]" />
                   <span>{t.refundPolicy}</span>
                 </button>
 
-                <div className="flex items-center gap-1.5 text-[11px] text-slate-500 font-medium">
+                <div className="flex items-center gap-1.5 text-xs text-slate-500 font-medium">
                   <span>{t.securePayments}</span>
                   <span className="font-black text-slate-900 italic tracking-tight">Razorpay</span>
                 </div>
@@ -1287,13 +1288,13 @@ export default function FeedantsApp() {
             </div>
 
             {/* ── CARD 10: Refer & Earn More Discount ── */}
-            <div className="bg-[#EDF9F8] border border-[#D2F0EE] rounded-3xl p-5 shadow-xs space-y-3.5">
-              <div className="flex items-start justify-between gap-2">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-9 h-9 rounded-2xl bg-[#007A78]/15 text-[#007A78] flex items-center justify-center flex-shrink-0">
-                    <Megaphone className="w-4 h-4" />
+            <div className="bg-[#EDF9F8] border border-[#D2F0EE] rounded-3xl p-6 shadow-xs space-y-4">
+              <div className="flex items-start justify-between gap-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-2xl bg-[#007A78]/15 text-[#007A78] flex items-center justify-center flex-shrink-0">
+                    <Megaphone className="w-5 h-5" />
                   </div>
-                  <h4 className="text-xs font-black text-slate-900">
+                  <h4 className="text-sm font-black text-slate-900">
                     {t.referTitle}
                   </h4>
                 </div>
@@ -1301,24 +1302,24 @@ export default function FeedantsApp() {
                 <div className="text-right">
                   <button
                     onClick={handleCopyReferral}
-                    className="bg-[#007A78] hover:bg-[#005f5e] text-white font-extrabold text-xs px-4 py-1.5 rounded-xl shadow-xs transition active:scale-95 cursor-pointer"
+                    className="bg-[#007A78] hover:bg-[#005f5e] text-white font-black text-xs px-4 py-2 rounded-xl shadow-xs transition active:scale-95 cursor-pointer"
                   >
                     {t.referNow}
                   </button>
-                  <span className="text-[10px] text-[#007A78] font-bold block mt-1">
+                  <span className="text-xs text-[#007A78] font-bold block mt-1">
                     {t.earnSignup}
                   </span>
                 </div>
               </div>
 
               {/* Referral link box with Copy Link */}
-              <div className="flex items-center gap-2 bg-white rounded-2xl border border-[#BFE6DE] p-1.5 pl-3 shadow-xs">
-                <span className="text-[11px] font-mono text-slate-600 truncate flex-1">
+              <div className="flex items-center gap-2 bg-white rounded-2xl border border-[#BFE6DE] p-2 pl-3.5 shadow-xs">
+                <span className="text-xs font-mono text-slate-600 truncate flex-1">
                   https://feedants.com/r/referral123
                 </span>
                 <button
                   onClick={handleCopyReferral}
-                  className="bg-slate-50 hover:bg-slate-100 text-slate-700 text-xs font-bold px-3 py-1.5 rounded-xl border border-slate-200 transition cursor-pointer"
+                  className="bg-slate-50 hover:bg-slate-100 text-slate-700 text-xs font-bold px-3.5 py-1.5 rounded-xl border border-slate-200 transition cursor-pointer"
                 >
                   {copySuccess ? 'Copied!' : 'Copy Link'}
                 </button>
@@ -1328,22 +1329,22 @@ export default function FeedantsApp() {
             {/* ── CARD 11: Hear From Our Users (Reviews Card) ── */}
             <div
               onClick={() => setShowReviewsModal(true)}
-              className="bg-white rounded-3xl p-4.5 border border-slate-100 shadow-[0_4px_16px_rgba(0,0,0,0.03)] flex items-center justify-between cursor-pointer hover:border-[#007A78]/40 transition active:scale-[0.99]"
+              className="bg-white rounded-3xl p-5 border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] flex items-center justify-between cursor-pointer hover:border-[#007A78]/40 transition active:scale-[0.99]"
             >
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-2xl bg-slate-100 text-slate-700 flex items-center justify-center flex-shrink-0">
-                  <MessageSquare className="w-4 h-4" />
+              <div className="flex items-center gap-3.5">
+                <div className="w-10 h-10 rounded-2xl bg-slate-100 text-slate-700 flex items-center justify-center flex-shrink-0">
+                  <MessageSquare className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="text-xs font-bold text-slate-900">{t.hearFromUsers}</h4>
-                  <p className="text-[10px] text-slate-400 mt-0.5">{t.seeWhatSay}</p>
+                  <h4 className="text-sm font-bold text-slate-900">{t.hearFromUsers}</h4>
+                  <p className="text-xs text-slate-400 mt-0.5">{t.seeWhatSay}</p>
                 </div>
               </div>
-              <ChevronRight className="w-4 h-4 text-slate-400" />
+              <ChevronRight className="w-5 h-5 text-slate-400" />
             </div>
 
             {/* ── CARD 12: Ad Here Banner ── */}
-            <div className="border border-dashed border-slate-300 rounded-2xl py-3 px-4 flex items-center justify-center gap-2 text-slate-400 text-xs font-semibold">
+            <div className="border border-dashed border-slate-300 rounded-2xl py-4 px-4 flex items-center justify-center gap-2 text-slate-400 text-xs font-bold">
               <Megaphone className="w-4 h-4 text-slate-400" />
               <span>{t.adHere}</span>
             </div>
@@ -1353,55 +1354,55 @@ export default function FeedantsApp() {
       )}
 
       {/* ─────────────────────────────────────────────────────────────
-          VIEW 3: EXPLORE COMPETITIONS & SONGS VIEW
+          VIEW 3: EXPLORE COMPETITIONS & SONGS (SPACIOUS & ELEGANT)
       ───────────────────────────────────────────────────────────── */}
       {currentView === 'explore' && (
-        <div className="flex flex-col flex-1 pb-36">
+        <div className="flex flex-col flex-1 pb-60">
           <header className="px-5 py-4 bg-white flex items-center justify-between border-b border-gray-100 z-30">
             <div>
-              <h2 className="text-base font-black text-slate-900">Explore Feedants</h2>
-              <p className="text-[10px] text-slate-500">Discover classical dance competitions &amp; music</p>
+              <h2 className="text-lg font-black text-slate-900">Explore Feedants</h2>
+              <p className="text-xs text-slate-500 font-medium">Discover classical dance competitions &amp; music</p>
             </div>
             <button
               onClick={() => setShowSongModal(true)}
-              className="bg-[#007A78] text-white text-xs font-bold px-3 py-1.5 rounded-xl shadow-xs"
+              className="bg-[#007A78] text-white text-xs font-bold px-3.5 py-2 rounded-xl shadow-xs"
             >
               1,000 Songs
             </button>
           </header>
 
-          <main className="flex-1 p-4.5 space-y-4 overflow-y-auto">
+          <main className="flex-1 px-5 py-5 space-y-6 overflow-y-auto">
             {/* Search Box */}
             <div className="relative">
-              <Search className="w-4 h-4 absolute left-3 top-3 text-slate-400" />
+              <Search className="w-5 h-5 absolute left-3.5 top-3.5 text-slate-400" />
               <input
                 type="text"
                 placeholder="Search Kathak, Raags, Judges, Prizes..."
                 onClick={() => setShowSongModal(true)}
                 readOnly
-                className="w-full pl-9 pr-3 py-2.5 bg-white border border-slate-200 rounded-2xl text-xs font-medium cursor-pointer shadow-xs"
+                className="w-full pl-11 pr-4 py-3 bg-white border border-slate-200 rounded-2xl text-sm font-medium cursor-pointer shadow-xs"
               />
             </div>
 
             {/* Featured Stage in Explore */}
             <div
               onClick={() => setCurrentView('competition')}
-              className="bg-white rounded-3xl p-5 border border-slate-100 shadow-[0_4px_16px_rgba(0,0,0,0.03)] cursor-pointer group active:scale-[0.99] transition space-y-3"
+              className="bg-white rounded-3xl p-6 border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] cursor-pointer group active:scale-[0.99] transition space-y-4"
             >
               <div className="flex items-center justify-between">
-                <span className="px-2.5 py-0.5 rounded-full bg-[#E6F5F4] text-[#007A78] text-[10px] font-black uppercase">
+                <span className="px-3 py-1 rounded-full bg-[#E6F5F4] text-[#007A78] text-xs font-black uppercase">
                   Featured Classical Stage
                 </span>
-                <span className="text-xs font-bold text-[#007A78]">₹ 1,500 Prize</span>
+                <span className="text-sm font-bold text-[#007A78]">₹ 1,500 Prize</span>
               </div>
-              <h3 className="text-base font-black text-slate-900 group-hover:text-[#007A78] transition">
+              <h3 className="text-lg font-black text-slate-900 group-hover:text-[#007A78] transition">
                 Feedants Classical Dance 2026
               </h3>
-              <p className="text-xs text-slate-500">
-                Judged by <span className="font-semibold text-slate-800">Hassan Raza</span> (Kathak Master)
+              <p className="text-xs text-slate-600 font-medium">
+                Judged by <span className="font-bold text-slate-900">Hassan Raza</span> (Kathak Master)
               </p>
-              <div className="flex items-center justify-between pt-2 border-t border-slate-100 text-xs">
-                <span className="text-slate-400 font-medium">Entry: ₹99</span>
+              <div className="flex items-center justify-between pt-3 border-t border-slate-100 text-xs">
+                <span className="text-slate-500 font-semibold">Entry: ₹99</span>
                 <span className="font-bold text-[#007A78] flex items-center gap-1">
                   View Competition <ChevronRight className="w-4 h-4" />
                 </span>
@@ -1411,13 +1412,13 @@ export default function FeedantsApp() {
             {/* 1K Songs Banner */}
             <div
               onClick={() => setShowSongModal(true)}
-              className="bg-gradient-to-r from-[#005f5e] to-[#007A78] rounded-3xl p-5 text-white shadow-md cursor-pointer space-y-2"
+              className="bg-gradient-to-r from-[#005f5e] to-[#007A78] rounded-3xl p-6 text-white shadow-md cursor-pointer space-y-2.5"
             >
-              <div className="flex items-center gap-2">
-                <Music className="w-5 h-5 text-[#A7F3D0]" />
-                <h4 className="text-sm font-black uppercase tracking-wide">1,000 Verified Tracks</h4>
+              <div className="flex items-center gap-2.5">
+                <Music className="w-6 h-6 text-[#A7F3D0]" />
+                <h4 className="text-base font-black uppercase tracking-wide">1,000 Verified Tracks</h4>
               </div>
-              <p className="text-xs text-white/80 leading-relaxed">
+              <p className="text-xs text-white/85 leading-relaxed">
                 Full catalog with Teentaal, Ektaal, Jhaptaal and Raag audio drone preview.
               </p>
               <span className="inline-block mt-1 text-xs font-bold text-[#A7F3D0] underline">
@@ -1429,22 +1430,22 @@ export default function FeedantsApp() {
       )}
 
       {/* ─────────────────────────────────────────────────────────────
-          VIEW 4: REDESIGNED PREMIUM USER PROFILE & EVALUATOR SANDBOX
+          VIEW 4: REDESIGNED PREMIUM USER PROFILE (SPACIOUS & ELEGANT)
       ───────────────────────────────────────────────────────────── */}
       {currentView === 'profile' && (
-        <div className="flex flex-col flex-1 pb-36">
+        <div className="flex flex-col flex-1 pb-60">
           {/* Profile Header */}
-          <header className="px-5 py-3.5 bg-white flex items-center justify-between border-b border-gray-100 z-30">
+          <header className="px-5 py-4 bg-white flex items-center justify-between border-b border-gray-100 z-30">
             <button
               onClick={() => setCurrentView('competition')}
-              className="flex items-center gap-2 text-sm font-bold text-slate-900 hover:text-[#007A78] transition active:scale-95 cursor-pointer"
+              className="flex items-center gap-2 text-base font-bold text-slate-900 hover:text-[#007A78] transition active:scale-95 cursor-pointer"
             >
-              <ArrowLeft className="w-4 h-4 stroke-[2.5]" />
+              <ArrowLeft className="w-5 h-5 stroke-[2.5]" />
               <span>Back to Competition</span>
             </button>
 
-            <div className="flex items-center gap-2">
-              <div className="flex bg-slate-100 p-0.5 rounded-full border border-gray-200">
+            <div className="flex items-center gap-2.5">
+              <div className="flex bg-slate-100 p-1 rounded-full border border-gray-200">
                 <button
                   onClick={() => setLang('ENG')}
                   className={`px-3 py-1 rounded-full text-xs font-bold transition cursor-pointer ${
@@ -1465,12 +1466,12 @@ export default function FeedantsApp() {
             </div>
           </header>
 
-          <main className="p-4.5 space-y-4.5 overflow-y-auto">
+          <main className="px-5 py-5 space-y-6 overflow-y-auto">
             {/* ── PROFILE HERO CARD (STUNNING MODERN DESIGN) ── */}
-            <div className="bg-white rounded-3xl p-5 border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.04)] relative overflow-hidden space-y-4">
-              <div className="flex items-center gap-4">
+            <div className="bg-white rounded-3xl p-6 border border-slate-100 shadow-[0_4px_24px_rgba(0,0,0,0.04)] relative overflow-hidden space-y-5">
+              <div className="flex items-center gap-4.5">
                 <div className="relative">
-                  <div className="w-18 h-18 rounded-full overflow-hidden border-3 border-[#007A78] p-0.5 shadow-md flex-shrink-0">
+                  <div className="w-20 h-20 rounded-full overflow-hidden border-3 border-[#007A78] p-0.5 shadow-md flex-shrink-0">
                     <img
                       src={currentUser.avatar}
                       alt={currentUser.name}
@@ -1484,27 +1485,27 @@ export default function FeedantsApp() {
 
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-1.5">
-                    <h2 className="text-lg font-black text-slate-900 truncate">
+                    <h2 className="text-xl font-black text-slate-900 truncate">
                       {currentUser.name}
                     </h2>
                     <span className="text-amber-500">✨</span>
                   </div>
-                  <p className="text-xs text-slate-500 font-semibold truncate mt-0.5">
+                  <p className="text-xs text-slate-500 font-bold truncate mt-0.5">
                     {currentUser.handle}
                   </p>
-                  <p className="text-[11px] text-slate-400 font-medium truncate">
+                  <p className="text-xs text-slate-400 font-medium truncate">
                     {currentUser.email}
                   </p>
                   
-                  <div className="mt-2 inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-[11px] font-extrabold bg-[#E6F5F4] border border-[#C6EAE8] text-[#007A78]">
+                  <div className="mt-2.5 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black bg-[#E6F5F4] border border-[#C6EAE8] text-[#007A78]">
                     {isRegistered ? (
                       <>
-                        <CheckCircle className="w-3 h-3 text-[#007A78]" />
+                        <CheckCircle className="w-3.5 h-3.5 text-[#007A78]" />
                         <span>{t.registeredUserBadge}</span>
                       </>
                     ) : (
                       <>
-                        <UserPlus className="w-3 h-3 text-[#007A78]" />
+                        <UserPlus className="w-3.5 h-3.5 text-[#007A78]" />
                         <span>{t.guestBadge}</span>
                       </>
                     )}
@@ -1513,46 +1514,46 @@ export default function FeedantsApp() {
               </div>
 
               {/* 3-Pillar Stats Counter */}
-              <div className="grid grid-cols-3 gap-2 pt-3 border-t border-slate-100 text-center">
-                <div className="p-2 rounded-2xl bg-slate-50">
-                  <span className="text-base font-black text-[#007A78]">1</span>
-                  <span className="text-[10px] text-slate-400 font-bold block mt-0.5">Active Stage</span>
+              <div className="grid grid-cols-3 gap-2.5 pt-4 border-t border-slate-100 text-center">
+                <div className="p-3 rounded-2xl bg-slate-50">
+                  <span className="text-lg font-black text-[#007A78]">1</span>
+                  <span className="text-xs text-slate-400 font-bold block mt-0.5">Active Stage</span>
                 </div>
-                <div className="p-2 rounded-2xl bg-slate-50">
-                  <span className="text-base font-black text-[#007A78]">₹ 10.00</span>
-                  <span className="text-[10px] text-slate-400 font-bold block mt-0.5">Wallet</span>
+                <div className="p-3 rounded-2xl bg-slate-50">
+                  <span className="text-lg font-black text-[#007A78]">₹ 10.00</span>
+                  <span className="text-xs text-slate-400 font-bold block mt-0.5">Wallet</span>
                 </div>
-                <div className="p-2 rounded-2xl bg-slate-50">
-                  <span className="text-base font-black text-[#007A78]">1,000</span>
-                  <span className="text-[10px] text-slate-400 font-bold block mt-0.5">Songs Catalog</span>
+                <div className="p-3 rounded-2xl bg-slate-50">
+                  <span className="text-lg font-black text-[#007A78]">1,000</span>
+                  <span className="text-xs text-slate-400 font-bold block mt-0.5">Songs Catalog</span>
                 </div>
               </div>
             </div>
 
             {/* ── REFERRAL WALLET CARD ── */}
-            <div className="bg-gradient-to-br from-[#005f5e] to-[#007A78] rounded-3xl p-5 text-white shadow-md space-y-3.5">
+            <div className="bg-gradient-to-br from-[#005f5e] to-[#007A78] rounded-3xl p-6 text-white shadow-lg space-y-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <span className="text-[10px] text-white/70 font-extrabold uppercase tracking-wider block">
+                  <span className="text-xs text-white/70 font-extrabold uppercase tracking-wider block">
                     {t.refBalanceLabel}
                   </span>
-                  <span className="text-2xl font-black text-white tracking-tight">
+                  <span className="text-3xl font-black text-white tracking-tight mt-1 block">
                     ₹ {referralBalance.toFixed(2)}
                   </span>
                 </div>
                 <button
                   onClick={() => setShowWithdrawModal(true)}
-                  className="bg-white hover:bg-slate-100 text-[#005f5e] font-black text-xs px-4 py-2 rounded-2xl shadow-xs transition active:scale-95 cursor-pointer"
+                  className="bg-white hover:bg-slate-100 text-[#005f5e] font-black text-xs px-4 py-2.5 rounded-2xl shadow-xs transition active:scale-95 cursor-pointer"
                 >
                   {t.withdrawBtn}
                 </button>
               </div>
 
-              <div className="pt-2 border-t border-white/10 flex items-center justify-between text-xs text-white/80">
-                <span>Earn ₹10 for every artist you invite</span>
+              <div className="pt-3 border-t border-white/15 flex items-center justify-between text-xs text-white/90">
+                <span>Earn ₹10 for every artist who registers</span>
                 <button
                   onClick={handleCopyReferral}
-                  className="text-white font-bold underline cursor-pointer"
+                  className="text-white font-extrabold underline cursor-pointer"
                 >
                   Share Link
                 </button>
@@ -1560,31 +1561,31 @@ export default function FeedantsApp() {
             </div>
 
             {/* ── MY ACTIVE COMPETITIONS SECTION ── */}
-            <div className="space-y-3">
+            <div className="space-y-3.5">
               <div className="flex items-center justify-between">
                 <h3 className="text-xs font-black text-slate-900 uppercase tracking-wider">
                   {t.myCompetitions}
                 </h3>
-                <span className="text-[10px] text-[#007A78] font-bold">1 Enrolled</span>
+                <span className="text-xs text-[#007A78] font-bold">1 Enrolled</span>
               </div>
 
               {/* Feedants Classical Dance Card */}
               <div
                 onClick={() => setCurrentView('competition')}
-                className="bg-white rounded-3xl p-4.5 border border-slate-100 hover:border-[#007A78] transition cursor-pointer flex items-center justify-between gap-3 shadow-[0_4px_16px_rgba(0,0,0,0.03)] group active:scale-[0.99]"
+                className="bg-white rounded-3xl p-5 border border-slate-100 hover:border-[#007A78] transition cursor-pointer flex items-center justify-between gap-4 shadow-[0_4px_20px_rgba(0,0,0,0.03)] group active:scale-[0.99]"
               >
-                <div className="flex items-center gap-3.5 min-w-0">
-                  <div className="w-12 h-12 rounded-2xl bg-[#E6F5F4] border border-[#BDE6DF] flex items-center justify-center text-[#007A78] flex-shrink-0 group-hover:scale-105 transition">
-                    <Trophy className="w-6 h-6 text-[#007A78]" />
+                <div className="flex items-center gap-4 min-w-0">
+                  <div className="w-14 h-14 rounded-2xl bg-[#E6F5F4] border border-[#BDE6DF] flex items-center justify-center text-[#007A78] flex-shrink-0 group-hover:scale-105 transition">
+                    <Trophy className="w-7 h-7 text-[#007A78]" />
                   </div>
                   <div className="min-w-0">
-                    <h4 className="text-sm font-black text-slate-900 group-hover:text-[#007A78] transition truncate">
+                    <h4 className="text-base font-black text-slate-900 group-hover:text-[#007A78] transition truncate">
                       {t.title}
                     </h4>
-                    <p className="text-[11px] text-slate-500 mt-0.5 truncate">
-                      Judge: <span className="font-semibold text-slate-700">Hassan Raza</span> • ₹1,500 Prize
+                    <p className="text-xs text-slate-500 font-semibold mt-1 truncate">
+                      Judge: <span className="font-bold text-slate-800">Hassan Raza</span> • ₹1,500 Prize
                     </p>
-                    <p className="text-[10px] text-[#007A78] font-bold mt-0.5">
+                    <p className="text-xs text-[#007A78] font-bold mt-1">
                       Deadline: 10 Aug 26, 11:50 PM
                     </p>
                   </div>
@@ -1592,8 +1593,8 @@ export default function FeedantsApp() {
 
                 <div className="flex-shrink-0">
                   {isRegistered ? (
-                    <span className="px-3 py-1.5 bg-[#E6F5F4] border border-[#C6EAE8] text-[#007A78] rounded-xl text-xs font-bold flex items-center gap-1">
-                      <CheckCircle className="w-3.5 h-3.5 text-[#007A78]" />
+                    <span className="px-3.5 py-2 bg-[#E6F5F4] border border-[#C6EAE8] text-[#007A78] rounded-xl text-xs font-bold flex items-center gap-1.5">
+                      <CheckCircle className="w-4 h-4 text-[#007A78]" />
                       <span>{t.registered}</span>
                     </span>
                   ) : (
@@ -1602,7 +1603,7 @@ export default function FeedantsApp() {
                         e.stopPropagation();
                         setCurrentView('competition');
                       }}
-                      className="px-3.5 py-1.5 bg-[#007A78] hover:bg-[#005f5e] active:scale-95 text-white rounded-xl text-xs font-bold shadow-xs transition cursor-pointer"
+                      className="px-4 py-2 bg-[#007A78] hover:bg-[#005f5e] active:scale-95 text-white rounded-xl text-xs font-bold shadow-xs transition cursor-pointer"
                     >
                       {t.viewRegister}
                     </button>
@@ -1612,21 +1613,21 @@ export default function FeedantsApp() {
             </div>
 
             {/* ── EVALUATOR & DEVELOPER CONTROLS SANDBOX ── */}
-            <div className="bg-[#EBF8F5] border-2 border-[#BFE6DE] rounded-3xl p-5 shadow-xs space-y-3.5">
-              <div className="flex items-center gap-2">
-                <div className="w-7 h-7 rounded-xl bg-[#007A78] text-white flex items-center justify-center shadow-xs">
+            <div className="bg-[#EBF8F5] border-2 border-[#BFE6DE] rounded-3xl p-6 shadow-xs space-y-4">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-xl bg-[#007A78] text-white flex items-center justify-center shadow-xs">
                   <RefreshCw className="w-4 h-4" />
                 </div>
-                <h3 className="text-xs font-extrabold text-[#007A78] uppercase tracking-wider">
+                <h3 className="text-xs font-black text-[#007A78] uppercase tracking-wider">
                   {t.evalControls}
                 </h3>
               </div>
 
-              <p className="text-[11px] text-slate-600 leading-relaxed font-medium">
+              <p className="text-xs text-slate-600 leading-relaxed font-medium">
                 {t.evalDesc}
               </p>
 
-              <div className="grid grid-cols-2 gap-2 pt-1">
+              <div className="grid grid-cols-2 gap-2.5 pt-1">
                 {/* 1. Set Name as Hassan Raza */}
                 <button
                   onClick={() => {
@@ -1634,9 +1635,9 @@ export default function FeedantsApp() {
                     setIsRegistered(true);
                     showToast('Profile: Hassan Raza 🌟', 'Name set to Hassan Raza (Professional Kathak Dancer & Registered Performer).');
                   }}
-                  className="py-2.5 px-2 rounded-xl text-xs font-bold bg-[#007A78] text-white shadow-xs transition flex items-center justify-center gap-1.5 cursor-pointer active:scale-95"
+                  className="py-3 px-2 rounded-xl text-xs font-bold bg-[#007A78] text-white shadow-xs transition flex items-center justify-center gap-1.5 cursor-pointer active:scale-95"
                 >
-                  <Star className="w-3.5 h-3.5 fill-current" />
+                  <Star className="w-4 h-4 fill-current" />
                   <span className="truncate">Set Hassan Raza</span>
                 </button>
 
@@ -1647,9 +1648,9 @@ export default function FeedantsApp() {
                     setIsRegistered(true);
                     showToast('Switched to Priya Patel 🎉', 'Active User: Priya Patel (Registered). Displays "Upload Submission" button.');
                   }}
-                  className="py-2.5 px-2 rounded-xl text-xs font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 transition flex items-center justify-center gap-1.5 cursor-pointer active:scale-95"
+                  className="py-3 px-2 rounded-xl text-xs font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 transition flex items-center justify-center gap-1.5 cursor-pointer active:scale-95"
                 >
-                  <CheckCircle className="w-3.5 h-3.5 text-slate-500" />
+                  <CheckCircle className="w-4 h-4 text-slate-500" />
                   <span className="truncate">Priya (Registered)</span>
                 </button>
 
@@ -1660,9 +1661,9 @@ export default function FeedantsApp() {
                     setIsRegistered(false);
                     showToast('Switched to Rahul Sharma 👤', 'Active User: Rahul Sharma (New User). Displays "Register Now - ₹99".');
                   }}
-                  className="py-2.5 px-2 rounded-xl text-xs font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 transition flex items-center justify-center gap-1.5 cursor-pointer active:scale-95"
+                  className="py-3 px-2 rounded-xl text-xs font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 transition flex items-center justify-center gap-1.5 cursor-pointer active:scale-95"
                 >
-                  <UserPlus className="w-3.5 h-3.5 text-slate-500" />
+                  <UserPlus className="w-4 h-4 text-slate-500" />
                   <span className="truncate">Rahul (New User)</span>
                 </button>
 
@@ -1676,62 +1677,62 @@ export default function FeedantsApp() {
                     setSelectedSong(null);
                     showToast('Demo Data Reset ✨', 'Competition spots (19 left) and user state have been restored.');
                   }}
-                  className="py-2.5 px-2 rounded-xl text-xs font-bold bg-white text-[#007A78] border border-[#BFE6DE] hover:bg-[#EBF8F5] transition flex items-center justify-center gap-1.5 cursor-pointer active:scale-95"
+                  className="py-3 px-2 rounded-xl text-xs font-bold bg-white text-[#007A78] border border-[#BFE6DE] hover:bg-[#EBF8F5] transition flex items-center justify-center gap-1.5 cursor-pointer active:scale-95"
                 >
-                  <RefreshCw className="w-3.5 h-3.5 text-[#007A78]" />
+                  <RefreshCw className="w-4 h-4 text-[#007A78]" />
                   <span className="truncate">Reset Demo</span>
                 </button>
               </div>
             </div>
 
             {/* ── ACCOUNT SETTINGS & SHORTCUTS ── */}
-            <div className="space-y-2 pt-1">
+            <div className="space-y-3 pt-1">
               <h3 className="text-xs font-black text-slate-900 uppercase tracking-wider">
                 Account &amp; Support
               </h3>
-              <div className="bg-white rounded-3xl border border-slate-100 shadow-[0_4px_16px_rgba(0,0,0,0.03)] overflow-hidden divide-y divide-gray-100">
+              <div className="bg-white rounded-3xl border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] overflow-hidden divide-y divide-gray-100">
                 <div
-                  onClick={() => showToast('Certificates', 'Official digital certificates are issued after competition results declaration on 1 Sept 26.')}
-                  className="p-4 flex items-center justify-between hover:bg-slate-50 transition cursor-pointer"
+                  onClick={() => showToast('Certificates 🏆', 'Official digital certificates are issued after competition results declaration on 1 Sept 26.')}
+                  className="p-4.5 flex items-center justify-between hover:bg-slate-50 transition cursor-pointer"
                 >
-                  <div className="flex items-center gap-3">
-                    <Award className="w-4 h-4 text-[#007A78]" />
-                    <span className="text-xs font-bold text-slate-800">{t.certificates}</span>
+                  <div className="flex items-center gap-3.5">
+                    <Award className="w-5 h-5 text-[#007A78]" />
+                    <span className="text-sm font-bold text-slate-800">{t.certificates}</span>
                   </div>
-                  <ChevronRight className="w-4 h-4 text-slate-400" />
+                  <ChevronRight className="w-5 h-5 text-slate-400" />
                 </div>
 
                 <div
-                  onClick={() => showToast('Payment History', 'All transactions are secured via Razorpay PCI-DSS compliant payment gateway.')}
-                  className="p-4 flex items-center justify-between hover:bg-slate-50 transition cursor-pointer"
+                  onClick={() => showToast('Payment History 💳', 'All transactions are secured via Razorpay PCI-DSS compliant payment gateway.')}
+                  className="p-4.5 flex items-center justify-between hover:bg-slate-50 transition cursor-pointer"
                 >
-                  <div className="flex items-center gap-3">
-                    <Receipt className="w-4 h-4 text-[#007A78]" />
-                    <span className="text-xs font-bold text-slate-800">{t.transactions}</span>
+                  <div className="flex items-center gap-3.5">
+                    <Receipt className="w-5 h-5 text-[#007A78]" />
+                    <span className="text-sm font-bold text-slate-800">{t.transactions}</span>
                   </div>
-                  <ChevronRight className="w-4 h-4 text-slate-400" />
+                  <ChevronRight className="w-5 h-5 text-slate-400" />
                 </div>
 
                 <div
                   onClick={() => setShowRefundModal(true)}
-                  className="p-4 flex items-center justify-between hover:bg-slate-50 transition cursor-pointer"
+                  className="p-4.5 flex items-center justify-between hover:bg-slate-50 transition cursor-pointer"
                 >
-                  <div className="flex items-center gap-3">
-                    <ShieldCheck className="w-4 h-4 text-[#007A78]" />
-                    <span className="text-xs font-bold text-slate-800">{t.refundPolicy}</span>
+                  <div className="flex items-center gap-3.5">
+                    <ShieldCheck className="w-5 h-5 text-[#007A78]" />
+                    <span className="text-sm font-bold text-slate-800">{t.refundPolicy}</span>
                   </div>
-                  <ChevronRight className="w-4 h-4 text-slate-400" />
+                  <ChevronRight className="w-5 h-5 text-slate-400" />
                 </div>
 
                 <div
-                  onClick={() => showToast('Feedants Helpdesk', 'Reach our support team anytime at support@feedants.com')}
-                  className="p-4 flex items-center justify-between hover:bg-slate-50 transition cursor-pointer"
+                  onClick={() => showToast('Feedants Helpdesk 💬', 'Reach our support team anytime at support@feedants.com')}
+                  className="p-4.5 flex items-center justify-between hover:bg-slate-50 transition cursor-pointer"
                 >
-                  <div className="flex items-center gap-3">
-                    <HelpCircle className="w-4 h-4 text-[#007A78]" />
-                    <span className="text-xs font-bold text-slate-800">{t.support}</span>
+                  <div className="flex items-center gap-3.5">
+                    <HelpCircle className="w-5 h-5 text-[#007A78]" />
+                    <span className="text-sm font-bold text-slate-800">{t.support}</span>
                   </div>
-                  <ChevronRight className="w-4 h-4 text-slate-400" />
+                  <ChevronRight className="w-5 h-5 text-slate-400" />
                 </div>
               </div>
             </div>
@@ -1746,24 +1747,24 @@ export default function FeedantsApp() {
         
         {/* Primary CTA on Competition Details Screen */}
         {currentView === 'competition' && (
-          <div className="p-3 pb-2 bg-white">
+          <div className="p-3.5 pb-2.5 bg-white">
             {isRegistered ? (
               <button
                 onClick={() => setShowUploadModal(true)}
-                className="w-full py-3.5 bg-[#005f5e] hover:bg-[#004e4d] text-white rounded-2xl font-extrabold text-sm shadow-md shadow-[#005f5e]/25 flex flex-col items-center justify-center gap-0.5 transition active:scale-[0.98] cursor-pointer"
+                className="w-full py-4 bg-[#005f5e] hover:bg-[#004e4d] text-white rounded-2xl font-black text-base shadow-md shadow-[#005f5e]/25 flex flex-col items-center justify-center gap-0.5 transition active:scale-[0.98] cursor-pointer"
               >
                 <span>{hasSubmitted ? 'Upload Another Video' : t.uploadSubmission}</span>
-                <span className="text-[10px] font-semibold text-[#b2dfdb] tracking-wide">
+                <span className="text-xs font-bold text-[#b2dfdb] tracking-wide">
                   {t.registered}
                 </span>
               </button>
             ) : (
               <button
                 onClick={handleRegisterNow}
-                className="w-full py-3.5 bg-[#005f5e] hover:bg-[#004e4d] text-white rounded-2xl font-extrabold text-sm shadow-md shadow-[#005f5e]/25 flex flex-col items-center justify-center gap-0.5 transition active:scale-[0.98] cursor-pointer"
+                className="w-full py-4 bg-[#005f5e] hover:bg-[#004e4d] text-white rounded-2xl font-black text-base shadow-md shadow-[#005f5e]/25 flex flex-col items-center justify-center gap-0.5 transition active:scale-[0.98] cursor-pointer"
               >
                 <span>{t.registerNowBtn}</span>
-                <span className="text-[10px] font-semibold text-[#b2dfdb] tracking-wide">
+                <span className="text-xs font-bold text-[#b2dfdb] tracking-wide">
                   {spotsLeft} spots left
                 </span>
               </button>
@@ -1772,19 +1773,19 @@ export default function FeedantsApp() {
         )}
 
         {/* 5-Tab Bottom Navigation: Home, Explore, (+), Competitions, Profile */}
-        <nav className="py-2.5 px-4 flex items-center justify-around bg-white border-t border-slate-100">
-          {/* 1. Home Button (Now 100% Functional!) */}
+        <nav className="py-3 px-4 flex items-center justify-around bg-white border-t border-slate-100">
+          {/* 1. Home Button */}
           <button
             onClick={() => {
               setCurrentView('home');
               showToast('Feedants Home 🏠', 'Welcome to Feedants Home Feed.');
             }}
             className={`flex flex-col items-center justify-center py-1 flex-1 cursor-pointer transition active:scale-95 ${
-              currentView === 'home' ? 'text-[#007A78] font-bold' : 'text-slate-400 hover:text-slate-700 font-medium'
+              currentView === 'home' ? 'text-[#007A78] font-black' : 'text-slate-400 hover:text-slate-700 font-bold'
             }`}
           >
-            <Home className="w-5 h-5 stroke-[2.5]" />
-            <span className="text-[10px] mt-1">{t.home}</span>
+            <Home className="w-6 h-6 stroke-[2.5]" />
+            <span className="text-xs mt-1">{t.home}</span>
           </button>
 
           {/* 2. Explore Button */}
@@ -1794,11 +1795,11 @@ export default function FeedantsApp() {
               showToast('Explore Feedants 🧭', 'Explore classical dance stages & 1,000 songs.');
             }}
             className={`flex flex-col items-center justify-center py-1 flex-1 cursor-pointer transition active:scale-95 ${
-              currentView === 'explore' ? 'text-[#007A78] font-bold' : 'text-slate-400 hover:text-slate-700 font-medium'
+              currentView === 'explore' ? 'text-[#007A78] font-black' : 'text-slate-400 hover:text-slate-700 font-bold'
             }`}
           >
-            <Compass className="w-5 h-5 stroke-[2.5]" />
-            <span className="text-[10px] mt-1">{t.explore}</span>
+            <Compass className="w-6 h-6 stroke-[2.5]" />
+            <span className="text-xs mt-1">{t.explore}</span>
           </button>
 
           {/* 3. Center (+) Action Button */}
@@ -1811,9 +1812,9 @@ export default function FeedantsApp() {
                   handleRegisterNow();
                 }
               }}
-              className="w-11 h-11 rounded-full bg-[#007A78] hover:bg-[#005f5e] text-white flex items-center justify-center shadow-lg shadow-[#007A78]/30 transition active:scale-90 cursor-pointer"
+              className="w-12 h-12 rounded-full bg-[#007A78] hover:bg-[#005f5e] text-white flex items-center justify-center shadow-lg shadow-[#007A78]/30 transition active:scale-90 cursor-pointer"
             >
-              <Plus className="w-6 h-6 stroke-[3]" />
+              <Plus className="w-7 h-7 stroke-[3]" />
             </button>
           </div>
 
@@ -1821,24 +1822,24 @@ export default function FeedantsApp() {
           <button
             onClick={() => setCurrentView('competition')}
             className={`flex flex-col items-center justify-center py-1 flex-1 cursor-pointer transition active:scale-95 ${
-              currentView === 'competition' ? 'text-[#007A78] font-bold' : 'text-slate-400 hover:text-slate-700 font-medium'
+              currentView === 'competition' ? 'text-[#007A78] font-black' : 'text-slate-400 hover:text-slate-700 font-bold'
             }`}
           >
-            <Trophy className="w-5 h-5 stroke-[2.5]" />
-            <span className="text-[10px] mt-1">{t.competitions}</span>
+            <Trophy className="w-6 h-6 stroke-[2.5]" />
+            <span className="text-xs mt-1">{t.competitions}</span>
           </button>
 
           {/* 5. Profile Button */}
           <button
             onClick={() => setCurrentView('profile')}
             className={`flex flex-col items-center justify-center py-1 flex-1 cursor-pointer transition active:scale-95 ${
-              currentView === 'profile' ? 'text-[#007A78] font-bold' : 'text-slate-400 hover:text-slate-700 font-medium'
+              currentView === 'profile' ? 'text-[#007A78] font-black' : 'text-slate-400 hover:text-slate-700 font-bold'
             }`}
           >
-            <div className={`w-5 h-5 rounded-full overflow-hidden border ${currentView === 'profile' ? 'border-[#007A78] ring-2 ring-[#007A78]/30' : 'border-slate-300'}`}>
+            <div className={`w-6 h-6 rounded-full overflow-hidden border-2 ${currentView === 'profile' ? 'border-[#007A78] ring-2 ring-[#007A78]/30' : 'border-slate-300'}`}>
               <img src={currentUser.avatar} alt="Profile" className="w-full h-full object-cover" />
             </div>
-            <span className="text-[10px] mt-1">{t.profile}</span>
+            <span className="text-xs mt-1">{t.profile}</span>
           </button>
         </nav>
       </div>
@@ -1848,17 +1849,17 @@ export default function FeedantsApp() {
           (LIVE AUDIO DRONE SYNTH PREVIEW, SEARCH & SELECTION)
       ───────────────────────────────────────────────────────────── */}
       {showSongModal && (
-        <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-3 backdrop-blur-xs">
-          <div className="bg-white w-full max-w-sm rounded-3xl p-4.5 max-h-[88vh] flex flex-col shadow-2xl animate-in zoom-in-95">
+        <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-xs">
+          <div className="bg-white w-full max-w-sm rounded-3xl p-5 max-h-[88vh] flex flex-col shadow-2xl animate-in zoom-in-95">
             {/* Header */}
-            <div className="flex items-center justify-between pb-3 border-b border-gray-100">
-              <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-2xl bg-[#007A78] text-white flex items-center justify-center font-black text-xs shadow-xs">
+            <div className="flex items-center justify-between pb-3.5 border-b border-gray-100">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-2xl bg-[#007A78] text-white flex items-center justify-center font-black text-sm shadow-xs">
                   1K
                 </div>
                 <div>
-                  <h4 className="text-sm font-black text-slate-900">Classical Songs Catalog</h4>
-                  <p className="text-[10px] text-slate-500 font-medium">1,000 Verified Kathak &amp; Raag Pieces</p>
+                  <h4 className="text-base font-black text-slate-900">Classical Songs Catalog</h4>
+                  <p className="text-xs text-slate-500 font-semibold">1,000 Verified Kathak &amp; Raag Pieces</p>
                 </div>
               </div>
               <button
@@ -1872,29 +1873,29 @@ export default function FeedantsApp() {
                 }}
                 className="text-slate-400 hover:text-slate-700 p-1 cursor-pointer"
               >
-                <X className="w-5 h-5" />
+                <X className="w-6 h-6" />
               </button>
             </div>
 
             {/* Search Input */}
-            <div className="mt-3.5 relative">
-              <Search className="w-4 h-4 absolute left-3 top-3 text-slate-400" />
+            <div className="mt-4 relative">
+              <Search className="w-4 h-4 absolute left-3.5 top-3.5 text-slate-400" />
               <input
                 type="text"
                 placeholder="Search Raag, Taal, Artist, Track #..."
                 value={songSearch}
                 onChange={(e) => setSongSearch(e.target.value)}
-                className="w-full pl-9 pr-3 py-2.5 bg-slate-50 border border-gray-200 rounded-2xl text-xs font-medium outline-none focus:border-[#007A78] focus:bg-white transition"
+                className="w-full pl-10 pr-3.5 py-3 bg-slate-50 border border-gray-200 rounded-2xl text-xs font-semibold outline-none focus:border-[#007A78] focus:bg-white transition"
               />
             </div>
 
             {/* Quick Taal Filter Pills */}
-            <div className="flex gap-1.5 overflow-x-auto py-2.5 scrollbar-hide text-[10px] font-bold">
+            <div className="flex gap-2 overflow-x-auto py-3 scrollbar-hide text-xs font-bold">
               {['All', 'Teentaal', 'Ektaal', 'Jhaptaal', 'Keherwa', 'Rupak'].map((t) => (
                 <button
                   key={t}
                   onClick={() => setSelectedTaalFilter(t)}
-                  className={`px-3 py-1 rounded-full whitespace-nowrap transition cursor-pointer active:scale-95 ${
+                  className={`px-3.5 py-1.5 rounded-full whitespace-nowrap transition cursor-pointer active:scale-95 ${
                     selectedTaalFilter === t
                       ? 'bg-[#007A78] text-white shadow-xs'
                       : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
@@ -1906,7 +1907,7 @@ export default function FeedantsApp() {
             </div>
 
             {/* Song List */}
-            <div className="overflow-y-auto flex-1 mt-1 space-y-2 pr-1">
+            <div className="overflow-y-auto flex-1 mt-1 space-y-2.5 pr-1">
               {filteredSongs.map((song) => (
                 <div
                   key={song.id}
@@ -1920,19 +1921,19 @@ export default function FeedantsApp() {
                     }
                     showToast('Track Selected 🎵', `${song.title}`);
                   }}
-                  className={`p-3 rounded-2xl border text-xs cursor-pointer transition flex items-center justify-between gap-2.5 ${
+                  className={`p-3.5 rounded-2xl border text-xs cursor-pointer transition flex items-center justify-between gap-3 ${
                     selectedSong?.id === song.id
                       ? 'border-[#007A78] bg-[#E6F5F4]'
                       : 'border-slate-100 bg-slate-50/70 hover:bg-slate-100'
                   }`}
                 >
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-1.5 font-bold text-slate-900">
-                      <span className="text-[10px] text-[#007A78] font-mono">#{song.id}</span>
+                    <div className="flex items-center gap-1.5 font-black text-slate-900">
+                      <span className="text-xs text-[#007A78] font-mono">#{song.id}</span>
                       <span className="truncate">{song.title}</span>
                     </div>
-                    <div className="text-[10px] text-slate-500 mt-0.5 flex items-center gap-2">
-                      <span className="font-semibold text-slate-700">Raag: {song.raag}</span>
+                    <div className="text-xs text-slate-500 mt-1 flex items-center gap-2">
+                      <span className="font-bold text-slate-700">Raag: {song.raag}</span>
                       <span>•</span>
                       <span>{song.taal}</span>
                       <span>•</span>
@@ -1943,16 +1944,16 @@ export default function FeedantsApp() {
                   {/* Play audio preview */}
                   <button
                     onClick={(e) => togglePlaySong(song, e)}
-                    className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition active:scale-90 ${
+                    className={`w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 transition active:scale-90 ${
                       playingSongId === song.id
                         ? 'bg-[#007A78] text-white'
                         : 'bg-white border border-slate-200 text-[#007A78] hover:bg-[#E6F5F4]'
                     }`}
                   >
                     {playingSongId === song.id ? (
-                      <Pause className="w-3.5 h-3.5 fill-current" />
+                      <Pause className="w-4 h-4 fill-current" />
                     ) : (
-                      <Play className="w-3.5 h-3.5 fill-current ml-0.5" />
+                      <Play className="w-4 h-4 fill-current ml-0.5" />
                     )}
                   </button>
                 </div>
@@ -1960,9 +1961,9 @@ export default function FeedantsApp() {
             </div>
 
             {/* Bottom info */}
-            <div className="pt-2.5 border-t border-slate-100 flex items-center justify-between text-[10px] text-slate-400 font-medium">
+            <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400 font-semibold">
               <span>Showing 100 of 1,000 tracks</span>
-              <span>Tap track to select for competition</span>
+              <span>Tap track to select</span>
             </div>
           </div>
         </div>
@@ -1972,10 +1973,10 @@ export default function FeedantsApp() {
           MODAL 2: UPLOAD DANCE SUBMISSION MODAL
       ───────────────────────────────────────────────────────────── */}
       {showUploadModal && (
-        <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-3 backdrop-blur-xs">
-          <div className="bg-white w-full max-w-sm rounded-3xl p-5 shadow-2xl space-y-4 animate-in zoom-in-95">
+        <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-xs">
+          <div className="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl space-y-4.5 animate-in zoom-in-95">
             <div className="flex items-center justify-between pb-2 border-b border-gray-100">
-              <h4 className="text-sm font-black text-slate-900">Upload Dance Submission</h4>
+              <h4 className="text-base font-black text-slate-900">Upload Dance Submission</h4>
               <button onClick={() => setShowUploadModal(false)} className="text-slate-400 hover:text-slate-700 p-1 cursor-pointer">
                 <X className="w-5 h-5" />
               </button>
@@ -1983,24 +1984,24 @@ export default function FeedantsApp() {
 
             <div
               onClick={() => setUploadFileName('kathak_performance_hassan_raza_comp.mp4')}
-              className="border-2 border-dashed border-[#007A78]/40 rounded-2xl p-5 text-center bg-[#E6F5F4]/40 hover:bg-[#E6F5F4] cursor-pointer transition"
+              className="border-2 border-dashed border-[#007A78]/40 rounded-2xl p-6 text-center bg-[#E6F5F4]/40 hover:bg-[#E6F5F4] cursor-pointer transition"
             >
-              <Upload className="w-8 h-8 text-[#007A78] mx-auto mb-1.5" />
-              <p className="text-xs font-bold text-slate-800">
+              <Upload className="w-9 h-9 text-[#007A78] mx-auto mb-2" />
+              <p className="text-sm font-black text-slate-800">
                 {uploadFileName || 'Choose MP4 Video (Max 50MB)'}
               </p>
-              <p className="text-[10px] text-slate-400 mt-1">Continuous 1 to 3-minute performance</p>
+              <p className="text-xs text-slate-400 mt-1">Continuous 1 to 3-minute performance</p>
             </div>
 
             <div>
-              <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1.5">
+              <label className="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-2">
                 Selected Classical Track
               </label>
               <div
                 onClick={() => setShowSongModal(true)}
-                className="p-3 border border-slate-200 rounded-2xl text-xs bg-slate-50 cursor-pointer flex items-center justify-between"
+                className="p-3.5 border border-slate-200 rounded-2xl text-xs bg-slate-50 cursor-pointer flex items-center justify-between"
               >
-                <span className="font-semibold text-slate-800 truncate">
+                <span className="font-bold text-slate-800 truncate">
                   {selectedSong ? selectedSong.title : 'Tap to pick from 1,000 Song Catalog'}
                 </span>
                 <ChevronRight className="w-4 h-4 text-slate-400 flex-shrink-0" />
@@ -2013,7 +2014,7 @@ export default function FeedantsApp() {
                 setShowUploadModal(false);
                 showToast('Submission Uploaded! 🚀', 'Your video has been submitted to Judge Hassan Raza.');
               }}
-              className="w-full py-3.5 bg-[#007A78] hover:bg-[#005f5e] text-white rounded-2xl font-extrabold text-xs shadow-md transition cursor-pointer active:scale-95"
+              className="w-full py-4 bg-[#007A78] hover:bg-[#005f5e] text-white rounded-2xl font-black text-sm shadow-md transition cursor-pointer active:scale-95"
             >
               Confirm &amp; Submit Video
             </button>
@@ -2025,13 +2026,13 @@ export default function FeedantsApp() {
           MODAL 3: VIDEO PLAYER MODAL (INTRO & PREVIOUS WINNERS)
       ───────────────────────────────────────────────────────────── */}
       {videoModal.isOpen && (
-        <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-3 backdrop-blur-xs">
+        <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 backdrop-blur-xs">
           <div className="bg-slate-900 w-full max-w-sm rounded-3xl overflow-hidden shadow-2xl border border-slate-700 animate-in zoom-in-95">
-            <div className="p-3.5 bg-slate-800 flex items-center justify-between border-b border-slate-700">
+            <div className="p-4 bg-slate-800 flex items-center justify-between border-b border-slate-700">
               <div className="flex-1 truncate">
-                <span className="text-xs font-bold text-white block truncate">{videoModal.title}</span>
+                <span className="text-sm font-bold text-white block truncate">{videoModal.title}</span>
                 {videoModal.subtitle && (
-                  <span className="text-[10px] text-slate-400 block truncate">{videoModal.subtitle}</span>
+                  <span className="text-xs text-slate-400 block truncate mt-0.5">{videoModal.subtitle}</span>
                 )}
               </div>
               <button
@@ -2041,12 +2042,12 @@ export default function FeedantsApp() {
                 <X className="w-5 h-5" />
               </button>
             </div>
-            <div className="h-52 bg-slate-950 flex flex-col items-center justify-center text-center p-4 relative">
-              <div className="w-14 h-14 rounded-full bg-[#007A78]/30 border border-[#007A78] flex items-center justify-center mb-2 shadow-lg">
-                <Play className="w-6 h-6 fill-[#4fd1c5] text-[#4fd1c5] ml-0.5" />
+            <div className="h-56 bg-slate-950 flex flex-col items-center justify-center text-center p-5 relative">
+              <div className="w-16 h-16 rounded-full bg-[#007A78]/30 border border-[#007A78] flex items-center justify-center mb-3 shadow-lg">
+                <Play className="w-7 h-7 fill-[#4fd1c5] text-[#4fd1c5] ml-0.5" />
               </div>
-              <p className="text-xs font-bold text-white">Kathak Masterclass &amp; Evaluation Guide</p>
-              <p className="text-[10px] text-slate-400 mt-1">Judge: Hassan Raza • 12+ Years Experience</p>
+              <p className="text-sm font-bold text-white">Kathak Masterclass &amp; Evaluation Guide</p>
+              <p className="text-xs text-slate-400 mt-1">Judge: Hassan Raza • 12+ Years Experience</p>
             </div>
           </div>
         </div>
@@ -2056,18 +2057,18 @@ export default function FeedantsApp() {
           MODAL 4: HEAR FROM OUR USERS TESTIMONIALS
       ───────────────────────────────────────────────────────────── */}
       {showReviewsModal && (
-        <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-3 backdrop-blur-xs">
-          <div className="bg-white w-full max-w-sm rounded-3xl p-5 shadow-2xl space-y-3.5 animate-in zoom-in-95 max-h-[85vh] flex flex-col">
-            <div className="flex items-center justify-between pb-2 border-b border-gray-100">
-              <h4 className="text-xs font-black text-slate-900 uppercase tracking-wider">
+        <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-xs">
+          <div className="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl space-y-4 animate-in zoom-in-95 max-h-[85vh] flex flex-col">
+            <div className="flex items-center justify-between pb-2.5 border-b border-gray-100">
+              <h4 className="text-sm font-black text-slate-900 uppercase tracking-wider">
                 Hear From Our Users ⭐
               </h4>
               <button onClick={() => setShowReviewsModal(false)} className="text-slate-400 hover:text-slate-700 p-1 cursor-pointer">
-                <X className="w-4 h-4" />
+                <X className="w-5 h-5" />
               </button>
             </div>
 
-            <div className="overflow-y-auto flex-1 space-y-3 pr-1">
+            <div className="overflow-y-auto flex-1 space-y-3.5 pr-1">
               {[
                 {
                   name: 'Ananya Sharma',
@@ -2088,13 +2089,13 @@ export default function FeedantsApp() {
                   comment: 'The 1,000 song catalog made choosing the right rhythm track effortless. Verified digital certificate was received promptly.'
                 }
               ].map((rev, i) => (
-                <div key={i} className="p-3.5 bg-slate-50 border border-slate-200/60 rounded-2xl text-xs space-y-1">
+                <div key={i} className="p-4 bg-slate-50 border border-slate-200/60 rounded-2xl text-xs space-y-1.5">
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-slate-900">{rev.name}</span>
-                    <span className="text-amber-500 text-xs font-bold">{rev.rating}</span>
+                    <span className="font-black text-slate-900 text-sm">{rev.name}</span>
+                    <span className="text-amber-500 text-sm font-bold">{rev.rating}</span>
                   </div>
-                  <span className="text-[10px] text-slate-400 block">{rev.role}</span>
-                  <p className="text-[11px] text-slate-600 leading-snug pt-1">{rev.comment}</p>
+                  <span className="text-xs text-slate-400 font-medium block">{rev.role}</span>
+                  <p className="text-xs text-slate-600 leading-relaxed pt-1">{rev.comment}</p>
                 </div>
               ))}
             </div>
@@ -2106,24 +2107,24 @@ export default function FeedantsApp() {
           MODAL 5: REFUND POLICY MODAL
       ───────────────────────────────────────────────────────────── */}
       {showRefundModal && (
-        <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-3 backdrop-blur-xs">
-          <div className="bg-white w-full max-w-sm rounded-3xl p-5 shadow-2xl space-y-3.5 animate-in zoom-in-95">
+        <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-xs">
+          <div className="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl space-y-4 animate-in zoom-in-95">
             <div className="flex items-center justify-between pb-2 border-b border-gray-100">
-              <h4 className="text-xs font-black text-slate-900 uppercase tracking-wider">
+              <h4 className="text-sm font-black text-slate-900 uppercase tracking-wider">
                 Feedants 100% Refund Policy 🛡️
               </h4>
               <button onClick={() => setShowRefundModal(false)} className="text-slate-400 hover:text-slate-700 p-1 cursor-pointer">
-                <X className="w-4 h-4" />
+                <X className="w-5 h-5" />
               </button>
             </div>
-            <div className="text-xs text-slate-600 space-y-2 leading-relaxed">
+            <div className="text-xs text-slate-600 space-y-2.5 leading-relaxed">
               <p>• 100% full refund guaranteed if the competition is cancelled by Feedants.</p>
               <p>• Refunds are initiated within 3-5 business days directly to your original payment source via Razorpay.</p>
               <p>• For any assistance, reach our 24/7 helpdesk at support@feedants.com.</p>
             </div>
             <button
               onClick={() => setShowRefundModal(false)}
-              className="w-full py-2.5 bg-[#007A78] hover:bg-[#005f5e] text-white rounded-2xl text-xs font-bold transition cursor-pointer"
+              className="w-full py-3 bg-[#007A78] hover:bg-[#005f5e] text-white rounded-2xl text-xs font-bold transition cursor-pointer"
             >
               Understood
             </button>
@@ -2135,26 +2136,26 @@ export default function FeedantsApp() {
           MODAL 6: WITHDRAWAL INFO MODAL
       ───────────────────────────────────────────────────────────── */}
       {showWithdrawModal && (
-        <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-3 backdrop-blur-xs">
-          <div className="bg-white w-full max-w-sm rounded-3xl p-5 shadow-2xl space-y-3.5 animate-in zoom-in-95">
+        <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-xs">
+          <div className="bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl space-y-4 animate-in zoom-in-95">
             <div className="flex items-center justify-between pb-2 border-b border-gray-100">
-              <h4 className="text-xs font-black text-slate-900 uppercase tracking-wider">
+              <h4 className="text-sm font-black text-slate-900 uppercase tracking-wider">
                 Withdrawal Information 💳
               </h4>
               <button onClick={() => setShowWithdrawModal(false)} className="text-slate-400 hover:text-slate-700 cursor-pointer p-1">
-                <X className="w-4 h-4" />
+                <X className="w-5 h-5" />
               </button>
             </div>
-            <div className="bg-[#EDF9F8] border border-[#D2F0EE] rounded-2xl p-3.5 text-xs space-y-1">
-              <p className="font-bold text-[#007A78]">Current Referral Balance: ₹ 10.00</p>
-              <p className="text-slate-600 text-[11px]">Minimum withdrawal threshold is ₹ 50.00.</p>
+            <div className="bg-[#EDF9F8] border border-[#D2F0EE] rounded-2xl p-4 text-xs space-y-1.5">
+              <p className="font-black text-[#007A78] text-sm">Current Referral Balance: ₹ 10.00</p>
+              <p className="text-slate-600 text-xs">Minimum withdrawal threshold is ₹ 50.00.</p>
             </div>
-            <p className="text-[11px] text-slate-600 leading-relaxed">
+            <p className="text-xs text-slate-600 leading-relaxed">
               Keep sharing your referral link with fellow dancers and creators. You will earn ₹10 for every verified registration!
             </p>
             <button
               onClick={() => setShowWithdrawModal(false)}
-              className="w-full py-3 bg-[#007A78] hover:bg-[#005f5e] text-white rounded-2xl text-xs font-bold transition cursor-pointer"
+              className="w-full py-3.5 bg-[#007A78] hover:bg-[#005f5e] text-white rounded-2xl text-xs font-bold transition cursor-pointer"
             >
               Got it
             </button>
