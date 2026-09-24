@@ -20,7 +20,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased bg-slate-100 min-h-screen">
-        {children}
+        <div className="max-w-md mx-auto min-h-screen bg-white shadow-xl relative flex flex-col overflow-x-hidden">
+          {children}
+        </div>
       </body>
     </html>
   )

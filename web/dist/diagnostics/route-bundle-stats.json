@@ -1,10 +1,24 @@
 [
   {
     "route": "/",
-    "firstLoadUncompressedJsBytes": 486519,
+    "firstLoadUncompressedJsBytes": 509444,
     "firstLoadChunkPaths": [
       "dist\\static\\chunks\\3fntmmi971322.js",
-      "dist\\static\\chunks\\2s5mpi89mzqbb.js",
+      "dist\\static\\chunks\\3i9e__lxj94lh.js",
+      "dist\\static\\chunks\\38mxiwlfd1_kb.js",
+      "dist\\static\\chunks\\310vm2bl3xxpt.js",
+      "dist\\static\\chunks\\1f0m_nyksetzr.js",
+      "dist\\static\\chunks\\0bma92pht_c97.js",
+      "dist\\static\\chunks\\1vd1qadx52uao.js",
+      "dist\\static\\chunks\\turbopack-3x10p4ruuyye8.js"
+    ]
+  },
+  {
+    "route": "/competition",
+    "firstLoadUncompressedJsBytes": 453749,
+    "firstLoadChunkPaths": [
+      "dist\\static\\chunks\\3fntmmi971322.js",
+      "dist\\static\\chunks\\3fv1yrtb9suso.js",
       "dist\\static\\chunks\\310vm2bl3xxpt.js",
       "dist\\static\\chunks\\1f0m_nyksetzr.js",
       "dist\\static\\chunks\\0bma92pht_c97.js",

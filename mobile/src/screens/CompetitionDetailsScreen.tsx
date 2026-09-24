@@ -176,7 +176,7 @@ const DEFAULT_REVIEWS: IReview[] = [
   }
 ];
 
-const DEFAULT_USER: IUser = {
+const DEFAULT_USER_PRIYA: IUser = {
   _id: '6ab36414198c36baab8f60b9',
   name: 'Priya Patel',
   email: 'priya@feedants.com',
@@ -184,17 +184,27 @@ const DEFAULT_USER: IUser = {
   phone: '+91 98765 43210'
 };
 
+const DEFAULT_USER_RAHUL: IUser = {
+  _id: '6ab36414198c36baab8f60c0',
+  name: 'Rahul Sharma',
+  email: 'rahul@feedants.com',
+  avatarUrl: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200',
+  phone: '+91 98123 45678'
+};
+
+const DEFAULT_USER: IUser = DEFAULT_USER_RAHUL;
+
 export const CompetitionDetailsScreen: React.FC = () => {
   const [language, setLanguage] = useState<Language>('ENG');
-  const [activeTab, setActiveTab] = useState<string>('Competitions');
+  const [activeTab, setActiveTab] = useState<string>('Profile');
   const [refreshing, setRefreshing] = useState<boolean>(false);
 
   const [competition, setCompetition] = useState<ICompetition>(DEFAULT_COMPETITION);
   const [winners, setWinners] = useState<IWinner[]>(DEFAULT_WINNERS);
   const [rewards, setRewards] = useState<IReward[]>(DEFAULT_REWARDS);
   const [reviews, setReviews] = useState<IReview[]>(DEFAULT_REVIEWS);
-  const [currentUser, setCurrentUser] = useState<IUser | null>(DEFAULT_USER);
-  const [isRegistered, setIsRegistered] = useState<boolean>(true);
+  const [currentUser, setCurrentUser] = useState<IUser | null>(DEFAULT_USER_RAHUL);
+  const [isRegistered, setIsRegistered] = useState<boolean>(false);
   const [userSubmission, setUserSubmission] = useState<ISubmission | null>(null);
 
   // Modals state
@@ -216,12 +226,13 @@ export const CompetitionDetailsScreen: React.FC = () => {
   const loadInitialData = useCallback(async () => {
     try {
       const fetchedUsers = await competitionService.getUsers().catch(() => []);
-      let activeUser: IUser | null = DEFAULT_USER;
+      let activeUser: IUser | null = DEFAULT_USER_RAHUL;
 
       if (fetchedUsers && fetchedUsers.length > 0) {
-        activeUser = fetchedUsers.find((u) => u.name.includes('Priya')) || fetchedUsers[0];
+        activeUser = fetchedUsers.find((u) => u.name.includes('Rahul')) || DEFAULT_USER_RAHUL;
       }
       setCurrentUser(activeUser);
+      setIsRegistered(false);
 
       const competitionsList = await competitionService.getCompetitions().catch(() => []);
       if (competitionsList && competitionsList.length > 0) {
