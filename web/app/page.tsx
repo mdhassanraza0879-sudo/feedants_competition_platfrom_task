@@ -38,7 +38,16 @@ import {
   VolumeX,
   MessageSquare,
   Megaphone,
-  Star
+  Star,
+  Bell,
+  Wallet,
+  Settings,
+  Flame,
+  CheckCircle2,
+  Sliders,
+  ExternalLink,
+  Lock,
+  Headphones
 } from 'lucide-react';
 
 // ── 1,000 Classical Dance & Music Songs Catalog Generator ──
@@ -84,14 +93,28 @@ interface UserProfile {
   phone: string;
   avatar: string;
   isRegistered: boolean;
+  role: string;
+  handle: string;
 }
+
+const HASSAN_RAZA_USER: UserProfile = {
+  name: 'Hassan Raza',
+  email: 'hassan.raza@feedants.com',
+  phone: '+91 98345 67890',
+  avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200',
+  isRegistered: true,
+  role: 'Professional Kathak Dancer & Artist',
+  handle: '@hassanraza_dance'
+};
 
 const RAHUL_SHARMA: UserProfile = {
   name: 'Rahul Sharma',
   email: 'rahul@feedants.com',
   phone: '+91 98123 45678',
   avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200',
-  isRegistered: false
+  isRegistered: false,
+  role: 'Aspiring Classical Dancer',
+  handle: '@rahul_classical'
 };
 
 const PRIYA_PATEL: UserProfile = {
@@ -99,18 +122,20 @@ const PRIYA_PATEL: UserProfile = {
   email: 'priya@feedants.com',
   phone: '+91 98765 43210',
   avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200',
-  isRegistered: true
+  isRegistered: true,
+  role: 'Kathak & Folk Performer',
+  handle: '@priya_dance'
 };
 
 export default function FeedantsApp() {
   const router = useRouter();
 
-  // Navigation: default view is 'competition' matching screenshot, with seamless toggle to 'profile'
-  const [currentView, setCurrentView] = useState<'competition' | 'profile' | 'explore' | 'home'>('competition');
+  // Navigation: 'home' | 'competition' | 'explore' | 'profile'
+  const [currentView, setCurrentView] = useState<'home' | 'competition' | 'explore' | 'profile'>('competition');
   const [lang, setLang] = useState<'ENG' | 'HI'>('ENG');
 
-  // User state (Rahul Sharma initially, toggleable to Priya Patel for registered testing)
-  const [currentUser, setCurrentUser] = useState<UserProfile>(PRIYA_PATEL);
+  // Active User state - defaulting to Hassan Raza as requested!
+  const [currentUser, setCurrentUser] = useState<UserProfile>(HASSAN_RAZA_USER);
   const [isRegistered, setIsRegistered] = useState<boolean>(true);
   const [spotsLeft, setSpotsLeft] = useState<number>(19);
   const [referralBalance, setReferralBalance] = useState<number>(10.0);
@@ -270,9 +295,9 @@ export default function FeedantsApp() {
       setIsRegistered(false);
       showToast('Switched to Unregistered User (Rahul Sharma)', 'Screen now shows "Register Now - ₹99" with 19 spots left.');
     } else {
-      setCurrentUser(PRIYA_PATEL);
+      setCurrentUser(HASSAN_RAZA_USER);
       setIsRegistered(true);
-      showToast('Switched to Registered User (Priya Patel)', 'Screen now shows "Registered" badge and "Upload Submission" button.');
+      showToast('Switched to Registered User (Hassan Raza)', 'Screen now shows "Registered" badge and "Upload Submission" button.');
     }
   };
 
@@ -345,10 +370,11 @@ export default function FeedantsApp() {
       explore: 'Explore',
       competitions: 'Competitions',
       profile: 'Profile',
-      evalControls: 'Evaluation & Testing Controls',
-      evalDesc: 'Toggle user state below to test both the registration flow and the submission flow:',
-      regUserBtn: 'Registered User (Priya Patel)',
-      newUserBtn: 'New User (Rahul Sharma)',
+      evalControls: 'Evaluator & Testing Controls',
+      evalDesc: 'Toggle user state below to test both Registered and Unregistered flows:',
+      regUserBtn: 'Hassan Raza (Registered)',
+      priyaUserBtn: 'Priya Patel (Registered)',
+      newUserBtn: 'Rahul Sharma (New User)',
       resetDbBtn: 'Reset Competition Demo Data',
       refBalanceLabel: 'Referral Balance',
       withdrawBtn: 'Withdraw',
@@ -358,7 +384,11 @@ export default function FeedantsApp() {
       transactions: 'Transaction History',
       support: 'Help & Support',
       guestBadge: 'Guest / New User (Unregistered)',
-      registeredUserBadge: 'Registered Participant'
+      registeredUserBadge: 'Registered Participant',
+      helloGreeting: 'Namaste',
+      exploreSub: 'Discover competitions, submit entries, and earn awards.',
+      liveBadge: 'LIVE NOW',
+      viewStage: 'Enter Stage'
     },
     HI: {
       goBack: 'वापस जाएं',
@@ -422,8 +452,9 @@ export default function FeedantsApp() {
       profile: 'प्रोफ़ाइल',
       evalControls: 'मूल्यांकन और परीक्षण नियंत्रण',
       evalDesc: 'पंजीकरण और सबमिशन दोनों प्रवाह का परीक्षण करने के लिए नीचे उपयोगकर्ता स्थिति टॉगल करें:',
-      regUserBtn: 'पंजीकृत उपयोगकर्ता (प्रिया पटेल)',
-      newUserBtn: 'नया उपयोगकर्ता (राहुल शर्मा)',
+      regUserBtn: 'हसन रज़ा (पंजीकृत)',
+      priyaUserBtn: 'प्रिया पटेल (पंजीकृत)',
+      newUserBtn: 'राहुल शर्मा (नया उपयोगकर्ता)',
       resetDbBtn: 'प्रतियोगिता डेमो डेटा रीसेट करें',
       refBalanceLabel: 'रेफरल शेष राशि',
       withdrawBtn: 'निकासी',
@@ -433,7 +464,11 @@ export default function FeedantsApp() {
       transactions: 'लेन-देन इतिहास',
       support: 'सहायता और समर्थन',
       guestBadge: 'अतिथि / नया उपयोगकर्ता',
-      registeredUserBadge: 'पंजीकृत प्रतिभागी'
+      registeredUserBadge: 'पंजीकृत प्रतिभागी',
+      helloGreeting: 'नमस्ते',
+      exploreSub: 'प्रतियोगिताएं खोजें, प्रस्तुति दें और पुरस्कार जीतें।',
+      liveBadge: 'लाइव प्रतियोगिता',
+      viewStage: 'स्टेज में प्रवेश करें'
     }
   }[lang];
 
@@ -464,17 +499,17 @@ export default function FeedantsApp() {
       </div>
 
       {/* ── Quick Evaluator Testing Switcher Banner ── */}
-      <div className="w-full bg-[#007A78]/10 border-b border-[#007A78]/20 px-3 py-1 flex items-center justify-between text-[11px] text-[#007A78]">
-        <div className="flex items-center gap-1 font-semibold">
-          <span>Active Test User:</span>
-          <span className="font-extrabold underline">{currentUser.name}</span>
-          <span>({isRegistered ? 'Registered' : 'Unregistered'})</span>
+      <div className="w-full bg-[#007A78]/10 border-b border-[#007A78]/20 px-3.5 py-1.5 flex items-center justify-between text-[11px] text-[#007A78]">
+        <div className="flex items-center gap-1 font-semibold truncate mr-2">
+          <span>Active User:</span>
+          <span className="font-extrabold underline truncate">{currentUser.name}</span>
+          <span className="hidden sm:inline">({isRegistered ? 'Registered' : 'Unregistered'})</span>
         </div>
         <button
           onClick={toggleRegisteredState}
-          className="bg-[#007A78] hover:bg-[#005f5e] text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-xs transition active:scale-95 cursor-pointer"
+          className="bg-[#007A78] hover:bg-[#005f5e] text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full shadow-xs transition active:scale-95 cursor-pointer flex-shrink-0"
         >
-          Toggle: {isRegistered ? 'Switch to Rahul (New)' : 'Switch to Priya (Reg)'}
+          Toggle: {isRegistered ? 'Switch to Rahul (New)' : 'Switch to Hassan (Reg)'}
         </button>
       </div>
 
@@ -495,21 +530,341 @@ export default function FeedantsApp() {
       )}
 
       {/* ─────────────────────────────────────────────────────────────
-          VIEW 1: COMPETITION DETAILS VIEW (MATCHING USER SCREENSHOT 1:1)
+          VIEW 1: HOME PAGE (ENGAGING, COMPLETE & FULLY WORKING)
+      ───────────────────────────────────────────────────────────── */}
+      {currentView === 'home' && (
+        <div className="flex flex-col flex-1 pb-36">
+          {/* Home Top Header */}
+          <header className="px-5 py-4 bg-white flex items-center justify-between border-b border-gray-100 z-30">
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-xl bg-[#007A78] text-white flex items-center justify-center font-black text-sm shadow-sm">
+                F
+              </div>
+              <div>
+                <span className="text-base font-black tracking-tight text-slate-900">Feedants</span>
+                <span className="text-[10px] font-bold text-[#007A78] block -mt-1 tracking-wider uppercase">Live Arts Stage</span>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2">
+              {/* Language Switch */}
+              <div className="flex bg-slate-100 p-0.5 rounded-full border border-gray-200">
+                <button
+                  onClick={() => setLang('ENG')}
+                  className={`px-2.5 py-1 rounded-full text-[11px] font-bold transition cursor-pointer ${
+                    lang === 'ENG' ? 'bg-[#005f5e] text-white shadow-xs' : 'text-slate-600'
+                  }`}
+                >
+                  ENG
+                </button>
+                <button
+                  onClick={() => setLang('HI')}
+                  className={`px-2.5 py-1 rounded-full text-[11px] font-bold transition cursor-pointer ${
+                    lang === 'HI' ? 'bg-[#005f5e] text-white shadow-xs' : 'text-slate-600'
+                  }`}
+                >
+                  हिंदी
+                </button>
+              </div>
+
+              {/* Notification Bell */}
+              <button
+                onClick={() => showToast('Notifications', 'You have 1 active competition registration in Feedants Classical Dance.')}
+                className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-slate-200 transition relative cursor-pointer"
+              >
+                <Bell className="w-4 h-4" />
+                <span className="w-2 h-2 rounded-full bg-[#007A78] absolute top-1.5 right-1.5 ring-2 ring-white"></span>
+              </button>
+            </div>
+          </header>
+
+          {/* Home Scrollable Content */}
+          <main className="flex-1 px-4.5 py-4 space-y-5 overflow-y-auto">
+            {/* User Greeting Bar */}
+            <div className="flex items-center justify-between pt-1">
+              <div>
+                <h2 className="text-lg font-black text-slate-900 tracking-tight">
+                  {t.helloGreeting}, {currentUser.name} 👋
+                </h2>
+                <p className="text-xs text-slate-500 font-medium mt-0.5">
+                  {t.exploreSub}
+                </p>
+              </div>
+              <div
+                onClick={() => setCurrentView('profile')}
+                className="w-11 h-11 rounded-full overflow-hidden border-2 border-[#007A78]/40 shadow-xs cursor-pointer active:scale-95 transition"
+              >
+                <img src={currentUser.avatar} alt="Profile" className="w-full h-full object-cover" />
+              </div>
+            </div>
+
+            {/* ── HERO FEATURED CARD: Feedants Classical Dance (100% Connected) ── */}
+            <div className="bg-gradient-to-br from-[#005F5E] via-[#007A78] to-[#014241] rounded-3xl p-5 text-white shadow-lg shadow-[#007A78]/25 relative overflow-hidden space-y-4">
+              <div className="flex items-center justify-between">
+                <span className="px-3 py-1 rounded-full bg-white/20 text-[#A7F3D0] text-[10px] font-black uppercase tracking-wider backdrop-blur-xs flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-[#34D399] animate-pulse"></span>
+                  {t.liveBadge}
+                </span>
+                <span className="text-xs font-bold text-white/80">Kathak &amp; Classical</span>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-black text-white tracking-tight leading-tight">
+                  {t.title}
+                </h3>
+                <p className="text-xs text-white/80 mt-1 leading-snug">
+                  Judge: <span className="font-bold text-white">Hassan Raza</span> (Professional Kathak Dancer)
+                </p>
+              </div>
+
+              {/* Stats Row inside Hero */}
+              <div className="grid grid-cols-3 gap-2 bg-black/20 rounded-2xl p-3 backdrop-blur-xs text-center border border-white/10">
+                <div>
+                  <span className="text-[10px] text-white/70 block uppercase font-bold">Prize Pool</span>
+                  <span className="text-sm font-black text-white">₹ 1,500</span>
+                </div>
+                <div className="border-x border-white/10">
+                  <span className="text-[10px] text-white/70 block uppercase font-bold">Entry Fee</span>
+                  <span className="text-sm font-black text-white">₹ 99</span>
+                </div>
+                <div>
+                  <span className="text-[10px] text-white/70 block uppercase font-bold">Seats Left</span>
+                  <span className="text-sm font-black text-[#A7F3D0]">{spotsLeft} / 20</span>
+                </div>
+              </div>
+
+              {/* Action Button: Opens the Competition Screen! */}
+              <button
+                onClick={() => {
+                  setCurrentView('competition');
+                  showToast('Entering Stage 🎭', 'Viewing Feedants Classical Dance details.');
+                }}
+                className="w-full py-3.5 bg-white hover:bg-slate-100 text-[#005f5e] font-extrabold text-sm rounded-2xl shadow-md transition active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer"
+              >
+                <span>{t.viewStage}</span>
+                <ChevronRight className="w-4 h-4 stroke-[3]" />
+              </button>
+            </div>
+
+            {/* ── 1,000 SONGS SPOTLIGHT BANNER ── */}
+            <div className="bg-[#E6F5F4] border border-[#BDE6DF] rounded-2xl p-4.5 flex items-center justify-between shadow-xs">
+              <div className="flex items-center gap-3">
+                <div className="w-11 h-11 rounded-2xl bg-[#007A78] text-white flex items-center justify-center shadow-xs">
+                  <Music className="w-5 h-5" />
+                </div>
+                <div>
+                  <h4 className="text-xs font-black text-slate-900 uppercase tracking-wide">
+                    1,000 Classical Songs
+                  </h4>
+                  <p className="text-[11px] text-slate-600 mt-0.5 font-medium">
+                    Kathak, Teentaal, &amp; Raag Tracks
+                  </p>
+                </div>
+              </div>
+
+              <button
+                onClick={() => setShowSongModal(true)}
+                className="bg-[#007A78] hover:bg-[#005f5e] text-white text-xs font-bold px-3.5 py-2 rounded-xl shadow-xs transition active:scale-95 cursor-pointer flex items-center gap-1.5"
+              >
+                <Play className="w-3 h-3 fill-current" />
+                <span>Explore</span>
+              </button>
+            </div>
+
+            {/* ── CATEGORY PILLS ── */}
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <h3 className="text-xs font-black text-slate-900 uppercase tracking-wider">
+                  Popular Categories
+                </h3>
+                <span className="text-[11px] text-[#007A78] font-bold cursor-pointer" onClick={() => setCurrentView('explore')}>
+                  View all
+                </span>
+              </div>
+              <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
+                {['All Stages', 'Kathak Solo', 'Bharatanatyam', 'Semi-Classical', 'Folk Dance', 'Sufi & Ghazal'].map((cat, idx) => (
+                  <button
+                    key={cat}
+                    onClick={() => {
+                      if (cat.includes('Kathak') || cat.includes('All')) {
+                        setCurrentView('competition');
+                      } else {
+                        showToast(cat, 'Filtering upcoming stages in this category.');
+                      }
+                    }}
+                    className={`px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition cursor-pointer active:scale-95 ${
+                      idx === 0
+                        ? 'bg-[#007A78] text-white shadow-xs'
+                        : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-50'
+                    }`}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* ── MORE STAGES & COMPETITIONS LIST ── */}
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <h3 className="text-xs font-black text-slate-900 uppercase tracking-wider">
+                  Active Competitions
+                </h3>
+                <span className="text-[11px] text-slate-400 font-medium">3 Stages</span>
+              </div>
+
+              {/* Stage Card 1: Feedants Classical Dance */}
+              <div
+                onClick={() => setCurrentView('competition')}
+                className="bg-white rounded-2xl p-4 border border-slate-100 shadow-[0_2px_8px_rgba(0,0,0,0.03)] hover:border-[#007A78]/50 transition cursor-pointer flex items-center justify-between gap-3 group active:scale-[0.99]"
+              >
+                <div className="flex items-center gap-3.5 min-w-0">
+                  <div className="w-12 h-12 rounded-2xl bg-[#E6F5F4] border border-[#BDE6DF] flex items-center justify-center text-[#007A78] flex-shrink-0 group-hover:scale-105 transition">
+                    <Trophy className="w-6 h-6 text-[#007A78]" />
+                  </div>
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2">
+                      <h4 className="text-sm font-black text-slate-900 group-hover:text-[#007A78] transition truncate">
+                        Feedants Classical Dance
+                      </h4>
+                      <span className="px-2 py-0.5 bg-[#E6F5F4] text-[#007A78] rounded-md text-[10px] font-bold">
+                        Live
+                      </span>
+                    </div>
+                    <p className="text-xs text-slate-500 font-medium mt-0.5">
+                      Judge: <span className="font-semibold text-slate-700">Hassan Raza</span> • Kathak
+                    </p>
+                    <div className="flex items-center gap-3 text-[11px] text-slate-600 mt-1 font-bold">
+                      <span className="text-[#007A78]">₹ 1,500 Prize</span>
+                      <span>•</span>
+                      <span>₹ 99 Fee</span>
+                      <span>•</span>
+                      <span className="text-amber-600">{spotsLeft} spots left</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-[#007A78] group-hover:text-white transition flex-shrink-0">
+                  <ChevronRight className="w-4 h-4 stroke-[2.5]" />
+                </div>
+              </div>
+
+              {/* Stage Card 2: Kathak Tarana Showcase */}
+              <div
+                onClick={() => setCurrentView('competition')}
+                className="bg-white rounded-2xl p-4 border border-slate-100 shadow-[0_2px_8px_rgba(0,0,0,0.03)] hover:border-[#007A78]/50 transition cursor-pointer flex items-center justify-between gap-3 group active:scale-[0.99]"
+              >
+                <div className="flex items-center gap-3.5 min-w-0">
+                  <div className="w-12 h-12 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-600 flex-shrink-0 group-hover:scale-105 transition">
+                    <Star className="w-6 h-6 text-amber-500 fill-amber-500" />
+                  </div>
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2">
+                      <h4 className="text-sm font-black text-slate-900 group-hover:text-[#007A78] transition truncate">
+                        Kathak Tarana &amp; Thumri
+                      </h4>
+                      <span className="px-2 py-0.5 bg-amber-100 text-amber-700 rounded-md text-[10px] font-bold">
+                        Filling Fast
+                      </span>
+                    </div>
+                    <p className="text-xs text-slate-500 font-medium mt-0.5">
+                      Judge: <span className="font-semibold text-slate-700">Hassan Raza</span> • Solo
+                    </p>
+                    <div className="flex items-center gap-3 text-[11px] text-slate-600 mt-1 font-bold">
+                      <span className="text-[#007A78]">₹ 2,200 Prize</span>
+                      <span>•</span>
+                      <span>₹ 119 Fee</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-[#007A78] group-hover:text-white transition flex-shrink-0">
+                  <ChevronRight className="w-4 h-4 stroke-[2.5]" />
+                </div>
+              </div>
+            </div>
+
+            {/* ── WINNERS HIGHLIGHT (HALL OF FAME) ── */}
+            <div className="space-y-2.5">
+              <div className="flex items-center justify-between">
+                <h3 className="text-xs font-black text-slate-900 uppercase tracking-wider">
+                  Previous Winners Showcase
+                </h3>
+                <span className="text-[11px] text-[#007A78] font-bold cursor-pointer" onClick={() => setShowReviewsModal(true)}>
+                  Reviews
+                </span>
+              </div>
+
+              <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
+                {[
+                  { name: 'Riya Shah', pos: '1st Winner', prize: '₹ 550', img: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=400' },
+                  { name: 'Aarav Mehta', pos: '1st Winner', prize: '₹ 550', img: 'https://images.unsplash.com/photo-1518609878373-06d740f60d8b?w=400' },
+                  { name: 'Neha Verma', pos: '2nd Winner', prize: '₹ 300', img: 'https://images.unsplash.com/photo-1547153760-18fc86324498?w=400' }
+                ].map((w, idx) => (
+                  <div
+                    key={idx}
+                    onClick={() =>
+                      setVideoModal({
+                        isOpen: true,
+                        title: `${w.name} — ${w.pos}`,
+                        subtitle: `Prize Won: ${w.prize}`,
+                        url: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                      })
+                    }
+                    className="w-36 flex-shrink-0 bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-xs cursor-pointer group active:scale-95 transition"
+                  >
+                    <div className="h-28 relative bg-slate-100">
+                      <img src={w.img} alt={w.name} className="w-full h-full object-cover group-hover:scale-105 transition" />
+                      <div className="absolute inset-0 bg-black/25 flex items-center justify-center">
+                        <div className="w-8 h-8 rounded-full bg-white/90 text-[#007A78] flex items-center justify-center shadow-md">
+                          <Play className="w-3.5 h-3.5 fill-current ml-0.5" />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="p-2.5 text-center">
+                      <h5 className="text-xs font-black text-slate-900 truncate">{w.name}</h5>
+                      <span className="text-[10px] text-[#007A78] font-bold block">{w.pos} • {w.prize}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Platform Trust Row */}
+            <div className="grid grid-cols-3 gap-2 bg-white rounded-2xl p-4 border border-slate-100 text-center shadow-xs">
+              <div>
+                <span className="text-base font-black text-[#007A78]">₹50K+</span>
+                <span className="text-[10px] text-slate-400 font-semibold block mt-0.5">Prizes Paid</span>
+              </div>
+              <div className="border-x border-slate-100">
+                <span className="text-base font-black text-[#007A78]">1,200+</span>
+                <span className="text-[10px] text-slate-400 font-semibold block mt-0.5">Performers</span>
+              </div>
+              <div>
+                <span className="text-base font-black text-[#007A78]">100%</span>
+                <span className="text-[10px] text-slate-400 font-semibold block mt-0.5">Verified</span>
+              </div>
+            </div>
+          </main>
+        </div>
+      )}
+
+      {/* ─────────────────────────────────────────────────────────────
+          VIEW 2: COMPETITION DETAILS (1:1 SCREENSHOT + GENEROUS SPACING)
       ───────────────────────────────────────────────────────────── */}
       {currentView === 'competition' && (
         <div className="flex flex-col flex-1">
-          {/* ── TOP HEADER: "← Go back" & "ENG / हिंदी" TOGGLE ── */}
-          <header className="px-4 py-3 bg-white flex items-center justify-between border-b border-gray-100 z-30">
+          {/* Top Header: "← Go back" & "ENG / हिंदी" toggle */}
+          <header className="px-5 py-3.5 bg-white flex items-center justify-between border-b border-gray-100 z-30">
             <button
-              onClick={() => setCurrentView('profile')}
+              onClick={() => setCurrentView('home')}
               className="flex items-center gap-2 text-sm font-bold text-slate-900 hover:text-[#007A78] transition active:scale-95 cursor-pointer"
             >
               <ArrowLeft className="w-4 h-4 stroke-[2.5]" />
               <span>{t.goBack}</span>
             </button>
 
-            {/* Language switch exactly like reference screenshot */}
+            {/* Language toggle matching reference screenshot */}
             <div className="flex items-center bg-slate-100 p-0.5 rounded-full border border-gray-200">
               <button
                 onClick={() => setLang('ENG')}
@@ -534,23 +889,23 @@ export default function FeedantsApp() {
             </div>
           </header>
 
-          {/* ── MAIN SCROLLABLE CONTENT (MATCHING SCREENSHOT 1:1) ── */}
-          <main className="flex-1 px-3 py-3 space-y-3 pb-36 overflow-y-auto">
+          {/* Main Scrollable Content with generous mobile breathing space */}
+          <main className="flex-1 px-4 py-4 space-y-4 pb-48 overflow-y-auto">
 
             {/* ── CARD 1: Competition Title, Badges & Price Pool ── */}
-            <div className="bg-white rounded-2xl p-4 border border-gray-100 shadow-[0_2px_8px_rgba(0,0,0,0.03)] space-y-3">
-              {/* Top Title & Registered Badge */}
-              <div className="flex items-start justify-between gap-2">
-                <h1 className="text-[19px] font-black text-slate-900 tracking-tight leading-snug">
+            <div className="bg-white rounded-3xl p-5 border border-slate-100 shadow-[0_4px_16px_rgba(0,0,0,0.03)] space-y-4">
+              {/* Title & Status */}
+              <div className="flex items-start justify-between gap-3">
+                <h1 className="text-xl font-black text-slate-900 tracking-tight leading-snug">
                   {t.title}
                 </h1>
                 {isRegistered ? (
-                  <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#E6F5F4] text-[#007A78] border border-[#C6EAE8] text-xs font-bold flex-shrink-0">
+                  <div className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-[#E6F5F4] text-[#007A78] border border-[#C6EAE8] text-xs font-bold flex-shrink-0">
                     <CheckCircle className="w-3.5 h-3.5 text-[#007A78] stroke-[2.5]" />
                     <span>{hasSubmitted ? t.submittedBadge : t.registered}</span>
                   </div>
                 ) : (
-                  <div className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-100 text-slate-600 border border-slate-200 text-xs font-bold flex-shrink-0">
+                  <div className="flex items-center gap-1 px-3 py-1 rounded-xl bg-slate-100 text-slate-700 border border-slate-200 text-xs font-bold flex-shrink-0">
                     <span>₹99 Entry</span>
                   </div>
                 )}
@@ -558,27 +913,27 @@ export default function FeedantsApp() {
 
               {/* Badges Row */}
               <div className="flex flex-wrap items-center gap-2">
-                <span className="px-2.5 py-0.5 rounded-md bg-slate-100 text-slate-700 text-xs font-medium">
+                <span className="px-3 py-1 rounded-lg bg-slate-100 text-slate-700 text-xs font-semibold">
                   {t.danceTag}
                 </span>
-                <span className="px-2.5 py-0.5 rounded-md bg-slate-100 text-slate-700 text-xs font-medium">
+                <span className="px-3 py-1 rounded-lg bg-slate-100 text-slate-700 text-xs font-semibold">
                   {t.multiWinTag}
                 </span>
-                <span className="px-2.5 py-0.5 rounded-md text-[#007A78] text-xs font-semibold flex items-center gap-1">
+                <span className="px-3 py-1 rounded-lg text-[#007A78] bg-[#E6F5F4] text-xs font-bold flex items-center gap-1.5">
                   <Trophy className="w-3.5 h-3.5 text-[#007A78]" />
                   <span>{t.certTag}</span>
                 </span>
               </div>
 
-              {/* Price Pool, Entry Fee & Spots Left Row */}
-              <div className="pt-2 flex items-end justify-between border-t border-slate-100">
+              {/* Price Pool, Entry Fee & Spots Left */}
+              <div className="pt-3 flex items-end justify-between border-t border-slate-100">
                 <div>
-                  <span className="text-[11px] text-slate-400 font-medium block">{t.prizePool}</span>
+                  <span className="text-xs text-slate-400 font-semibold block">{t.prizePool}</span>
                   <span className="text-2xl font-black text-[#007A78] tracking-tight">₹ 1,500</span>
                 </div>
 
                 <div>
-                  <span className="text-[11px] text-slate-400 font-medium block">{t.entryFee}</span>
+                  <span className="text-xs text-slate-400 font-semibold block">{t.entryFee}</span>
                   <span className="text-2xl font-extrabold text-slate-900 tracking-tight">₹ 99</span>
                 </div>
 
@@ -587,21 +942,21 @@ export default function FeedantsApp() {
                     <Users className="w-3.5 h-3.5 text-[#007A78]" />
                     <span>{t.spotsLeft}</span>
                   </div>
-                  <div className="w-28 h-1.5 bg-[#e2e8f0] rounded-full mt-1.5 overflow-hidden">
+                  <div className="w-28 h-2 bg-slate-200 rounded-full mt-1.5 overflow-hidden">
                     <div
                       className="h-full bg-[#007A78] rounded-full transition-all duration-500"
                       style={{ width: `${((20 - spotsLeft) / 20) * 100}%` }}
                     ></div>
                   </div>
-                  <span className="text-[10px] text-slate-400 font-medium block mt-1">{t.bookedText}</span>
+                  <span className="text-[11px] text-slate-400 font-semibold block mt-1">{t.bookedText}</span>
                 </div>
               </div>
             </div>
 
             {/* ── CARD 2: Judge Card (NAME: HASSAN RAZA) ── */}
-            <div className="bg-white rounded-2xl p-3.5 border border-gray-100 shadow-[0_2px_8px_rgba(0,0,0,0.03)] flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-13 h-13 rounded-full overflow-hidden border-2 border-[#007A78]/30 shadow-xs flex-shrink-0">
+            <div className="bg-white rounded-3xl p-4.5 border border-slate-100 shadow-[0_4px_16px_rgba(0,0,0,0.03)] flex items-center justify-between gap-3">
+              <div className="flex items-center gap-3.5">
+                <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-[#007A78]/30 shadow-xs flex-shrink-0">
                   <img
                     src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200"
                     alt="Hassan Raza"
@@ -609,16 +964,16 @@ export default function FeedantsApp() {
                   />
                 </div>
                 <div>
-                  <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">
+                  <span className="text-[10px] text-slate-400 font-extrabold uppercase tracking-wider block">
                     {t.judgeLabel}
                   </span>
-                  <h3 className="text-sm font-black text-slate-900 leading-tight">
+                  <h3 className="text-base font-black text-slate-900 leading-tight">
                     {t.judgeName}
                   </h3>
-                  <p className="text-xs text-slate-600 font-medium mt-0.5">
+                  <p className="text-xs text-slate-600 font-semibold mt-0.5">
                     {t.judgeRole}
                   </p>
-                  <p className="text-[11px] text-slate-400">
+                  <p className="text-[11px] text-slate-400 font-medium">
                     {t.judgeExp}
                   </p>
                 </div>
@@ -634,375 +989,311 @@ export default function FeedantsApp() {
                     url: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
                   })
                 }
-                className="flex flex-col items-center gap-1 group active:scale-95 transition cursor-pointer"
+                className="flex flex-col items-center gap-1 group active:scale-95 transition cursor-pointer flex-shrink-0"
               >
-                <div className="w-10 h-10 rounded-full bg-[#E0F4F5] text-[#007A78] flex items-center justify-center shadow-xs group-hover:bg-[#C6EAE8] transition">
+                <div className="w-11 h-11 rounded-full bg-[#E0F4F5] text-[#007A78] flex items-center justify-center shadow-xs group-hover:bg-[#C6EAE8] transition">
                   <Play className="w-4 h-4 fill-[#007A78] text-[#007A78] ml-0.5" />
                 </div>
-                <span className="text-[10px] text-slate-500 font-semibold">{t.introVideo}</span>
+                <span className="text-[10px] text-slate-500 font-bold">{t.introVideo}</span>
               </button>
             </div>
 
             {/* ── CARD 3: Live Countdown Timer ── */}
-            <div className="bg-[#EDF9F8] border border-[#D2F0EE] rounded-xl px-3.5 py-2.5 flex items-center justify-between text-slate-800 shadow-xs">
-              <div className="flex items-center gap-1.5 text-slate-700">
-                <Clock className="w-3.5 h-3.5 text-[#007A78]" />
-                <span className="text-xs font-semibold">{t.regCloses}</span>
+            <div className="bg-[#EDF9F8] border border-[#D2F0EE] rounded-2xl px-4 py-3 flex items-center justify-between text-slate-800 shadow-xs">
+              <div className="flex items-center gap-2 text-slate-700">
+                <Clock className="w-4 h-4 text-[#007A78]" />
+                <span className="text-xs font-bold">{t.regCloses}</span>
               </div>
-
-              <div className="font-mono text-sm font-black text-[#007A78] tracking-tight">
-                {String(timeLeft.days).padStart(2, '0')}d : {String(timeLeft.hours).padStart(2, '0')}h : {String(timeLeft.minutes).padStart(2, '0')}m : {String(timeLeft.seconds).padStart(2, '0')}s
-              </div>
-
-              <div className="flex items-center gap-1 text-[#007A78] text-xs font-bold">
-                <Clock className="w-3.5 h-3.5 text-[#007A78]" />
-                <span>{t.hurry}</span>
+              <div className="flex items-center gap-2">
+                <span className="font-mono text-sm font-extrabold text-[#007A78] tracking-wider">
+                  {String(timeLeft.days).padStart(2, '0')}d : {String(timeLeft.hours).padStart(2, '0')}h : {String(timeLeft.minutes).padStart(2, '0')}m : {String(timeLeft.seconds).padStart(2, '0')}s
+                </span>
+                <span className="text-[10px] font-black uppercase text-[#007A78] bg-white px-2 py-0.5 rounded-md border border-[#D2F0EE]">
+                  {t.hurry}
+                </span>
               </div>
             </div>
 
             {/* ── CARD 4: Important Dates (2x2 Grid) ── */}
-            <div className="space-y-2">
-              <h3 className="text-xs font-bold text-slate-900 tracking-tight">
+            <div className="bg-white rounded-3xl p-5 border border-slate-100 shadow-[0_4px_16px_rgba(0,0,0,0.03)] space-y-3.5">
+              <h3 className="text-xs font-black text-slate-900 uppercase tracking-wider">
                 {t.importantDates}
               </h3>
-
-              <div className="bg-white rounded-xl border border-gray-100 shadow-[0_2px_8px_rgba(0,0,0,0.03)] p-3 grid grid-cols-2 divide-x divide-y divide-slate-100">
-                {/* Top-Left: Register Before */}
-                <div className="p-2.5 flex items-start gap-2.5">
-                  <Calendar className="w-5 h-5 text-[#007A78] flex-shrink-0 mt-0.5" />
+              <div className="grid grid-cols-2 gap-3.5 pt-1">
+                {/* 1. Register Before */}
+                <div className="flex items-start gap-2.5 p-3 rounded-2xl bg-slate-50 border border-slate-100">
+                  <div className="w-8 h-8 rounded-xl bg-white text-[#007A78] border border-slate-200 flex items-center justify-center flex-shrink-0 shadow-xs">
+                    <Calendar className="w-4 h-4" />
+                  </div>
                   <div>
-                    <span className="text-[10px] text-slate-400 block">{t.regBefore}</span>
-                    <span className="text-xs font-black text-[#007A78] block mt-0.5">10 Aug 26</span>
-                    <span className="text-[10px] text-slate-500 block">11:50 PM</span>
+                    <span className="text-[10px] text-slate-400 font-bold block">{t.regBefore}</span>
+                    <span className="text-xs font-extrabold text-slate-900 block mt-0.5">10 Aug 26</span>
+                    <span className="text-[10px] text-slate-500 font-medium">11:50 PM</span>
                   </div>
                 </div>
 
-                {/* Top-Right: Submission Starts */}
-                <div className="p-2.5 flex items-start gap-2.5 pl-3">
-                  <Send className="w-5 h-5 text-[#007A78] flex-shrink-0 mt-0.5" />
+                {/* 2. Submission Starts */}
+                <div className="flex items-start gap-2.5 p-3 rounded-2xl bg-slate-50 border border-slate-100">
+                  <div className="w-8 h-8 rounded-xl bg-white text-[#007A78] border border-slate-200 flex items-center justify-center flex-shrink-0 shadow-xs">
+                    <Send className="w-4 h-4" />
+                  </div>
                   <div>
-                    <span className="text-[10px] text-slate-400 block">{t.subStarts}</span>
-                    <span className="text-xs font-black text-[#007A78] block mt-0.5">6 Aug 26</span>
-                    <span className="text-[10px] text-slate-500 block">04:00 AM</span>
+                    <span className="text-[10px] text-slate-400 font-bold block">{t.subStarts}</span>
+                    <span className="text-xs font-extrabold text-slate-900 block mt-0.5">6 Aug 26</span>
+                    <span className="text-[10px] text-slate-500 font-medium">04:00 AM</span>
                   </div>
                 </div>
 
-                {/* Bottom-Left: Submission Ends */}
-                <div className="p-2.5 flex items-start gap-2.5 pt-3">
-                  <Upload className="w-5 h-5 text-[#007A78] flex-shrink-0 mt-0.5" />
+                {/* 3. Submission Ends */}
+                <div className="flex items-start gap-2.5 p-3 rounded-2xl bg-slate-50 border border-slate-100">
+                  <div className="w-8 h-8 rounded-xl bg-white text-[#007A78] border border-slate-200 flex items-center justify-center flex-shrink-0 shadow-xs">
+                    <Upload className="w-4 h-4" />
+                  </div>
                   <div>
-                    <span className="text-[10px] text-slate-400 block">{t.subEnds}</span>
-                    <span className="text-xs font-black text-[#007A78] block mt-0.5">30 Aug 26</span>
-                    <span className="text-[10px] text-slate-500 block">11:55 PM</span>
+                    <span className="text-[10px] text-slate-400 font-bold block">{t.subEnds}</span>
+                    <span className="text-xs font-extrabold text-slate-900 block mt-0.5">30 Aug 26</span>
+                    <span className="text-[10px] text-slate-500 font-medium">11:55 PM</span>
                   </div>
                 </div>
 
-                {/* Bottom-Right: Result Date */}
-                <div className="p-2.5 flex items-start gap-2.5 pt-3 pl-3">
-                  <Trophy className="w-5 h-5 text-[#007A78] flex-shrink-0 mt-0.5" />
+                {/* 4. Result Date */}
+                <div className="flex items-start gap-2.5 p-3 rounded-2xl bg-slate-50 border border-slate-100">
+                  <div className="w-8 h-8 rounded-xl bg-white text-[#007A78] border border-slate-200 flex items-center justify-center flex-shrink-0 shadow-xs">
+                    <Trophy className="w-4 h-4" />
+                  </div>
                   <div>
-                    <span className="text-[10px] text-slate-400 block">{t.resDate}</span>
-                    <span className="text-xs font-black text-[#007A78] block mt-0.5">1 Sept 26</span>
-                    <span className="text-[10px] text-slate-500 block">11:50 PM</span>
+                    <span className="text-[10px] text-slate-400 font-bold block">{t.resDate}</span>
+                    <span className="text-xs font-extrabold text-slate-900 block mt-0.5">1 Sept 26</span>
+                    <span className="text-[10px] text-slate-500 font-medium">11:50 PM</span>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* ── CARD 5: Previous Winners Horizontal Scroll ── */}
-            <div className="space-y-2">
-              <h3 className="text-xs font-bold text-slate-900 tracking-tight">
+            {/* ── CARD 5: Previous Winners (Carousel) ── */}
+            <div className="bg-white rounded-3xl p-5 border border-slate-100 shadow-[0_4px_16px_rgba(0,0,0,0.03)] space-y-3.5">
+              <h3 className="text-xs font-black text-slate-900 uppercase tracking-wider">
                 {t.prevWinners}
               </h3>
-
               <div className="flex gap-3 overflow-x-auto pb-1 scrollbar-hide">
                 {[
-                  {
-                    name: 'Riya Shah',
-                    rank: '1st Winner',
-                    img: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200'
-                  },
-                  {
-                    name: 'Aarav Mehta',
-                    rank: '1st Winner',
-                    img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200'
-                  },
-                  {
-                    name: 'Neha Verma',
-                    rank: '2nd Winner',
-                    img: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200'
-                  },
-                  {
-                    name: 'Ishita Chouhan',
-                    rank: '3rd Winner',
-                    img: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=200'
-                  }
+                  { name: 'Riya Shah', pos: '1st Winner', img: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=400' },
+                  { name: 'Aarav Mehta', pos: '1st Winner', img: 'https://images.unsplash.com/photo-1518609878373-06d740f60d8b?w=400' },
+                  { name: 'Neha Verma', pos: '2nd Winner', img: 'https://images.unsplash.com/photo-1547153760-18fc86324498?w=400' },
+                  { name: 'Ishita Chouhan', pos: '3rd Winner', img: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=400' }
                 ].map((winner, idx) => (
                   <div
                     key={idx}
                     onClick={() =>
                       setVideoModal({
                         isOpen: true,
-                        title: `${winner.name} — ${winner.rank}`,
-                        subtitle: `Winning Classical Kathak Performance`,
+                        title: `${winner.name} — ${winner.pos}`,
+                        subtitle: 'Previous Edition Performance Video',
                         url: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
                       })
                     }
-                    className="bg-white rounded-xl border border-gray-100 shadow-xs p-2 flex items-center gap-2.5 flex-shrink-0 cursor-pointer hover:border-[#007A78]/40 transition active:scale-95"
+                    className="w-28 flex-shrink-0 cursor-pointer group active:scale-95 transition"
                   >
-                    <div className="relative w-14 h-14 rounded-lg overflow-hidden flex-shrink-0">
-                      <img src={winner.img} alt={winner.name} className="w-full h-full object-cover" />
-                      <div className="absolute bottom-1 right-1 w-5 h-5 rounded-full bg-white/95 text-[#007A78] flex items-center justify-center shadow-sm">
-                        <Play className="w-2.5 h-2.5 fill-[#007A78] text-[#007A78] ml-0.5" />
+                    <div className="w-28 h-28 rounded-2xl overflow-hidden relative border border-slate-100 shadow-xs bg-slate-100">
+                      <img
+                        src={winner.img}
+                        alt={winner.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition"
+                      />
+                      <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
+                        <div className="w-8 h-8 rounded-full bg-white/90 text-[#007A78] flex items-center justify-center shadow-md">
+                          <Play className="w-3.5 h-3.5 fill-current ml-0.5" />
+                        </div>
                       </div>
                     </div>
-                    <div className="pr-1">
-                      <p className="text-xs font-bold text-slate-900 leading-tight">{winner.name}</p>
-                      <p className="text-[10px] text-[#007A78] font-semibold mt-0.5">{winner.rank}</p>
+                    <div className="mt-2 text-center">
+                      <h4 className="text-xs font-bold text-slate-800 truncate">{winner.name}</h4>
+                      <span className="text-[10px] text-[#007A78] font-bold block">{winner.pos}</span>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* ── CARD 6: Tabs (About Competition, Judging, Rules) & 1,000 Songs ── */}
-            <div className="bg-white rounded-2xl p-4 border border-gray-100 shadow-[0_2px_8px_rgba(0,0,0,0.03)] space-y-3">
-              {/* Tabs row */}
-              <div className="flex items-center justify-between border-b border-gray-200">
-                <button
-                  onClick={() => setActiveTab('about')}
-                  className={`pb-2 text-xs font-bold transition cursor-pointer ${
-                    activeTab === 'about'
-                      ? 'border-b-2 border-[#007A78] text-[#007A78]'
-                      : 'text-slate-500 hover:text-slate-800'
-                  }`}
-                >
-                  {t.tabAbout}
-                </button>
-                <button
-                  onClick={() => setActiveTab('judging')}
-                  className={`pb-2 text-xs font-bold transition cursor-pointer ${
-                    activeTab === 'judging'
-                      ? 'border-b-2 border-[#007A78] text-[#007A78]'
-                      : 'text-slate-500 hover:text-slate-800'
-                  }`}
-                >
-                  {t.tabJudging}
-                </button>
-                <button
-                  onClick={() => setActiveTab('rules')}
-                  className={`pb-2 text-xs font-bold transition cursor-pointer ${
-                    activeTab === 'rules'
-                      ? 'border-b-2 border-[#007A78] text-[#007A78]'
-                      : 'text-slate-500 hover:text-slate-800'
-                  }`}
-                >
-                  {t.tabRules}
-                </button>
+            {/* ── CARD 6: Tabs (About / Judging / Rules) + 1,000 Songs Button ── */}
+            <div className="bg-white rounded-3xl p-5 border border-slate-100 shadow-[0_4px_16px_rgba(0,0,0,0.03)] space-y-4">
+              {/* Tab Selector */}
+              <div className="flex border-b border-gray-100 pb-1 gap-2">
+                {[
+                  { key: 'about', label: t.tabAbout },
+                  { key: 'judging', label: t.tabJudging },
+                  { key: 'rules', label: t.tabRules }
+                ].map((tab) => (
+                  <button
+                    key={tab.key}
+                    onClick={() => setActiveTab(tab.key as typeof activeTab)}
+                    className={`pb-2.5 px-2 text-xs font-bold transition border-b-2 cursor-pointer ${
+                      activeTab === tab.key
+                        ? 'border-[#007A78] text-[#007A78]'
+                        : 'border-transparent text-slate-400 hover:text-slate-600'
+                    }`}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
               </div>
 
-              {/* Tab Content */}
-              <div className="text-xs text-slate-600 leading-relaxed space-y-1">
-                {activeTab === 'about' && (
-                  <>
-                    <p>{t.aboutLine1}</p>
-                    <p>{t.aboutLine2}</p>
-                    <p>{t.aboutLine3}</p>
-                    {isAboutExpanded && (
-                      <p className="text-slate-500 pt-1 text-[11px] animate-in fade-in">
-                        {t.aboutExpanded}
-                      </p>
-                    )}
-                    <button
-                      onClick={() => setIsAboutExpanded(!isAboutExpanded)}
-                      className="flex items-center gap-1 text-[#007A78] font-bold text-xs pt-1 cursor-pointer hover:underline"
-                    >
-                      <span>{isAboutExpanded ? t.viewLess : t.viewMore}</span>
-                      {isAboutExpanded ? (
-                        <ChevronUp className="w-3.5 h-3.5" />
-                      ) : (
-                        <ChevronDown className="w-3.5 h-3.5" />
-                      )}
-                    </button>
-                  </>
-                )}
-
-                {activeTab === 'judging' && (
-                  <div className="space-y-1.5 py-1">
-                    <p className="font-bold text-slate-800">Scoring breakdown evaluated by Hassan Raza:</p>
-                    <p>• 30% Rhythm &amp; Taal accuracy (Laya precision)</p>
-                    <p>• 25% Abhinaya &amp; Facial Expressions (Bhava)</p>
-                    <p>• 25% Mudras and Hand-Foot Synchronization</p>
-                    <p>• 20% Traditional Attire, Stagecraft &amp; Choreography</p>
-                  </div>
-                )}
-
-                {activeTab === 'rules' && (
-                  <div className="space-y-1.5 py-1">
-                    <p>1. Video duration must be between 1 to 3 minutes.</p>
-                    <p>2. Must use an authorized classical piece or pick from our 1,000 Song Catalog below.</p>
-                    <p>3. Solo performances only. Authentic classical attire is recommended.</p>
-                    <p>4. Uncut, continuous one-shot recording with full body visible.</p>
-                  </div>
-                )}
-              </div>
-
-              {/* ── 1,000 SONGS ACTION BUTTON (AS REQUESTED: "1000 song eahe") ── */}
-              <button
-                onClick={() => setShowSongModal(true)}
-                className="w-full py-3 px-3.5 bg-[#E6F5F4] hover:bg-[#D2EFEA] border border-[#BDE6DF] rounded-xl text-xs font-bold text-[#007A78] flex items-center justify-between transition shadow-xs cursor-pointer active:scale-[0.99]"
-              >
-                <div className="flex items-center gap-2.5 truncate">
-                  <div className="w-6 h-6 rounded-full bg-[#007A78] text-white flex items-center justify-center flex-shrink-0">
-                    <Music className="w-3.5 h-3.5" />
-                  </div>
-                  <span className="truncate">
-                    {selectedSong ? `Selected: ${selectedSong.title}` : t.choose1000}
-                  </span>
+              {/* Tab Contents */}
+              {activeTab === 'about' && (
+                <div className="text-xs text-slate-600 space-y-2 leading-relaxed">
+                  <p>{t.aboutLine1}</p>
+                  <p>{t.aboutLine2}</p>
+                  <p>{t.aboutLine3}</p>
+                  {isAboutExpanded && (
+                    <p className="pt-2 text-slate-500 border-t border-slate-100 animate-in fade-in">
+                      {t.aboutExpanded}
+                    </p>
+                  )}
+                  <button
+                    onClick={() => setIsAboutExpanded(!isAboutExpanded)}
+                    className="flex items-center gap-1 text-[#007A78] font-bold text-xs pt-1 cursor-pointer"
+                  >
+                    <span>{isAboutExpanded ? t.viewLess : t.viewMore}</span>
+                    {isAboutExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                  </button>
                 </div>
-                <span className="text-[10px] bg-[#007A78] text-white px-2.5 py-0.5 rounded-full font-bold flex-shrink-0 ml-2 shadow-xs">
-                  1,000 Songs
-                </span>
-              </button>
+              )}
+
+              {activeTab === 'judging' && (
+                <div className="text-xs text-slate-600 space-y-2.5 leading-relaxed">
+                  <div className="p-3 rounded-2xl bg-slate-50 border border-slate-100">
+                    <span className="font-bold text-slate-900 block">1. Rhythm &amp; Timing (Taal) — 30%</span>
+                    <span className="text-[11px] text-slate-500">Precision of footwork, beats, and synchronization.</span>
+                  </div>
+                  <div className="p-3 rounded-2xl bg-slate-50 border border-slate-100">
+                    <span className="font-bold text-slate-900 block">2. Choreography &amp; Abhinaya — 30%</span>
+                    <span className="text-[11px] text-slate-500">Expressive emotiveness and storytelling mastery.</span>
+                  </div>
+                  <div className="p-3 rounded-2xl bg-slate-50 border border-slate-100">
+                    <span className="font-bold text-slate-900 block">3. Costume &amp; Presentation — 20%</span>
+                    <span className="text-[11px] text-slate-500">Authentic classical attire and stage aura.</span>
+                  </div>
+                  <div className="p-3 rounded-2xl bg-slate-50 border border-slate-100">
+                    <span className="font-bold text-slate-900 block">4. Mudra &amp; Technical Precision — 20%</span>
+                    <span className="text-[11px] text-slate-500">Accuracy of classical gestures and posture.</span>
+                  </div>
+                </div>
+              )}
+
+              {activeTab === 'rules' && (
+                <div className="text-xs text-slate-600 space-y-2 leading-relaxed">
+                  <p>• Video duration must be between 1 to 3 minutes.</p>
+                  <p>• Solo classical performance only (Kathak, Bharatanatyam, Odissi, or semi-classical).</p>
+                  <p>• Continuous single-take recording without cuts or editing.</p>
+                  <p>• Performer must remain clearly visible in frame throughout.</p>
+                </div>
+              )}
+
+              {/* 1,000 Classical Songs Catalog Trigger Button */}
+              <div className="pt-2 border-t border-slate-100">
+                <button
+                  onClick={() => setShowSongModal(true)}
+                  className="w-full py-3 px-4 bg-[#E6F5F4] hover:bg-[#d6f0ee] border border-[#BDE6DF] text-[#007A78] rounded-2xl font-black text-xs flex items-center justify-between transition active:scale-95 cursor-pointer shadow-xs"
+                >
+                  <div className="flex items-center gap-2">
+                    <Music className="w-4 h-4 text-[#007A78]" />
+                    <span>{t.choose1000}</span>
+                  </div>
+                  <span className="px-2 py-0.5 bg-[#007A78] text-white rounded-full text-[10px] font-bold">
+                    1K Tracks
+                  </span>
+                </button>
+              </div>
             </div>
 
             {/* ── CARD 7: Rewards (All Positions) ── */}
-            <div className="bg-white rounded-2xl p-4 border border-gray-100 shadow-[0_2px_8px_rgba(0,0,0,0.03)] space-y-3">
-              <div className="flex items-center gap-2">
-                <h3 className="text-xs font-bold text-slate-900">{t.rewardsTitle}</h3>
-                <span className="text-[11px] text-slate-400 font-medium">{t.rewardsSub}</span>
+            <div className="bg-white rounded-3xl p-5 border border-slate-100 shadow-[0_4px_16px_rgba(0,0,0,0.03)] space-y-3.5">
+              <div className="flex items-baseline gap-1.5">
+                <h3 className="text-xs font-black text-slate-900 uppercase tracking-wider">
+                  {t.rewardsTitle}
+                </h3>
+                <span className="text-[11px] text-slate-400 font-semibold">{t.rewardsSub}</span>
               </div>
 
-              <div className="space-y-2.5 divide-y divide-slate-50">
-                {/* 1st Winner */}
-                <div className="flex items-center justify-between pt-1">
-                  <div className="flex items-center gap-2 text-xs font-bold text-slate-800">
-                    <span className="text-base">🏆</span>
-                    <span>{t.first}</span>
+              <div className="space-y-2.5">
+                {[
+                  { rank: t.first, amount: '₹ 550', icon: '🏆' },
+                  { rank: t.second, amount: '₹ 300', icon: '🥈' },
+                  { rank: t.third, amount: '₹ 240', icon: '🥉' },
+                  { rank: t.fourth, amount: '₹ 200', icon: '⭐' },
+                  { rank: t.fifth, amount: '₹ 130', icon: '⭐' },
+                  { rank: t.sixth, amount: '₹ 80', icon: '⭐' }
+                ].map((rew, idx) => (
+                  <div key={idx} className="flex items-center justify-between text-xs py-1 border-b border-slate-50 last:border-b-0">
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm">{rew.icon}</span>
+                      <span className="font-bold text-slate-800">{rew.rank}</span>
+                    </div>
+                    <span className="font-extrabold text-[#007A78]">{rew.amount}</span>
                   </div>
-                  <span className="text-sm font-black text-[#007A78]">₹ 550</span>
-                </div>
-
-                {/* 2nd Winner */}
-                <div className="flex items-center justify-between pt-2">
-                  <div className="flex items-center gap-2 text-xs font-bold text-slate-800">
-                    <span className="text-base">🥈</span>
-                    <span>{t.second}</span>
-                  </div>
-                  <span className="text-sm font-black text-[#007A78]">₹ 300</span>
-                </div>
-
-                {/* 3rd Winner */}
-                <div className="flex items-center justify-between pt-2">
-                  <div className="flex items-center gap-2 text-xs font-bold text-slate-800">
-                    <span className="text-base">🥉</span>
-                    <span>{t.third}</span>
-                  </div>
-                  <span className="text-sm font-black text-[#007A78]">₹ 240</span>
-                </div>
-
-                {/* 4th Winner */}
-                <div className="flex items-center justify-between pt-2">
-                  <div className="flex items-center gap-2 text-xs font-semibold text-slate-700">
-                    <Star className="w-4 h-4 text-[#007A78]" />
-                    <span>{t.fourth}</span>
-                  </div>
-                  <span className="text-sm font-black text-[#007A78]">₹ 200</span>
-                </div>
-
-                {/* 5th Winner */}
-                <div className="flex items-center justify-between pt-2">
-                  <div className="flex items-center gap-2 text-xs font-semibold text-slate-700">
-                    <Star className="w-4 h-4 text-[#007A78]" />
-                    <span>{t.fifth}</span>
-                  </div>
-                  <span className="text-sm font-black text-[#007A78]">₹ 130</span>
-                </div>
-
-                {/* 6th Winner */}
-                <div className="flex items-center justify-between pt-2">
-                  <div className="flex items-center gap-2 text-xs font-semibold text-slate-700">
-                    <Star className="w-4 h-4 text-[#007A78]" />
-                    <span>{t.sixth}</span>
-                  </div>
-                  <span className="text-sm font-black text-[#007A78]">₹ 80</span>
-                </div>
+                ))}
               </div>
             </div>
 
             {/* ── CARD 8: Disclaimer Banner ── */}
-            <div className="bg-[#F0F9FA] border border-[#D2F0EE] rounded-xl p-3 flex items-start gap-2 text-xs text-slate-700 shadow-xs">
-              <div className="w-4 h-4 rounded-full bg-[#007A78] text-white flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">
-                i
-              </div>
-              <p className="text-[11px] leading-relaxed">
-                <span className="font-bold text-slate-900">Disclaimer:</span> Only contributions from paid participants will be considered for judging.
-              </p>
+            <div className="bg-slate-50 border border-slate-200/80 rounded-2xl p-4 flex items-start gap-2.5 text-slate-600 text-xs shadow-xs">
+              <ShieldCheck className="w-4 h-4 text-[#007A78] flex-shrink-0 mt-0.5" />
+              <p className="leading-snug text-[11px] font-medium">{t.disclaimer}</p>
             </div>
 
-            {/* ── CARD 9: Trust & Info Card (Prize Money & Razorpay) ── */}
-            <div className="bg-white rounded-2xl p-3.5 border border-gray-100 shadow-[0_2px_8px_rgba(0,0,0,0.03)] grid grid-cols-2 divide-x divide-slate-100">
-              {/* Left Column: How will you receive prize money? */}
-              <div className="pr-3 flex items-start gap-2.5">
-                <div
-                  onClick={() =>
-                    setVideoModal({
-                      isOpen: true,
-                      title: 'Prize Money Transfer Process',
-                      subtitle: 'Direct UPI & Bank Account Transfer Guide',
-                      url: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
-                    })
-                  }
-                  className="w-9 h-9 rounded-full bg-[#E0F4F5] text-[#007A78] flex items-center justify-center flex-shrink-0 cursor-pointer hover:bg-[#C6EAE8] transition"
-                >
-                  <Play className="w-4 h-4 fill-[#007A78] text-[#007A78] ml-0.5" />
+            {/* ── CARD 9: Trust, Prize Money Video & Refund Policy ── */}
+            <div className="bg-white rounded-3xl p-5 border border-slate-100 shadow-[0_4px_16px_rgba(0,0,0,0.03)] space-y-4">
+              {/* Prize Money Question */}
+              <div
+                onClick={() =>
+                  setVideoModal({
+                    isOpen: true,
+                    title: 'Prize Money Transfer Process',
+                    subtitle: 'Direct UPI & Bank Transfer within 24 Hours',
+                    url: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+                  })
+                }
+                className="flex items-center justify-between cursor-pointer group active:scale-95 transition"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-2xl bg-[#E6F5F4] text-[#007A78] flex items-center justify-center flex-shrink-0 group-hover:bg-[#C6EAE8] transition">
+                    <Play className="w-4 h-4 fill-current ml-0.5" />
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-bold text-slate-900 group-hover:text-[#007A78] transition">
+                      {t.howReceive}
+                    </h4>
+                    <p className="text-[10px] text-slate-400 mt-0.5">{t.watchVideo}</p>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="text-xs font-bold text-slate-900 leading-tight">
-                    {t.howReceive}
-                  </h4>
-                  <button
-                    onClick={() =>
-                      setVideoModal({
-                        isOpen: true,
-                        title: 'Prize Money Transfer Process',
-                        subtitle: 'Direct UPI & Bank Account Transfer Guide',
-                        url: 'https://www.youtube.com/embed/dQw4w9WgXcQ'
-                      })
-                    }
-                    className="text-[10px] text-slate-500 font-medium hover:text-[#007A78] hover:underline cursor-pointer block mt-1"
-                  >
-                    {t.watchVideo}
-                  </button>
-                </div>
+                <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-[#007A78]" />
               </div>
 
-              {/* Right Column: Refund policy & Razorpay */}
-              <div className="pl-3 space-y-2">
+              {/* Refund Policy & Razorpay Row */}
+              <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600">
                 <button
                   onClick={() => setShowRefundModal(true)}
-                  className="flex items-center gap-1.5 text-xs text-slate-700 hover:text-[#007A78] transition cursor-pointer"
+                  className="flex items-center gap-1.5 text-slate-700 hover:text-[#007A78] font-bold cursor-pointer"
                 >
-                  <ShieldCheck className="w-4 h-4 text-slate-500" />
-                  <span className="font-medium text-[11px]">{t.refundPolicy}</span>
+                  <ShieldCheck className="w-4 h-4 text-[#007A78]" />
+                  <span>{t.refundPolicy}</span>
                 </button>
 
-                <div className="flex items-center gap-1.5 text-[11px] text-slate-500">
-                  <ShieldCheck className="w-4 h-4 text-slate-500 flex-shrink-0" />
+                <div className="flex items-center gap-1.5 text-[11px] text-slate-500 font-medium">
                   <span>{t.securePayments}</span>
-                  <span className="font-extrabold italic text-blue-900 text-xs">Razorpay</span>
+                  <span className="font-black text-slate-900 italic tracking-tight">Razorpay</span>
                 </div>
               </div>
             </div>
 
-            {/* ── CARD 10: Refer & Earn More Discount Banner ── */}
-            <div className="bg-[#EBF8F5] border border-[#C8EDE5] rounded-2xl p-3.5 shadow-xs space-y-2.5">
+            {/* ── CARD 10: Refer & Earn More Discount ── */}
+            <div className="bg-[#EDF9F8] border border-[#D2F0EE] rounded-3xl p-5 shadow-xs space-y-3.5">
               <div className="flex items-start justify-between gap-2">
-                <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-full bg-[#007A78]/15 text-[#007A78] flex items-center justify-center flex-shrink-0">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-9 h-9 rounded-2xl bg-[#007A78]/15 text-[#007A78] flex items-center justify-center flex-shrink-0">
                     <Megaphone className="w-4 h-4" />
                   </div>
-                  <h4 className="text-xs font-extrabold text-slate-900">
+                  <h4 className="text-xs font-black text-slate-900">
                     {t.referTitle}
                   </h4>
                 </div>
@@ -1010,24 +1301,24 @@ export default function FeedantsApp() {
                 <div className="text-right">
                   <button
                     onClick={handleCopyReferral}
-                    className="bg-[#007A78] hover:bg-[#005f5e] text-white font-bold text-xs px-4 py-1.5 rounded-lg shadow-sm transition active:scale-95 cursor-pointer"
+                    className="bg-[#007A78] hover:bg-[#005f5e] text-white font-extrabold text-xs px-4 py-1.5 rounded-xl shadow-xs transition active:scale-95 cursor-pointer"
                   >
                     {t.referNow}
                   </button>
-                  <span className="text-[10px] text-[#007A78] font-semibold block mt-1">
+                  <span className="text-[10px] text-[#007A78] font-bold block mt-1">
                     {t.earnSignup}
                   </span>
                 </div>
               </div>
 
               {/* Referral link box with Copy Link */}
-              <div className="flex items-center gap-2 bg-white rounded-xl border border-[#BFE6DE] p-1 pl-3 shadow-xs">
+              <div className="flex items-center gap-2 bg-white rounded-2xl border border-[#BFE6DE] p-1.5 pl-3 shadow-xs">
                 <span className="text-[11px] font-mono text-slate-600 truncate flex-1">
                   https://feedants.com/r/referral123
                 </span>
                 <button
                   onClick={handleCopyReferral}
-                  className="bg-slate-50 hover:bg-slate-100 text-slate-700 text-xs font-bold px-3 py-1 rounded-lg border border-slate-200 transition cursor-pointer"
+                  className="bg-slate-50 hover:bg-slate-100 text-slate-700 text-xs font-bold px-3 py-1.5 rounded-xl border border-slate-200 transition cursor-pointer"
                 >
                   {copySuccess ? 'Copied!' : 'Copy Link'}
                 </button>
@@ -1037,10 +1328,10 @@ export default function FeedantsApp() {
             {/* ── CARD 11: Hear From Our Users (Reviews Card) ── */}
             <div
               onClick={() => setShowReviewsModal(true)}
-              className="bg-white rounded-2xl p-3.5 border border-gray-100 shadow-[0_2px_8px_rgba(0,0,0,0.03)] flex items-center justify-between cursor-pointer hover:border-[#007A78]/40 transition active:scale-[0.99]"
+              className="bg-white rounded-3xl p-4.5 border border-slate-100 shadow-[0_4px_16px_rgba(0,0,0,0.03)] flex items-center justify-between cursor-pointer hover:border-[#007A78]/40 transition active:scale-[0.99]"
             >
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-slate-100 text-slate-700 flex items-center justify-center flex-shrink-0">
+                <div className="w-9 h-9 rounded-2xl bg-slate-100 text-slate-700 flex items-center justify-center flex-shrink-0">
                   <MessageSquare className="w-4 h-4" />
                 </div>
                 <div>
@@ -1052,7 +1343,7 @@ export default function FeedantsApp() {
             </div>
 
             {/* ── CARD 12: Ad Here Banner ── */}
-            <div className="border border-dashed border-slate-300 rounded-xl py-3 px-4 flex items-center justify-center gap-2 text-slate-400 text-xs font-semibold">
+            <div className="border border-dashed border-slate-300 rounded-2xl py-3 px-4 flex items-center justify-center gap-2 text-slate-400 text-xs font-semibold">
               <Megaphone className="w-4 h-4 text-slate-400" />
               <span>{t.adHere}</span>
             </div>
@@ -1062,12 +1353,88 @@ export default function FeedantsApp() {
       )}
 
       {/* ─────────────────────────────────────────────────────────────
-          VIEW 2: USER PROFILE & EVALUATION CONTROLS VIEW
+          VIEW 3: EXPLORE COMPETITIONS & SONGS VIEW
+      ───────────────────────────────────────────────────────────── */}
+      {currentView === 'explore' && (
+        <div className="flex flex-col flex-1 pb-36">
+          <header className="px-5 py-4 bg-white flex items-center justify-between border-b border-gray-100 z-30">
+            <div>
+              <h2 className="text-base font-black text-slate-900">Explore Feedants</h2>
+              <p className="text-[10px] text-slate-500">Discover classical dance competitions &amp; music</p>
+            </div>
+            <button
+              onClick={() => setShowSongModal(true)}
+              className="bg-[#007A78] text-white text-xs font-bold px-3 py-1.5 rounded-xl shadow-xs"
+            >
+              1,000 Songs
+            </button>
+          </header>
+
+          <main className="flex-1 p-4.5 space-y-4 overflow-y-auto">
+            {/* Search Box */}
+            <div className="relative">
+              <Search className="w-4 h-4 absolute left-3 top-3 text-slate-400" />
+              <input
+                type="text"
+                placeholder="Search Kathak, Raags, Judges, Prizes..."
+                onClick={() => setShowSongModal(true)}
+                readOnly
+                className="w-full pl-9 pr-3 py-2.5 bg-white border border-slate-200 rounded-2xl text-xs font-medium cursor-pointer shadow-xs"
+              />
+            </div>
+
+            {/* Featured Stage in Explore */}
+            <div
+              onClick={() => setCurrentView('competition')}
+              className="bg-white rounded-3xl p-5 border border-slate-100 shadow-[0_4px_16px_rgba(0,0,0,0.03)] cursor-pointer group active:scale-[0.99] transition space-y-3"
+            >
+              <div className="flex items-center justify-between">
+                <span className="px-2.5 py-0.5 rounded-full bg-[#E6F5F4] text-[#007A78] text-[10px] font-black uppercase">
+                  Featured Classical Stage
+                </span>
+                <span className="text-xs font-bold text-[#007A78]">₹ 1,500 Prize</span>
+              </div>
+              <h3 className="text-base font-black text-slate-900 group-hover:text-[#007A78] transition">
+                Feedants Classical Dance 2026
+              </h3>
+              <p className="text-xs text-slate-500">
+                Judged by <span className="font-semibold text-slate-800">Hassan Raza</span> (Kathak Master)
+              </p>
+              <div className="flex items-center justify-between pt-2 border-t border-slate-100 text-xs">
+                <span className="text-slate-400 font-medium">Entry: ₹99</span>
+                <span className="font-bold text-[#007A78] flex items-center gap-1">
+                  View Competition <ChevronRight className="w-4 h-4" />
+                </span>
+              </div>
+            </div>
+
+            {/* 1K Songs Banner */}
+            <div
+              onClick={() => setShowSongModal(true)}
+              className="bg-gradient-to-r from-[#005f5e] to-[#007A78] rounded-3xl p-5 text-white shadow-md cursor-pointer space-y-2"
+            >
+              <div className="flex items-center gap-2">
+                <Music className="w-5 h-5 text-[#A7F3D0]" />
+                <h4 className="text-sm font-black uppercase tracking-wide">1,000 Verified Tracks</h4>
+              </div>
+              <p className="text-xs text-white/80 leading-relaxed">
+                Full catalog with Teentaal, Ektaal, Jhaptaal and Raag audio drone preview.
+              </p>
+              <span className="inline-block mt-1 text-xs font-bold text-[#A7F3D0] underline">
+                Browse Full Catalog →
+              </span>
+            </div>
+          </main>
+        </div>
+      )}
+
+      {/* ─────────────────────────────────────────────────────────────
+          VIEW 4: REDESIGNED PREMIUM USER PROFILE & EVALUATOR SANDBOX
       ───────────────────────────────────────────────────────────── */}
       {currentView === 'profile' && (
         <div className="flex flex-col flex-1 pb-36">
-          {/* Header */}
-          <header className="px-4 py-3 bg-white flex items-center justify-between border-b border-gray-100 z-30">
+          {/* Profile Header */}
+          <header className="px-5 py-3.5 bg-white flex items-center justify-between border-b border-gray-100 z-30">
             <button
               onClick={() => setCurrentView('competition')}
               className="flex items-center gap-2 text-sm font-bold text-slate-900 hover:text-[#007A78] transition active:scale-95 cursor-pointer"
@@ -1098,138 +1465,116 @@ export default function FeedantsApp() {
             </div>
           </header>
 
-          <main className="p-4 space-y-4">
-            {/* User Profile Card */}
-            <div className="bg-white rounded-2xl p-4 border border-gray-100 shadow-[0_2px_8px_rgba(0,0,0,0.03)] flex items-center gap-3.5">
-              <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-[#007A78]/40 p-0.5 shadow-xs flex-shrink-0">
-                <img
-                  src={currentUser.avatar}
-                  alt={currentUser.name}
-                  className="w-full h-full object-cover rounded-full"
-                />
+          <main className="p-4.5 space-y-4.5 overflow-y-auto">
+            {/* ── PROFILE HERO CARD (STUNNING MODERN DESIGN) ── */}
+            <div className="bg-white rounded-3xl p-5 border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.04)] relative overflow-hidden space-y-4">
+              <div className="flex items-center gap-4">
+                <div className="relative">
+                  <div className="w-18 h-18 rounded-full overflow-hidden border-3 border-[#007A78] p-0.5 shadow-md flex-shrink-0">
+                    <img
+                      src={currentUser.avatar}
+                      alt={currentUser.name}
+                      className="w-full h-full object-cover rounded-full"
+                    />
+                  </div>
+                  <div className="w-6 h-6 rounded-full bg-[#007A78] text-white flex items-center justify-center absolute -bottom-1 -right-1 ring-2 ring-white shadow-xs">
+                    <Check className="w-3.5 h-3.5 stroke-[3]" />
+                  </div>
+                </div>
+
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-1.5">
+                    <h2 className="text-lg font-black text-slate-900 truncate">
+                      {currentUser.name}
+                    </h2>
+                    <span className="text-amber-500">✨</span>
+                  </div>
+                  <p className="text-xs text-slate-500 font-semibold truncate mt-0.5">
+                    {currentUser.handle}
+                  </p>
+                  <p className="text-[11px] text-slate-400 font-medium truncate">
+                    {currentUser.email}
+                  </p>
+                  
+                  <div className="mt-2 inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-[11px] font-extrabold bg-[#E6F5F4] border border-[#C6EAE8] text-[#007A78]">
+                    {isRegistered ? (
+                      <>
+                        <CheckCircle className="w-3 h-3 text-[#007A78]" />
+                        <span>{t.registeredUserBadge}</span>
+                      </>
+                    ) : (
+                      <>
+                        <UserPlus className="w-3 h-3 text-[#007A78]" />
+                        <span>{t.guestBadge}</span>
+                      </>
+                    )}
+                  </div>
+                </div>
               </div>
-              <div className="flex-1 min-w-0">
-                <h2 className="text-base font-black text-slate-900 truncate">
-                  {currentUser.name}
-                </h2>
-                <p className="text-xs text-slate-500 font-medium truncate mt-0.5">
-                  {currentUser.email}
-                </p>
-                <div className="mt-1.5 inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#E6F5F4] border border-[#C6EAE8] text-[#007A78]">
-                  {isRegistered ? (
-                    <>
-                      <CheckCircle className="w-3 h-3 text-[#007A78]" />
-                      <span>{t.registeredUserBadge}</span>
-                    </>
-                  ) : (
-                    <>
-                      <UserPlus className="w-3 h-3 text-[#007A78]" />
-                      <span>{t.guestBadge}</span>
-                    </>
-                  )}
+
+              {/* 3-Pillar Stats Counter */}
+              <div className="grid grid-cols-3 gap-2 pt-3 border-t border-slate-100 text-center">
+                <div className="p-2 rounded-2xl bg-slate-50">
+                  <span className="text-base font-black text-[#007A78]">1</span>
+                  <span className="text-[10px] text-slate-400 font-bold block mt-0.5">Active Stage</span>
+                </div>
+                <div className="p-2 rounded-2xl bg-slate-50">
+                  <span className="text-base font-black text-[#007A78]">₹ 10.00</span>
+                  <span className="text-[10px] text-slate-400 font-bold block mt-0.5">Wallet</span>
+                </div>
+                <div className="p-2 rounded-2xl bg-slate-50">
+                  <span className="text-base font-black text-[#007A78]">1,000</span>
+                  <span className="text-[10px] text-slate-400 font-bold block mt-0.5">Songs Catalog</span>
                 </div>
               </div>
             </div>
 
-            {/* Evaluator & Testing Controls Card */}
-            <div className="bg-[#EBF8F5] border-2 border-[#BFE6DE] rounded-2xl p-4 shadow-sm space-y-3">
-              <div className="flex items-center gap-2">
-                <div className="w-6 h-6 rounded-lg bg-[#007A78] text-white flex items-center justify-center shadow-xs">
-                  <RefreshCw className="w-3.5 h-3.5" />
+            {/* ── REFERRAL WALLET CARD ── */}
+            <div className="bg-gradient-to-br from-[#005f5e] to-[#007A78] rounded-3xl p-5 text-white shadow-md space-y-3.5">
+              <div className="flex items-center justify-between">
+                <div>
+                  <span className="text-[10px] text-white/70 font-extrabold uppercase tracking-wider block">
+                    {t.refBalanceLabel}
+                  </span>
+                  <span className="text-2xl font-black text-white tracking-tight">
+                    ₹ {referralBalance.toFixed(2)}
+                  </span>
                 </div>
-                <h3 className="text-xs font-extrabold text-[#007A78] uppercase tracking-wider">
-                  {t.evalControls}
-                </h3>
-              </div>
-
-              <p className="text-[11px] text-slate-600 leading-relaxed font-medium">
-                {t.evalDesc}
-              </p>
-
-              <div className="grid grid-cols-2 gap-2 pt-1">
                 <button
-                  onClick={() => {
-                    setCurrentUser(PRIYA_PATEL);
-                    setIsRegistered(true);
-                    showToast('Switched to Registered User 🎉', 'Active User: Priya Patel. Displays "Registered" badge and "Upload Submission" button.');
-                  }}
-                  className={`py-2.5 px-2 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 ${
-                    isRegistered
-                      ? 'bg-[#007A78] text-white shadow-sm ring-2 ring-[#007A78]/30'
-                      : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-50'
-                  }`}
+                  onClick={() => setShowWithdrawModal(true)}
+                  className="bg-white hover:bg-slate-100 text-[#005f5e] font-black text-xs px-4 py-2 rounded-2xl shadow-xs transition active:scale-95 cursor-pointer"
                 >
-                  <CheckCircle className={`w-3.5 h-3.5 ${isRegistered ? 'text-white' : 'text-slate-400'}`} />
-                  <span className="truncate">Registered User</span>
-                </button>
-
-                <button
-                  onClick={() => {
-                    setCurrentUser(RAHUL_SHARMA);
-                    setIsRegistered(false);
-                    showToast('Switched to Unregistered User 👤', 'Active User: Rahul Sharma. Displays "Register Now - ₹99" to test live registration.');
-                  }}
-                  className={`py-2.5 px-2 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 ${
-                    !isRegistered
-                      ? 'bg-[#007A78] text-white shadow-sm ring-2 ring-[#007A78]/30'
-                      : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-50'
-                  }`}
-                >
-                  <UserPlus className={`w-3.5 h-3.5 ${!isRegistered ? 'text-white' : 'text-slate-400'}`} />
-                  <span className="truncate">New User (Rahul)</span>
+                  {t.withdrawBtn}
                 </button>
               </div>
 
-              <button
-                onClick={() => {
-                  setCurrentUser(RAHUL_SHARMA);
-                  setIsRegistered(false);
-                  setSpotsLeft(19);
-                  setHasSubmitted(false);
-                  setSelectedSong(null);
-                  showToast('Demo Data Reset ✨', 'Competition spots (19 left) and user state have been restored to initial seed state.');
-                }}
-                className="w-full mt-2 pt-2 border-t border-[#BFE6DE] flex items-center justify-center gap-1.5 text-[11px] font-bold text-[#007A78] hover:text-[#005f5e] transition cursor-pointer active:scale-95"
-              >
-                <RefreshCw className="w-3 h-3 text-[#007A78]" />
-                <span>{t.resetDbBtn}</span>
-              </button>
-            </div>
-
-            {/* Wallet & Referral Balance */}
-            <div className="bg-[#EDF9F8] border border-[#D2F0EE] rounded-2xl p-4 flex items-center justify-between shadow-sm">
-              <div>
-                <span className="text-[10px] font-bold text-[#007A78] uppercase tracking-wider block">
-                  {t.refBalanceLabel}
-                </span>
-                <span className="text-2xl font-black text-[#007A78] tracking-tight">
-                  ₹ {referralBalance.toFixed(2)}
-                </span>
+              <div className="pt-2 border-t border-white/10 flex items-center justify-between text-xs text-white/80">
+                <span>Earn ₹10 for every artist you invite</span>
+                <button
+                  onClick={handleCopyReferral}
+                  className="text-white font-bold underline cursor-pointer"
+                >
+                  Share Link
+                </button>
               </div>
-              <button
-                onClick={() => setShowWithdrawModal(true)}
-                className="bg-[#007A78] hover:bg-[#005f5e] active:scale-95 text-white font-bold text-xs px-4 py-2 rounded-xl transition shadow-xs cursor-pointer"
-              >
-                {t.withdrawBtn}
-              </button>
             </div>
 
-            {/* Registered Competitions Section */}
-            <div className="space-y-2 pt-1">
+            {/* ── MY ACTIVE COMPETITIONS SECTION ── */}
+            <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <h3 className="text-xs font-black text-slate-900 uppercase tracking-wider">
                   {t.myCompetitions}
                 </h3>
-                <span className="text-[10px] text-[#007A78] font-bold">1 Active</span>
+                <span className="text-[10px] text-[#007A78] font-bold">1 Enrolled</span>
               </div>
 
               {/* Feedants Classical Dance Card */}
               <div
                 onClick={() => setCurrentView('competition')}
-                className="bg-white rounded-2xl p-3.5 border border-gray-100 hover:border-[#007A78] hover:shadow-md transition cursor-pointer flex items-center justify-between gap-3 shadow-[0_2px_8px_rgba(0,0,0,0.03)] group active:scale-[0.99]"
+                className="bg-white rounded-3xl p-4.5 border border-slate-100 hover:border-[#007A78] transition cursor-pointer flex items-center justify-between gap-3 shadow-[0_4px_16px_rgba(0,0,0,0.03)] group active:scale-[0.99]"
               >
-                <div className="flex items-center gap-3 min-w-0">
-                  <div className="w-12 h-12 rounded-xl bg-[#E6F5F4] border border-[#BDE6DF] flex items-center justify-center text-[#007A78] flex-shrink-0 group-hover:scale-105 transition">
+                <div className="flex items-center gap-3.5 min-w-0">
+                  <div className="w-12 h-12 rounded-2xl bg-[#E6F5F4] border border-[#BDE6DF] flex items-center justify-center text-[#007A78] flex-shrink-0 group-hover:scale-105 transition">
                     <Trophy className="w-6 h-6 text-[#007A78]" />
                   </div>
                   <div className="min-w-0">
@@ -1237,10 +1582,10 @@ export default function FeedantsApp() {
                       {t.title}
                     </h4>
                     <p className="text-[11px] text-slate-500 mt-0.5 truncate">
-                      Deadline: 10 Aug 26, 11:50 PM
+                      Judge: <span className="font-semibold text-slate-700">Hassan Raza</span> • ₹1,500 Prize
                     </p>
                     <p className="text-[10px] text-[#007A78] font-bold mt-0.5">
-                      Judge: Hassan Raza • ₹1,500 Prize
+                      Deadline: 10 Aug 26, 11:50 PM
                     </p>
                   </div>
                 </div>
@@ -1266,15 +1611,88 @@ export default function FeedantsApp() {
               </div>
             </div>
 
-            {/* Account Options */}
+            {/* ── EVALUATOR & DEVELOPER CONTROLS SANDBOX ── */}
+            <div className="bg-[#EBF8F5] border-2 border-[#BFE6DE] rounded-3xl p-5 shadow-xs space-y-3.5">
+              <div className="flex items-center gap-2">
+                <div className="w-7 h-7 rounded-xl bg-[#007A78] text-white flex items-center justify-center shadow-xs">
+                  <RefreshCw className="w-4 h-4" />
+                </div>
+                <h3 className="text-xs font-extrabold text-[#007A78] uppercase tracking-wider">
+                  {t.evalControls}
+                </h3>
+              </div>
+
+              <p className="text-[11px] text-slate-600 leading-relaxed font-medium">
+                {t.evalDesc}
+              </p>
+
+              <div className="grid grid-cols-2 gap-2 pt-1">
+                {/* 1. Set Name as Hassan Raza */}
+                <button
+                  onClick={() => {
+                    setCurrentUser(HASSAN_RAZA_USER);
+                    setIsRegistered(true);
+                    showToast('Profile: Hassan Raza 🌟', 'Name set to Hassan Raza (Professional Kathak Dancer & Registered Performer).');
+                  }}
+                  className="py-2.5 px-2 rounded-xl text-xs font-bold bg-[#007A78] text-white shadow-xs transition flex items-center justify-center gap-1.5 cursor-pointer active:scale-95"
+                >
+                  <Star className="w-3.5 h-3.5 fill-current" />
+                  <span className="truncate">Set Hassan Raza</span>
+                </button>
+
+                {/* 2. Switch to Priya Patel */}
+                <button
+                  onClick={() => {
+                    setCurrentUser(PRIYA_PATEL);
+                    setIsRegistered(true);
+                    showToast('Switched to Priya Patel 🎉', 'Active User: Priya Patel (Registered). Displays "Upload Submission" button.');
+                  }}
+                  className="py-2.5 px-2 rounded-xl text-xs font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 transition flex items-center justify-center gap-1.5 cursor-pointer active:scale-95"
+                >
+                  <CheckCircle className="w-3.5 h-3.5 text-slate-500" />
+                  <span className="truncate">Priya (Registered)</span>
+                </button>
+
+                {/* 3. Switch to Rahul Sharma */}
+                <button
+                  onClick={() => {
+                    setCurrentUser(RAHUL_SHARMA);
+                    setIsRegistered(false);
+                    showToast('Switched to Rahul Sharma 👤', 'Active User: Rahul Sharma (New User). Displays "Register Now - ₹99".');
+                  }}
+                  className="py-2.5 px-2 rounded-xl text-xs font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 transition flex items-center justify-center gap-1.5 cursor-pointer active:scale-95"
+                >
+                  <UserPlus className="w-3.5 h-3.5 text-slate-500" />
+                  <span className="truncate">Rahul (New User)</span>
+                </button>
+
+                {/* 4. Reset All Demo Data */}
+                <button
+                  onClick={() => {
+                    setCurrentUser(HASSAN_RAZA_USER);
+                    setIsRegistered(true);
+                    setSpotsLeft(19);
+                    setHasSubmitted(false);
+                    setSelectedSong(null);
+                    showToast('Demo Data Reset ✨', 'Competition spots (19 left) and user state have been restored.');
+                  }}
+                  className="py-2.5 px-2 rounded-xl text-xs font-bold bg-white text-[#007A78] border border-[#BFE6DE] hover:bg-[#EBF8F5] transition flex items-center justify-center gap-1.5 cursor-pointer active:scale-95"
+                >
+                  <RefreshCw className="w-3.5 h-3.5 text-[#007A78]" />
+                  <span className="truncate">Reset Demo</span>
+                </button>
+              </div>
+            </div>
+
+            {/* ── ACCOUNT SETTINGS & SHORTCUTS ── */}
             <div className="space-y-2 pt-1">
               <h3 className="text-xs font-black text-slate-900 uppercase tracking-wider">
-                Account
+                Account &amp; Support
               </h3>
-              <div className="bg-white rounded-2xl border border-gray-100 shadow-[0_2px_8px_rgba(0,0,0,0.03)] overflow-hidden divide-y divide-gray-100">
+              <div className="bg-white rounded-3xl border border-slate-100 shadow-[0_4px_16px_rgba(0,0,0,0.03)] overflow-hidden divide-y divide-gray-100">
                 <div
                   onClick={() => showToast('Certificates', 'Official digital certificates are issued after competition results declaration on 1 Sept 26.')}
-                  className="p-3.5 flex items-center justify-between hover:bg-slate-50 transition cursor-pointer"
+                  className="p-4 flex items-center justify-between hover:bg-slate-50 transition cursor-pointer"
                 >
                   <div className="flex items-center gap-3">
                     <Award className="w-4 h-4 text-[#007A78]" />
@@ -1285,7 +1703,7 @@ export default function FeedantsApp() {
 
                 <div
                   onClick={() => showToast('Payment History', 'All transactions are secured via Razorpay PCI-DSS compliant payment gateway.')}
-                  className="p-3.5 flex items-center justify-between hover:bg-slate-50 transition cursor-pointer"
+                  className="p-4 flex items-center justify-between hover:bg-slate-50 transition cursor-pointer"
                 >
                   <div className="flex items-center gap-3">
                     <Receipt className="w-4 h-4 text-[#007A78]" />
@@ -1295,8 +1713,19 @@ export default function FeedantsApp() {
                 </div>
 
                 <div
+                  onClick={() => setShowRefundModal(true)}
+                  className="p-4 flex items-center justify-between hover:bg-slate-50 transition cursor-pointer"
+                >
+                  <div className="flex items-center gap-3">
+                    <ShieldCheck className="w-4 h-4 text-[#007A78]" />
+                    <span className="text-xs font-bold text-slate-800">{t.refundPolicy}</span>
+                  </div>
+                  <ChevronRight className="w-4 h-4 text-slate-400" />
+                </div>
+
+                <div
                   onClick={() => showToast('Feedants Helpdesk', 'Reach our support team anytime at support@feedants.com')}
-                  className="p-3.5 flex items-center justify-between hover:bg-slate-50 transition cursor-pointer"
+                  className="p-4 flex items-center justify-between hover:bg-slate-50 transition cursor-pointer"
                 >
                   <div className="flex items-center gap-3">
                     <HelpCircle className="w-4 h-4 text-[#007A78]" />
@@ -1311,11 +1740,11 @@ export default function FeedantsApp() {
       )}
 
       {/* ─────────────────────────────────────────────────────────────
-          FIXED BOTTOM ACTION BAR & BOTTOM NAVIGATION
+          FIXED BOTTOM ACTION BAR & 5-TAB BOTTOM NAVIGATION
       ───────────────────────────────────────────────────────────── */}
-      <div className="fixed bottom-0 left-0 right-0 max-w-md mx-auto z-40 bg-white border-t border-gray-200 shadow-xl">
+      <div className="fixed bottom-0 left-0 right-0 max-w-md mx-auto z-40 bg-white border-t border-gray-200 shadow-2xl">
         
-        {/* Primary CTA Button: Upload Submission (Registered) / Register Now (Unregistered) */}
+        {/* Primary CTA on Competition Details Screen */}
         {currentView === 'competition' && (
           <div className="p-3 pb-2 bg-white">
             {isRegistered ? (
@@ -1342,37 +1771,37 @@ export default function FeedantsApp() {
           </div>
         )}
 
-        {/* Bottom Navigation: Home, Explore, (+), Competitions, Profile */}
-        <nav className="py-2 px-4 flex items-center justify-around bg-white border-t border-slate-100">
-          {/* Home */}
+        {/* 5-Tab Bottom Navigation: Home, Explore, (+), Competitions, Profile */}
+        <nav className="py-2.5 px-4 flex items-center justify-around bg-white border-t border-slate-100">
+          {/* 1. Home Button (Now 100% Functional!) */}
           <button
             onClick={() => {
-              setCurrentView('competition');
-              showToast('Feedants Home', 'Welcome to Feedants Competition Feed.');
+              setCurrentView('home');
+              showToast('Feedants Home 🏠', 'Welcome to Feedants Home Feed.');
             }}
             className={`flex flex-col items-center justify-center py-1 flex-1 cursor-pointer transition active:scale-95 ${
               currentView === 'home' ? 'text-[#007A78] font-bold' : 'text-slate-400 hover:text-slate-700 font-medium'
             }`}
           >
-            <Home className="w-5 h-5 stroke-[2]" />
+            <Home className="w-5 h-5 stroke-[2.5]" />
             <span className="text-[10px] mt-1">{t.home}</span>
           </button>
 
-          {/* Explore */}
+          {/* 2. Explore Button */}
           <button
             onClick={() => {
-              setShowSongModal(true);
-              showToast('Explore 1,000 Songs', 'Browse our 1,000 song classical catalog.');
+              setCurrentView('explore');
+              showToast('Explore Feedants 🧭', 'Explore classical dance stages & 1,000 songs.');
             }}
             className={`flex flex-col items-center justify-center py-1 flex-1 cursor-pointer transition active:scale-95 ${
               currentView === 'explore' ? 'text-[#007A78] font-bold' : 'text-slate-400 hover:text-slate-700 font-medium'
             }`}
           >
-            <Compass className="w-5 h-5 stroke-[2]" />
+            <Compass className="w-5 h-5 stroke-[2.5]" />
             <span className="text-[10px] mt-1">{t.explore}</span>
           </button>
 
-          {/* Center (+) Action Button */}
+          {/* 3. Center (+) Action Button */}
           <div className="flex items-center justify-center flex-1">
             <button
               onClick={() => {
@@ -1388,7 +1817,7 @@ export default function FeedantsApp() {
             </button>
           </div>
 
-          {/* Competitions (Active in Screenshot) */}
+          {/* 4. Competitions Button */}
           <button
             onClick={() => setCurrentView('competition')}
             className={`flex flex-col items-center justify-center py-1 flex-1 cursor-pointer transition active:scale-95 ${
@@ -1399,7 +1828,7 @@ export default function FeedantsApp() {
             <span className="text-[10px] mt-1">{t.competitions}</span>
           </button>
 
-          {/* Profile */}
+          {/* 5. Profile Button */}
           <button
             onClick={() => setCurrentView('profile')}
             className={`flex flex-col items-center justify-center py-1 flex-1 cursor-pointer transition active:scale-95 ${
@@ -1416,20 +1845,20 @@ export default function FeedantsApp() {
 
       {/* ─────────────────────────────────────────────────────────────
           MODAL 1: 1,000 VERIFIED CLASSICAL SONGS & TRACKS SELECTOR
-          (LIVE AUDIO PREVIEW, SEARCH & SELECTION)
+          (LIVE AUDIO DRONE SYNTH PREVIEW, SEARCH & SELECTION)
       ───────────────────────────────────────────────────────────── */}
       {showSongModal && (
         <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-3 backdrop-blur-xs">
-          <div className="bg-white w-full max-w-sm rounded-2xl p-4 max-h-[88vh] flex flex-col shadow-2xl animate-in zoom-in-95">
+          <div className="bg-white w-full max-w-sm rounded-3xl p-4.5 max-h-[88vh] flex flex-col shadow-2xl animate-in zoom-in-95">
             {/* Header */}
             <div className="flex items-center justify-between pb-3 border-b border-gray-100">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-[#007A78] text-white flex items-center justify-center font-bold text-xs">
+              <div className="flex items-center gap-2.5">
+                <div className="w-9 h-9 rounded-2xl bg-[#007A78] text-white flex items-center justify-center font-black text-xs shadow-xs">
                   1K
                 </div>
                 <div>
                   <h4 className="text-sm font-black text-slate-900">Classical Songs Catalog</h4>
-                  <p className="text-[10px] text-slate-500">Pick from 1,000 Kathak &amp; classical pieces</p>
+                  <p className="text-[10px] text-slate-500 font-medium">1,000 Verified Kathak &amp; Raag Pieces</p>
                 </div>
               </div>
               <button
@@ -1448,26 +1877,26 @@ export default function FeedantsApp() {
             </div>
 
             {/* Search Input */}
-            <div className="mt-3 relative">
-              <Search className="w-3.5 h-3.5 absolute left-3 top-3 text-slate-400" />
+            <div className="mt-3.5 relative">
+              <Search className="w-4 h-4 absolute left-3 top-3 text-slate-400" />
               <input
                 type="text"
                 placeholder="Search Raag, Taal, Artist, Track #..."
                 value={songSearch}
                 onChange={(e) => setSongSearch(e.target.value)}
-                className="w-full pl-8 pr-3 py-2 bg-slate-50 border border-gray-200 rounded-xl text-xs font-medium outline-none focus:border-[#007A78] focus:bg-white transition"
+                className="w-full pl-9 pr-3 py-2.5 bg-slate-50 border border-gray-200 rounded-2xl text-xs font-medium outline-none focus:border-[#007A78] focus:bg-white transition"
               />
             </div>
 
             {/* Quick Taal Filter Pills */}
-            <div className="flex gap-1.5 overflow-x-auto py-2 scrollbar-hide text-[10px] font-bold">
+            <div className="flex gap-1.5 overflow-x-auto py-2.5 scrollbar-hide text-[10px] font-bold">
               {['All', 'Teentaal', 'Ektaal', 'Jhaptaal', 'Keherwa', 'Rupak'].map((t) => (
                 <button
                   key={t}
                   onClick={() => setSelectedTaalFilter(t)}
-                  className={`px-2.5 py-1 rounded-full whitespace-nowrap transition cursor-pointer ${
+                  className={`px-3 py-1 rounded-full whitespace-nowrap transition cursor-pointer active:scale-95 ${
                     selectedTaalFilter === t
-                      ? 'bg-[#007A78] text-white'
+                      ? 'bg-[#007A78] text-white shadow-xs'
                       : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                   }`}
                 >
@@ -1491,7 +1920,7 @@ export default function FeedantsApp() {
                     }
                     showToast('Track Selected 🎵', `${song.title}`);
                   }}
-                  className={`p-2.5 rounded-xl border text-xs cursor-pointer transition flex items-center justify-between gap-2 ${
+                  className={`p-3 rounded-2xl border text-xs cursor-pointer transition flex items-center justify-between gap-2.5 ${
                     selectedSong?.id === song.id
                       ? 'border-[#007A78] bg-[#E6F5F4]'
                       : 'border-slate-100 bg-slate-50/70 hover:bg-slate-100'
@@ -1514,7 +1943,7 @@ export default function FeedantsApp() {
                   {/* Play audio preview */}
                   <button
                     onClick={(e) => togglePlaySong(song, e)}
-                    className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition ${
+                    className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition active:scale-90 ${
                       playingSongId === song.id
                         ? 'bg-[#007A78] text-white'
                         : 'bg-white border border-slate-200 text-[#007A78] hover:bg-[#E6F5F4]'
@@ -1531,7 +1960,7 @@ export default function FeedantsApp() {
             </div>
 
             {/* Bottom info */}
-            <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-[10px] text-slate-400">
+            <div className="pt-2.5 border-t border-slate-100 flex items-center justify-between text-[10px] text-slate-400 font-medium">
               <span>Showing 100 of 1,000 tracks</span>
               <span>Tap track to select for competition</span>
             </div>
@@ -1544,7 +1973,7 @@ export default function FeedantsApp() {
       ───────────────────────────────────────────────────────────── */}
       {showUploadModal && (
         <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-3 backdrop-blur-xs">
-          <div className="bg-white w-full max-w-sm rounded-2xl p-4 shadow-2xl space-y-3.5 animate-in zoom-in-95">
+          <div className="bg-white w-full max-w-sm rounded-3xl p-5 shadow-2xl space-y-4 animate-in zoom-in-95">
             <div className="flex items-center justify-between pb-2 border-b border-gray-100">
               <h4 className="text-sm font-black text-slate-900">Upload Dance Submission</h4>
               <button onClick={() => setShowUploadModal(false)} className="text-slate-400 hover:text-slate-700 p-1 cursor-pointer">
@@ -1554,22 +1983,22 @@ export default function FeedantsApp() {
 
             <div
               onClick={() => setUploadFileName('kathak_performance_hassan_raza_comp.mp4')}
-              className="border-2 border-dashed border-[#007A78]/40 rounded-xl p-4 text-center bg-[#E6F5F4]/40 hover:bg-[#E6F5F4] cursor-pointer transition"
+              className="border-2 border-dashed border-[#007A78]/40 rounded-2xl p-5 text-center bg-[#E6F5F4]/40 hover:bg-[#E6F5F4] cursor-pointer transition"
             >
-              <Upload className="w-7 h-7 text-[#007A78] mx-auto mb-1" />
+              <Upload className="w-8 h-8 text-[#007A78] mx-auto mb-1.5" />
               <p className="text-xs font-bold text-slate-800">
                 {uploadFileName || 'Choose MP4 Video (Max 50MB)'}
               </p>
-              <p className="text-[10px] text-slate-400 mt-0.5">Continuous 1 to 3-minute performance</p>
+              <p className="text-[10px] text-slate-400 mt-1">Continuous 1 to 3-minute performance</p>
             </div>
 
             <div>
-              <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1">
+              <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block mb-1.5">
                 Selected Classical Track
               </label>
               <div
                 onClick={() => setShowSongModal(true)}
-                className="p-2.5 border border-slate-200 rounded-xl text-xs bg-slate-50 cursor-pointer flex items-center justify-between"
+                className="p-3 border border-slate-200 rounded-2xl text-xs bg-slate-50 cursor-pointer flex items-center justify-between"
               >
                 <span className="font-semibold text-slate-800 truncate">
                   {selectedSong ? selectedSong.title : 'Tap to pick from 1,000 Song Catalog'}
@@ -1584,7 +2013,7 @@ export default function FeedantsApp() {
                 setShowUploadModal(false);
                 showToast('Submission Uploaded! 🚀', 'Your video has been submitted to Judge Hassan Raza.');
               }}
-              className="w-full py-3 bg-[#007A78] hover:bg-[#005f5e] text-white rounded-xl font-extrabold text-xs shadow-md transition cursor-pointer active:scale-95"
+              className="w-full py-3.5 bg-[#007A78] hover:bg-[#005f5e] text-white rounded-2xl font-extrabold text-xs shadow-md transition cursor-pointer active:scale-95"
             >
               Confirm &amp; Submit Video
             </button>
@@ -1597,8 +2026,8 @@ export default function FeedantsApp() {
       ───────────────────────────────────────────────────────────── */}
       {videoModal.isOpen && (
         <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-3 backdrop-blur-xs">
-          <div className="bg-slate-900 w-full max-w-sm rounded-2xl overflow-hidden shadow-2xl border border-slate-700 animate-in zoom-in-95">
-            <div className="p-3 bg-slate-800 flex items-center justify-between border-b border-slate-700">
+          <div className="bg-slate-900 w-full max-w-sm rounded-3xl overflow-hidden shadow-2xl border border-slate-700 animate-in zoom-in-95">
+            <div className="p-3.5 bg-slate-800 flex items-center justify-between border-b border-slate-700">
               <div className="flex-1 truncate">
                 <span className="text-xs font-bold text-white block truncate">{videoModal.title}</span>
                 {videoModal.subtitle && (
@@ -1612,7 +2041,7 @@ export default function FeedantsApp() {
                 <X className="w-5 h-5" />
               </button>
             </div>
-            <div className="h-48 bg-slate-950 flex flex-col items-center justify-center text-center p-4 relative">
+            <div className="h-52 bg-slate-950 flex flex-col items-center justify-center text-center p-4 relative">
               <div className="w-14 h-14 rounded-full bg-[#007A78]/30 border border-[#007A78] flex items-center justify-center mb-2 shadow-lg">
                 <Play className="w-6 h-6 fill-[#4fd1c5] text-[#4fd1c5] ml-0.5" />
               </div>
@@ -1628,9 +2057,9 @@ export default function FeedantsApp() {
       ───────────────────────────────────────────────────────────── */}
       {showReviewsModal && (
         <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-3 backdrop-blur-xs">
-          <div className="bg-white w-full max-w-sm rounded-2xl p-4 shadow-2xl space-y-3 animate-in zoom-in-95 max-h-[85vh] flex flex-col">
+          <div className="bg-white w-full max-w-sm rounded-3xl p-5 shadow-2xl space-y-3.5 animate-in zoom-in-95 max-h-[85vh] flex flex-col">
             <div className="flex items-center justify-between pb-2 border-b border-gray-100">
-              <h4 className="text-xs font-extrabold text-slate-900 uppercase tracking-wider">
+              <h4 className="text-xs font-black text-slate-900 uppercase tracking-wider">
                 Hear From Our Users ⭐
               </h4>
               <button onClick={() => setShowReviewsModal(false)} className="text-slate-400 hover:text-slate-700 p-1 cursor-pointer">
@@ -1638,7 +2067,7 @@ export default function FeedantsApp() {
               </button>
             </div>
 
-            <div className="overflow-y-auto flex-1 space-y-2.5 pr-1">
+            <div className="overflow-y-auto flex-1 space-y-3 pr-1">
               {[
                 {
                   name: 'Ananya Sharma',
@@ -1659,7 +2088,7 @@ export default function FeedantsApp() {
                   comment: 'The 1,000 song catalog made choosing the right rhythm track effortless. Verified digital certificate was received promptly.'
                 }
               ].map((rev, i) => (
-                <div key={i} className="p-3 bg-slate-50 border border-slate-200/60 rounded-xl text-xs space-y-1">
+                <div key={i} className="p-3.5 bg-slate-50 border border-slate-200/60 rounded-2xl text-xs space-y-1">
                   <div className="flex items-center justify-between">
                     <span className="font-bold text-slate-900">{rev.name}</span>
                     <span className="text-amber-500 text-xs font-bold">{rev.rating}</span>
@@ -1678,9 +2107,9 @@ export default function FeedantsApp() {
       ───────────────────────────────────────────────────────────── */}
       {showRefundModal && (
         <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-3 backdrop-blur-xs">
-          <div className="bg-white w-full max-w-sm rounded-2xl p-4 shadow-2xl space-y-3 animate-in zoom-in-95">
+          <div className="bg-white w-full max-w-sm rounded-3xl p-5 shadow-2xl space-y-3.5 animate-in zoom-in-95">
             <div className="flex items-center justify-between pb-2 border-b border-gray-100">
-              <h4 className="text-xs font-extrabold text-slate-900 uppercase tracking-wider">
+              <h4 className="text-xs font-black text-slate-900 uppercase tracking-wider">
                 Feedants 100% Refund Policy 🛡️
               </h4>
               <button onClick={() => setShowRefundModal(false)} className="text-slate-400 hover:text-slate-700 p-1 cursor-pointer">
@@ -1694,7 +2123,7 @@ export default function FeedantsApp() {
             </div>
             <button
               onClick={() => setShowRefundModal(false)}
-              className="w-full py-2 bg-[#007A78] hover:bg-[#005f5e] text-white rounded-xl text-xs font-bold transition cursor-pointer"
+              className="w-full py-2.5 bg-[#007A78] hover:bg-[#005f5e] text-white rounded-2xl text-xs font-bold transition cursor-pointer"
             >
               Understood
             </button>
@@ -1707,16 +2136,16 @@ export default function FeedantsApp() {
       ───────────────────────────────────────────────────────────── */}
       {showWithdrawModal && (
         <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-3 backdrop-blur-xs">
-          <div className="bg-white w-full max-w-sm rounded-2xl p-4 shadow-2xl space-y-3 animate-in zoom-in-95">
+          <div className="bg-white w-full max-w-sm rounded-3xl p-5 shadow-2xl space-y-3.5 animate-in zoom-in-95">
             <div className="flex items-center justify-between pb-2 border-b border-gray-100">
-              <h4 className="text-xs font-extrabold text-slate-900 uppercase tracking-wider">
+              <h4 className="text-xs font-black text-slate-900 uppercase tracking-wider">
                 Withdrawal Information 💳
               </h4>
               <button onClick={() => setShowWithdrawModal(false)} className="text-slate-400 hover:text-slate-700 cursor-pointer p-1">
                 <X className="w-4 h-4" />
               </button>
             </div>
-            <div className="bg-[#EDF9F8] border border-[#D2F0EE] rounded-xl p-3 text-xs space-y-1">
+            <div className="bg-[#EDF9F8] border border-[#D2F0EE] rounded-2xl p-3.5 text-xs space-y-1">
               <p className="font-bold text-[#007A78]">Current Referral Balance: ₹ 10.00</p>
               <p className="text-slate-600 text-[11px]">Minimum withdrawal threshold is ₹ 50.00.</p>
             </div>
@@ -1725,7 +2154,7 @@ export default function FeedantsApp() {
             </p>
             <button
               onClick={() => setShowWithdrawModal(false)}
-              className="w-full py-2.5 bg-[#007A78] hover:bg-[#005f5e] text-white rounded-xl text-xs font-bold transition cursor-pointer"
+              className="w-full py-3 bg-[#007A78] hover:bg-[#005f5e] text-white rounded-2xl text-xs font-bold transition cursor-pointer"
             >
               Got it
             </button>
