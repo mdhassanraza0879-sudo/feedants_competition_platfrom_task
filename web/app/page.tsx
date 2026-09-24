@@ -348,7 +348,7 @@ export default function FeedantsApp() {
 
   return (
     <div className="w-full flex flex-col flex-1 bg-white font-sans antialiased text-slate-800 relative selection:bg-teal-100 selection:text-teal-900">
-      
+
       {/* ── Toast Feedback Notification ── */}
       {toast && (
         <div className="fixed top-3 left-0 right-0 max-w-sm mx-auto z-50 px-4 transition-all duration-300 animate-in fade-in slide-in-from-top-4">
@@ -401,7 +401,7 @@ export default function FeedantsApp() {
 
           {/* Profile Main Content */}
           <main className="space-y-4 px-4 pt-16">
-            
+
             {/* User Card: Rahul Sharma (default) / Priya Patel */}
             <div className="bg-white rounded-2xl p-4 border border-gray-200 shadow-sm flex items-center gap-3.5">
               <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-teal-600/40 p-0.5 shadow-xs flex-shrink-0">
@@ -452,11 +452,10 @@ export default function FeedantsApp() {
               <div className="grid grid-cols-2 gap-2 pt-1">
                 <button
                   onClick={handleSwitchToRegistered}
-                  className={`py-2.5 px-2 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 ${
-                    isRegistered
+                  className={`py-2.5 px-2 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 ${isRegistered
                       ? 'bg-teal-700 text-white shadow-sm ring-2 ring-teal-700/30'
                       : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-50'
-                  }`}
+                    }`}
                 >
                   <CheckCircle className={`w-3.5 h-3.5 ${isRegistered ? 'text-white' : 'text-slate-400'}`} />
                   <span className="truncate">Registered User</span>
@@ -464,11 +463,10 @@ export default function FeedantsApp() {
 
                 <button
                   onClick={handleSwitchToUnregistered}
-                  className={`py-2.5 px-2 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 ${
-                    !isRegistered
+                  className={`py-2.5 px-2 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 ${!isRegistered
                       ? 'bg-teal-700 text-white shadow-sm ring-2 ring-teal-700/30'
                       : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-50'
-                  }`}
+                    }`}
                 >
                   <UserPlus className={`w-3.5 h-3.5 ${!isRegistered ? 'text-white' : 'text-slate-400'}`} />
                   <span className="truncate">New User (Rahul)</span>
@@ -644,7 +642,7 @@ export default function FeedantsApp() {
 
           {/* Main Container with vertical space-y-5, top padding pt-16 and bottom padding pb-36 */}
           <main className="space-y-5 px-4 pt-16 pb-36 font-sans">
-            
+
             {/* 1. Competition Title & Badges */}
             <div className="space-y-2">
               <h1 className="text-xl font-black text-slate-900 tracking-tight leading-snug">
@@ -997,7 +995,7 @@ export default function FeedantsApp() {
           Fixed at bottom of mobile frame (max-w-md mx-auto)
       ───────────────────────────────────────────────────────────── */}
       <div className="fixed bottom-0 left-0 right-0 max-w-md mx-auto z-40 bg-white border-t border-gray-200 shadow-lg">
-        
+
         {/* On Competition Details View: Render Action Button */}
         {currentView === 'competition' && (
           <div className="p-3 pb-2 bg-white border-b border-gray-100">
@@ -1031,9 +1029,8 @@ export default function FeedantsApp() {
           {/* Home */}
           <button
             onClick={navigateToProfile}
-            className={`flex flex-col items-center justify-center py-1 flex-1 cursor-pointer transition active:scale-95 ${
-              currentView === 'home' ? 'text-teal-800 font-extrabold' : 'text-slate-500 hover:text-slate-800 font-semibold'
-            }`}
+            className={`flex flex-col items-center justify-center py-1 flex-1 cursor-pointer transition active:scale-95 ${currentView === 'home' ? 'text-teal-800 font-extrabold' : 'text-slate-500 hover:text-slate-800 font-semibold'
+              }`}
           >
             <Home className="w-5 h-5" />
             <span className="text-[10px] mt-1">{t.navHome}</span>
@@ -1045,9 +1042,8 @@ export default function FeedantsApp() {
               setCurrentView('explore');
               showToast('Explore Feedants', 'Discover upcoming classical music and dance competitions across India.');
             }}
-            className={`flex flex-col items-center justify-center py-1 flex-1 cursor-pointer transition active:scale-95 ${
-              currentView === 'explore' ? 'text-teal-800 font-extrabold' : 'text-slate-500 hover:text-slate-800 font-semibold'
-            }`}
+            className={`flex flex-col items-center justify-center py-1 flex-1 cursor-pointer transition active:scale-95 ${currentView === 'explore' ? 'text-teal-800 font-extrabold' : 'text-slate-500 hover:text-slate-800 font-semibold'
+              }`}
           >
             <Compass className="w-5 h-5" />
             <span className="text-[10px] mt-1">{t.navExplore}</span>
@@ -1072,9 +1068,8 @@ export default function FeedantsApp() {
           {/* Competitions */}
           <button
             onClick={navigateToCompetition}
-            className={`flex flex-col items-center justify-center py-1 flex-1 cursor-pointer transition active:scale-95 ${
-              currentView === 'competition' ? 'text-teal-800 font-extrabold' : 'text-slate-500 hover:text-slate-800 font-semibold'
-            }`}
+            className={`flex flex-col items-center justify-center py-1 flex-1 cursor-pointer transition active:scale-95 ${currentView === 'competition' ? 'text-teal-800 font-extrabold' : 'text-slate-500 hover:text-slate-800 font-semibold'
+              }`}
           >
             <Trophy className="w-5 h-5" />
             <span className="text-[10px] mt-1">{t.navCompetitions}</span>
@@ -1083,9 +1078,8 @@ export default function FeedantsApp() {
           {/* Profile */}
           <button
             onClick={navigateToProfile}
-            className={`flex flex-col items-center justify-center py-1 flex-1 cursor-pointer transition active:scale-95 ${
-              currentView === 'profile' ? 'text-teal-800 font-extrabold' : 'text-slate-500 hover:text-slate-800 font-semibold'
-            }`}
+            className={`flex flex-col items-center justify-center py-1 flex-1 cursor-pointer transition active:scale-95 ${currentView === 'profile' ? 'text-teal-800 font-extrabold' : 'text-slate-500 hover:text-slate-800 font-semibold'
+              }`}
           >
             <div className={`w-5 h-5 rounded-full overflow-hidden border ${currentView === 'profile' ? 'border-teal-700 ring-1 ring-teal-700' : 'border-slate-300'}`}>
               <img src={currentUser.avatar} alt="Profile" className="w-full h-full object-cover" />
@@ -1131,11 +1125,10 @@ export default function FeedantsApp() {
                     setShowSongModal(false);
                     showToast('Track Selected 🎵', `Selected track: ${song.title}`);
                   }}
-                  className={`p-2.5 rounded-xl border text-xs cursor-pointer transition ${
-                    selectedSong?.id === song.id
+                  className={`p-2.5 rounded-xl border text-xs cursor-pointer transition ${selectedSong?.id === song.id
                       ? 'border-teal-700 bg-teal-50/70'
                       : 'border-slate-100 bg-slate-50/70 hover:bg-slate-100'
-                  }`}
+                    }`}
                 >
                   <div className="flex items-center justify-between font-bold text-slate-900">
                     <span className="truncate flex-1">{song.title}</span>
